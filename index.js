@@ -1,32 +1,15 @@
-"use strict";
-(function() {
+var express = require('express');
+var app = express();
+var cool = require('cool-ascii-faces');
 
-    var mouseDown = false;
 
-    $(document).ready(function() {
-        $('td').hover(function(e) {
-            //console.log(mouseDown);
-            pauseEvent(e);
-            if (mouseDown) {
-                //if (!$(this).hasClass('.tableActive')) {
-                    $(this).addClass('tableActive');
-                //}
-            }
-        });
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
 
-        $(document).mousedown(function() { 
-            mouseDown = true;
-        });
-        $(document).mouseup(function() {
-            mouseDown = false;
-        });
+app.get('/', function(request, response) {
+  response.send(cool());
+});
 
-    });
-
-    function pauseEvent(e){
-        e.stopPropagation();
-        e.preventDefault();
-        return false;
-    }
-
-})();
+app.listen(app.get('port'), function() {
+  console.log("Node app is running at localhost:" + app.get('port'));
+});
