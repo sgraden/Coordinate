@@ -6,36 +6,77 @@ html, body {
 }
 
 body {
-	text-align: center;
-	background-color: #00CCCC;
+	/*background-color: #00CCCC;*/
+	padding: 10px;
 }
 
-table td {
-	width:100px;
-	height:100px;
+#preference {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+#preference > div { /*Preference Buttons*/
+	display: inline-block;
+	padding: 5px 8px;
+	border-radius: 5px;
+}
+#preference > div:nth-child(1) { /*Available*/
+	background-color: #118C4E;
+}
+#preference > div:nth-child(2) { /*Not Preferred*/
+	background-color: #8CC86B; 
+}
+
+#testingPage table {
+	border-collapse: collapse;
+	margin-left: auto; /*Centers Table*/
+	margin-right: auto; 
+}
+
+#testingPage table td { /*Table cells*/
+	width:70px;
+	height:30px;
 	text-align:center;
 	vertical-align:middle;
-	background-color:#ccc;
+	/*background-color:#ccc;*/
 	border:1px solid black;
 }
 
-table td.highlighted {
-	background-color:#999;
+#testingPage table td:nth-child(1) {
+	background-color: white;
+	border: none;
+	font-size: 12pt;
 }
 
-body > div {
+#testingPage table td.highlighted {
+	background-color: green;
+}
+
+
+
+
+
+
+
+
+
+#holdingPage {
+	text-align: center;
+}
+
+body#holdingPage > div {
 	position: relative;
 	display: inline;
 }
 
-img {
+body#holdingPage img {
 	position: relative;
 	top: 0px;
 	left: 0px;
 	height: 100%;
 }
 
-h1 {
+body#holdingPage h1 {
 	position: absolute;
 	left: 0px;
 	right: 0px;

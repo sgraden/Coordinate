@@ -1,11 +1,9 @@
 "use strict";
 (function() {
 
-$(document).ready(function() {
-	
-});
 var isMouseDown = false;
 var isHighlighted;
+var preferredMode = true;
 
 $(document).ready(function() {
 	$(document).mouseup(function () {
@@ -15,14 +13,23 @@ $(document).ready(function() {
   	$("#dataTable td")
   		.mousedown(function () {
 	      	isMouseDown = true; //Set mousedown to true
-	      	$(this).toggleClass("highlighted"); //Toggle highlighted class
+
+            //Mousedown and not Times/Days
+	      	if (!$(this).hasClass("tblTime")) {
+                $(this).toggleClass("highlighted"); //Toggle highlighted class
+            }
+
 	      	isHighlighted = $(this).hasClass("highlighted");
 	      	return false; // prevent text selection
     	})
     	.mouseover(function () {
-	      	if (isMouseDown) {
-	        	$(this).toggleClass("highlighted", isHighlighted);
+            //console.log($(this));
+
+            //Mousedown and not Times/Days
+            if (isMouseDown && !$(this).hasClass("tblTime")) { 
+                $(this).toggleClass("highlighted", isHighlighted);
 	      	}
+            return false;
     	});
 
   	
