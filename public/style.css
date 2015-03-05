@@ -20,10 +20,14 @@ body {
 	padding: 5px 8px;
 	border-radius: 5px;
 }
-#preference > div:nth-child(1) { /*Available*/
+/*Available*/
+#preference > div#btn_available, 
+	#testingPage table td.available  {
 	background-color: #118C4E;
 }
-#preference > div:nth-child(2) { /*Not Preferred*/
+/*Not Preferred*/
+#preference > div#btn_not_preferred, 
+	#testingPage table td.not_preferred { 
 	background-color: #8CC86B; 
 }
 
@@ -47,12 +51,6 @@ body {
 	border: none;
 	font-size: 12pt;
 }
-
-#testingPage table td.highlighted {
-	background-color: green;
-}
-
-
 
 
 
