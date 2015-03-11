@@ -18,6 +18,8 @@ $(document).ready(function() {
     $("#btn_not_preferred").click(function() {
         preferredMode = false;
     });
+    createTimes(12, 6);
+
 
   	$("#dataTable td")
   		.mousedown(function () {
@@ -32,7 +34,7 @@ $(document).ready(function() {
                 }
             }
 
-	      	isHighlighted = $(this).hasClass("highlighted");
+	      	isHighlighted = ($(this).hasClass("available") || $(this).hasClass("not_preferred"));
 	      	return false; // prevent text selection
     	})
     	.mouseover(function () {
@@ -49,14 +51,24 @@ $(document).ready(function() {
             return false;
     	});
 
-  	
-
 });
 
 function pauseEvent(e){
     e.stopPropagation();
     e.preventDefault();
     return false;
+}
+
+function createTimes(length, startTime) {
+    for (var i = 0; i < length; i++) {
+        var $tr = $('<tr>');
+        $tr.append($('<td>').addClass('tblTime').html((startTime + i) + ":00"));
+        for (var w = 0; w < 5; w++) {
+            $tr.append($('<td>'));
+        }
+        $('#dataTable').append($tr);
+        console.log($tr);
+    }
 }
 
 })();
