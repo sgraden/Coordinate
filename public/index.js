@@ -28,9 +28,9 @@ $(document).ready(function() {
             //Mousedown and not Times/Days
 	      	if (!$(this).hasClass("tblTime")) {
                 if (preferredMode) {
-                    $(this).toggleClass("available"); //Toggle available class
+                    $(this).toggleClass("available").removeClass("not_preferred"); //Toggle available class
                 } else {
-                    $(this).toggleClass("not_preferred"); //Toggle not_preferred class
+                    $(this).toggleClass("not_preferred").removeClass("available"); //Toggle not_preferred class
                 }
             }
 
@@ -43,9 +43,9 @@ $(document).ready(function() {
             //Mousedown and not Times/Days
             if (isMouseDown && !$(this).hasClass("tblTime")) { 
                 if (preferredMode) {
-                    $(this).toggleClass("available", isHighlighted); //Toggle available class
+                    $(this).toggleClass("available", isHighlighted).removeClass("not_preferred"); //Toggle available class
                 } else {
-                    $(this).toggleClass("not_preferred", isHighlighted); //Toggle not_preferred class
+                    $(this).toggleClass("not_preferred", isHighlighted).removeClass("available"); //Toggle not_preferred class
                 }
 	      	}
             return false;
