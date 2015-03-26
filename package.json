@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "pg": "4.x",
+    "newrelic":"latest",
     "express": "latest"
   },
   "engines": {
