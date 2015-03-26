@@ -1,5 +1,5 @@
 //console.log(process.argv);
-//require('newrelic');
+var newrelic = require('newrelic');
 var express = require('express');
 var pg = require('pg');
 var app = express();
