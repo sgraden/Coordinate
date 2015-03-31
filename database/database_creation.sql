@@ -5,7 +5,6 @@ CREATE TABLE tblS (
 
 CREATE TABLE tblP (
 	PID SERIAL PRIMARY KEY,
-	--SID INTEGER REFERENCES tblS(SID),
 	PValue VARCHAR(200) NOT NULL
 );
 
@@ -29,11 +28,11 @@ CREATE TABLE tblEVENT (
 	EventLength INT NOT NULL
 );
 
-CREATE TABLE tblPREFERENCES {
+CREATE TABLE tblPREFERENCES (
 	PreferenceID SERIAL PRIMARY KEY,
 	PreferenceName VARCHAR(80) NOT NULL,
 	PreferenceDesc VARCHAR(500) NULL
-}
+);
 
 CREATE TABLE tblTIME (
 	TimeID SERIAL PRIMARY KEY,
@@ -42,3 +41,13 @@ CREATE TABLE tblTIME (
 	StartTime TIME NOT NULL,
 	PreferenceID INTEGER REFERENCES tblPREFERENCES(PreferenceID)
 );
+
+--DUMMY DATA
+INSERT INTO tblS (SValue)
+VALUES('hello');
+
+INSERT INTO tblP (PValue)
+VALUES('abby');
+
+INSERT INTO tblUSER (PID, SID, UserFName, UserLName, UserEmail, UserBirthDate, UserGender)
+VALUES(1, 1, 'steven', 'raden', 'sraden@uw.edu', '6-11-1993', 'm');

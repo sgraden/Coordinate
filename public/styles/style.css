@@ -10,6 +10,14 @@ body {
 	padding: 10px;
 }
 
+/*General Items*/
+.heading {
+
+}
+
+
+/*General Items*/
+
 #preference {
 	text-align: center;
 	margin-bottom: 10px;
@@ -52,11 +60,25 @@ body {
 	font-size: 12pt;
 }
 
+/*HOME PAGE*/
+#home .navbar-brand {
+	font-size: 16pt;
+}
 
+#home .navbar {
+	background-color: #8CC86B;
+	color: black;
+	font-size: 14pt;
+}
 
+#home .navbar a, #home .navbar ul {
+	color: black;
+}
 
-
-
+#home .navbar ul.nav {
+	float: right;
+}
+/*HOME PAGE*/
 
 #holdingPage {
 	text-align: center;
