@@ -100,19 +100,21 @@ body {
 	text-align: center;
 }
 
-#home button {
+#home-jumbo button {
 	color: white;
 	font-size: 18pt;
 	border: 2px solid white;
 	border-radius: 3px;
-	transition: .2s background-color;
+	transition: .2s background-color, .2s color;
 }
 
-#home button:hover {
+#home-jumbo button:hover {
 	color: #585858;
 	background-color: white;
 }
-
+#home-jumbo > .row .col-md-8 {
+	position: static;
+}
 /*HOME PAGE*/
 
 #holdingPage {
