@@ -10,13 +10,14 @@ CREATE TABLE tblP (
 
 CREATE TABLE tblUSER (
 	UserID SERIAL PRIMARY KEY,
-	PID INTEGER REFERENCES tblP(PID) NOT NULL,
-	SID INTEGER REFERENCES tblS(SID) NOT NULL,
+	PID INTEGER REFERENCES tblP(PID),
+	SID INTEGER REFERENCES tblS(SID),
 	UserFName VARCHAR(60) NOT NULL,
 	UserLName VARCHAR(60) NOT NULL,
 	UserEmail VARCHAR(60) NOT NULL,
 	UserBirthDate DATE NOT NULL,
-	UserGender VARCHAR(5) NOT NULL
+	UserGender VARCHAR(5) NOT NULL,
+	FullAccount BIT(1) NOT NULL
 );
 
 CREATE TABLE tblEVENT (
@@ -49,5 +50,5 @@ VALUES('hello');
 INSERT INTO tblP (PValue)
 VALUES('abby');
 
-INSERT INTO tblUSER (PID, SID, UserFName, UserLName, UserEmail, UserBirthDate, UserGender)
-VALUES(1, 1, 'steven', 'raden', 'sraden@uw.edu', '6-11-1993', 'm');
+INSERT INTO tblUSER (PID, SID, UserFName, UserLName, UserEmail, UserBirthDate, UserGender, FullAccount)
+VALUES(1, 1, 'steven', 'raden', 'sraden@uw.edu', '6-11-1993', 'm', '1');
