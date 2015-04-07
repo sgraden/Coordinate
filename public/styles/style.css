@@ -22,15 +22,10 @@ html, body {
 }
 
 body {
-	/*background-color: #00CCCC;*/
-	padding: 10px;
+	height: 100vh;
 }
 
 /*General Items*/
-.heading {
-
-}
-
 
 /*General Items*/
 
@@ -94,27 +89,44 @@ body {
 	float: right;
 }
 
-#home-desc {
+#home-content{
+	padding: 0px 40px 10px 40px;
+}
+
+#home #home-desc {
 	color: white;
-	font-size: 20pt;
+	font-size: 24pt;
 	text-align: center;
 }
 
-#home-jumbo button {
+#home #home-jumbo button {
 	color: white;
-	font-size: 18pt;
+	font-size: 24pt;
 	border: 2px solid white;
 	border-radius: 3px;
 	transition: .2s background-color, .2s color;
 }
-
-#home-jumbo button:hover {
+#home #home-jumbo button:hover {
 	color: #585858;
 	background-color: white;
 }
-#home-jumbo > .row .col-md-8 {
-	position: static;
+
+#home-info-section .info-items {
+	height: 200px;
 }
+#home-info-section .row > div:nth-child(1) .info-items {
+	background-color: #CBDFA8;
+}
+#home-info-section .row > div:nth-child(2) .info-items {
+	background-color: #9FD1B8;
+}
+#home-info-section .row > div:nth-child(3) .info-items {
+	background-color: #46A468;
+}
+#home-info-section .row > div:nth-child(4) .info-items {
+	background-color: #118C4E;
+}
+
 /*HOME PAGE*/
 
 #holdingPage {
