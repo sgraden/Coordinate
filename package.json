@@ -1,22 +1,23 @@
 {
-  "name": "node-js-getting-started",
+  "name": "Coordinate",
   "version": "0.1.2",
-  "description": "A sample Node.js app using Express 4",
+  "description": "A tool for finding meetings times with others.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "pg": "4.x",
-    "newrelic":"latest",
-    "express": "latest"
+    "express": "latest",
+    "moment": "^2.10.2",
+    "newrelic": "latest",
+    "pg": "4.x"
   },
   "engines": {
     "node": "0.10.x"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/sgraden/Coordinate"
   },
   "keywords": [
     "node",
