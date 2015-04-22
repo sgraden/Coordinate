@@ -14,55 +14,10 @@
     background-color: #585858;
 }
 
-#preference {
-    margin-bottom: 10px;
-
-    text-align: center;
-}
-
-#preference > div {
-    /*Preference Buttons*/
-    display: inline-block;
-
-    padding: 5px 8px;
-
-    border-radius: 5px;
-}
-/*Available*/
-#preference > div#btn_available,
-#testingPage table td.available {
-    background-color: #118c4e;
-}
-/*Not Preferred*/
-#preference > div#btn_not_preferred,
-#testingPage table td.not_preferred {
-    background-color: #8cc86b;
-}
-
-#testingPage table {
-    margin-right: auto;
-    margin-left: auto; /*Centers Table*/
-
-    border-collapse: collapse;
-}
-
-#testingPage table td {
-    /*Table cells*/
-    width: 70px;
-    height: 30px;
-    /*background-color:#ccc;*/
-
-    border: 1px solid black;
-
-    text-align: center;
-    vertical-align: middle;
-}
-
-#testingPage table td:nth-child(1) {
-    font-size: 12pt;
-
-    border: none;
-    background-color: white;
+#movie-holder {
+    width: 854px;
+    height: 510px;
+    margin: 0px auto;
 }
 
 /*General Items*/
@@ -83,7 +38,7 @@ body > .container-fluid {
 
 .fc-highlight {
     background-color: #118c4e;
-    opacity: .8;
+    opacity: .5;
 }
 
 /*General Items*/
@@ -140,7 +95,9 @@ body > .container-fluid {
 }
 
 #home-info-section .info-items {
-    height: 200px;
+    text-align: center;
+    font-size: 20pt;
+    padding: 20px 0px;
 }
 #home-info-section .row > div:nth-child(1) .info-items {
     background-color: #cbdfa8;
@@ -153,6 +110,13 @@ body > .container-fluid {
 }
 #home-info-section .row > div:nth-child(4) .info-items {
     background-color: #118c4e;
+}
+
+#home-info-section .info-items {
+    border-radius: 5px;
+}
+#home-info-section .info-items i {
+    font-size: 80pt;
 }
 
 /*HOME PAGE*/
@@ -172,7 +136,59 @@ body > .container-fluid {
     padding: 20px 0px;
 }
 
+#event #event-preferences {
+    font-size: 12pt;
+}
+#event #event-preferences > .row {
+    margin-top: 15px;
+}
 /*EVENT PAGE*/
+
+/*AVAILABILITY PAGE - BEGIN*/
+#availability #availability-content {
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: 12pt;
+}
+
+#availability #availability-preference {
+    text-align: center;
+}
+#availability table td.available {
+    background-color: #118c4e;
+}
+#availability table td.not_preferred {
+    background-color: #8cc86b;
+}
+
+#availability table {
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+#availability table td {
+    /*Table cells*/
+    width: 70px;
+    height: 30px;
+    /*background-color:#ccc;*/
+
+    border: 1px solid black;
+    vertical-align: middle;
+}
+
+#availability th {
+    text-align: center;
+}
+
+#availability table td:nth-child(1) {
+    font-size: 12pt;
+    padding-right: 5px;
+    text-align: right;
+    border: none;
+    background-color: white;
+}
+
+/*AVAILABILITY PAGE - END*/
 
 #holdingPage {
     text-align: center;
