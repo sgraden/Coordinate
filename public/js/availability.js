@@ -6,6 +6,8 @@ var isHighlighted;
 var preferredMode = true;
 
 $(document).ready(function() {
+    reloadDisplay();
+
 	$(document).mouseup(function () {
       	isMouseDown = false;
     });
@@ -56,6 +58,20 @@ $(document).ready(function() {
     	});
 
 });
+
+function reloadDisplay() {
+    $.get('/event?event_id=' + getParameterByName('event')).success(function(data){
+        $('#availability-name').html(data[0].eventname);
+        $('#availability-descr').html(data[0].eventdesc);
+    });
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
 
 function pauseEvent(e){
     e.stopPropagation();
