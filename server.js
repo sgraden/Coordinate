@@ -5,7 +5,7 @@ var pg = require('pg');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
-app.use(express.static(__dirname + '/public/'));
+app.use(express.static(__dirname + '/public/home.html'));
 
 //app.get('/', function(request, response) {
 //	response.send(cool());
