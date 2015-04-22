@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="2880px" height="2304px" viewBox="0 0 2880 2304" enable-background="new 0 0 2880 2304" xml:space="preserve">
+<text transform="matrix(1 0 0 1 938.9766 1159.2109)"><tspan x="0" y="0" fill="#585858" font-family="'Lato-Semibold'" font-size="68.7393">CRE</tspan><tspan x="128.919" y="0" fill="#585858" font-family="'Lato-Semibold'" font-size="68.7393" letter-spacing="-4">A</tspan><tspan x="171.365" y="0" fill="#585858" font-family="'Lato-Semibold'" font-size="68.7393">TE EVENT</tspan></text>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="895.563" y="1073.329" width="626.489" height="598.303"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_2_)" fill="#585858" d="M1005.953,1481.122c0,0-11.457,0-11.457-11.456v-13.676
+		c0,0,0-11.457,11.457-11.457h375.595c0,0,11.457,0,11.457,11.457v13.676c0,0,0,11.456-11.457,11.456H1005.953z"/>
+	<path clip-path="url(#SVGID_2_)" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" d="M1005.953,1481.122
+		c0,0-11.457,0-11.457-11.456v-13.676c0,0,0-11.457,11.457-11.457h375.595c0,0,11.457,0,11.457,11.457v13.676
+		c0,0,0,11.456-11.457,11.456H1005.953z"/>
+	<path clip-path="url(#SVGID_2_)" fill="#585858" d="M1212.044,1650.629c0,0,0,11.456-11.457,11.456h-13.675
+		c0,0-11.457,0-11.457-11.456v-375.6c0,0,0-11.457,11.457-11.457h13.675c0,0,11.457,0,11.457,11.457V1650.629z"/>
+	<path clip-path="url(#SVGID_2_)" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" d="M1212.044,1650.629
+		c0,0,0,11.456-11.457,11.456h-13.675c0,0-11.457,0-11.457-11.456v-375.6c0,0,0-11.457,11.457-11.457h13.675
+		c0,0,11.457,0,11.457,11.457V1650.629z"/>
+</g>
+</svg>

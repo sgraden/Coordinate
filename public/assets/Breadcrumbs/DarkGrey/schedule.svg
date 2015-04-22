@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="2880px" height="2304px" viewBox="0 0 2880 2304" enable-background="new 0 0 2880 2304" xml:space="preserve">
+<text transform="matrix(1 0 0 1 1358.4258 1085.4902)" fill="#585858" font-family="'Lato-Semibold'" font-size="18">SCHEDULE EVENT</text>
+<g>
+	<defs>
+		<rect id="SVGID_1_" x="1332" y="1059" width="215.063" height="186"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	<path clip-path="url(#SVGID_2_)" fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" d="M1394.469,1138.048
+		c0,0-12,0-12,12v49.938c0,0,0,12,12,12h91.154c0,0,12,0,12-12v-49.938c0,0,0-12-12-12H1394.469z"/>
+</g>
+<line fill="none" stroke="#585858" stroke-width="3" stroke-miterlimit="10" x1="1382.425" y1="1157.237" x2="1439.892" y2="1182.319"/>
+<line fill="none" stroke="#585858" stroke-width="3" stroke-miterlimit="10" x1="1437.896" y1="1182.909" x2="1499.629" y2="1154.58"/>
+<line fill="none" stroke="#585858" stroke-width="3" stroke-miterlimit="10" x1="1387.471" y1="1202.081" x2="1427.389" y2="1176.227"/>
+<line fill="none" stroke="#585858" stroke-width="3" stroke-miterlimit="10" x1="1453.628" y1="1175.075" x2="1493.546" y2="1200.93"/>
+</svg>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="215.062px" height="186px" viewBox="0 0 215.062 186" enable-background="new 0 0 215.062 186" xml:space="preserve">
+<text transform="matrix(1 0 0 1 45.7231 26.4897)" fill="#585858" font-family="'Lato-Semibold'" font-size="18">SHARE EVENT</text>
+<g>
+	<defs>
+		<rect id="SVGID_1_" width="215.062" height="186"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_1_"  overflow="visible"/>
+	</clipPath>
+	
+		<ellipse clip-path="url(#SVGID_2_)" fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" cx="123.168" cy="80.399" rx="9.491" ry="10.101"/>
+</g>
+<line fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" x1="82.147" y1="109.92" x2="117.869" y2="85.252"/>
+<line fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" x1="82.853" y1="121.027" x2="115.065" y2="150.18"/>
+<g>
+	<defs>
+		<rect id="SVGID_3_" width="215.062" height="186"/>
+	</defs>
+	<clipPath id="SVGID_4_">
+		<use xlink:href="#SVGID_3_"  overflow="visible"/>
+	</clipPath>
+	
+		<ellipse clip-path="url(#SVGID_4_)" fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" cx="76.148" cy="114.6" rx="9.492" ry="10.1"/>
+	
+		<ellipse clip-path="url(#SVGID_4_)" fill="none" stroke="#585858" stroke-width="5" stroke-miterlimit="10" cx="121.523" cy="151.801" rx="9.492" ry="10.101"/>
+</g>
+</svg>

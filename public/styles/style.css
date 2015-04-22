@@ -81,6 +81,11 @@ body > .container-fluid {
     padding: 10px 40px;
 }
 
+.fc-highlight {
+    background-color: #118c4e;
+    opacity: .8;
+}
+
 /*General Items*/
 
 /*NAV BAR*/
@@ -113,13 +118,15 @@ body > .container-fluid {
 
     color: white;
 
+    margin-top: 20%;
+
     text-align: center;
 }
 
 #home-jumbo button {
     font-size: 24pt;
 
-    margin-top: 40%;
+    margin-top: 10%;
 
     color: white;
     border: 2px solid white;
@@ -158,11 +165,11 @@ body > .container-fluid {
 }
 
 #event .event-inputs {
-	padding: 10px 40px;
+	padding: 10px 0px;
 }
 
 #event-calendar {
-    
+    padding: 20px 0px;
 }
 
 /*EVENT PAGE*/

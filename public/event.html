@@ -56,36 +56,46 @@
         </div>
     </nav>
 
-    <div id="event-content">
+    <div id="event-content" class="col-xs-8 col-xs-offset-2">
         <div class="event-inputs row">
             <form id="event-details" class="col-xs-12">
-                <input type="text" name="event-name" class="form-control" placeholder="Event Name" required="required" title="">
-                <textarea name="event-descr" class="form-control" placeholder="Even Description" rows="3"></textarea>
+                <div class="form-group">
+                    <input type="text" name="event-name" class="form-control" placeholder="Event Name" required="required" title="">
+                </div>
+                <div class="form-group">   
+                    <textarea name="event-descr" class="form-control" placeholder="Even Description" rows="3"></textarea>
+                </div>
             </form>
         </div>
-        <div id="event-calendar" class="col-xs-offset-1 col-xs-10">
-            <div id="month-calendar">
+        <div id="event-calendar" class="row">
+            <div class="col-xs-12">
+                <div id="month-calendar"></div>
             </div>
         </div>
         <div class="event-inputs row">
-            <form id="event-preferences" class="col-xs-12"> <!--Move to wrap each elements???-->
-                <div class="row">
-                    <label class="input-label col-xs-12">What times can the event occur?</label>
-                    <div class="col-xs-12">
-                        <input type="time" name="" id="event-time-from" class="form-control" value="" required="" title=""> to
+            <form id="event-preferences" class="col-xs-12">
+                <label class="input-label">What times can the event occur?</label>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="time" name="" id="event-time-from" class="form-control" value="" required="" title="">
+                    </div>
+                     to 
+                    <div class="form-group">
                         <input type="time" name="" id="event-time-to" class="form-control" value="" required="" title="">
                     </div>
                 </div>
                 <div class="row">
-                    <label class="input-label col-xs-12">What is the events length?</label>
-                    <div class="col-xs-12">
-                        <select id="event-length" name="event-length" class="form-control">
-                            <option value="1" selected="selected">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
+                    <div class="form-group col-xs-6">
+                        <label class="input-label">What is the events length?</label>
+                        <div>
+                            <select id="event-length" name="event-length" class="form-control">
+                                <option value="1" selected="selected">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
