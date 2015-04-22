@@ -1,28 +1,101 @@
 <!DOCTYPE html>
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Coordinate</title>
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="icon" href="assets/images/logoSmall.png" type="image/png">
         <link rel="shortcut icon" href="assets/images/logoSmall.png" type="image/png" />
-        <!-- Linked Scripts -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+
+				
+		<!-- Linked Scripts -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+        <script src="packages/bootstrap/bootstrap.min.js"></script>
 
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
-        
-        <!-- My Scripts -->
-        <!--<script type="text/javascript" src="js/event_handler.js"></script>-->
+        <link href='packages/bootstrap/bootstrap.min.css' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="packages/font-awesome/css/font-awesome.min.css">
 
-        <!-- My Styles -->
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
+		<!-- My Scripts -->
+		<script type="text/javascript" src="js/home.js"></script>
+
+		<!-- My Styles -->
+		<link rel="stylesheet" type="text/css" href="styles/style.css">
+        
 
 	</head>
-    <body id="holdingPage">
-        <div>
-            <h1>Coordinating...</h1>
-            <img src="http://i.imgur.com/RcQ8K8N.jpg" />
+<body>
+<div id="home" class="container-fluid">
+    <nav class="navbar navbar-default light-bg">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-icon" href="#">
+                    <img src="assets/images/logo.png" />
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
         </div>
-    </body>
+    </nav>
+    
+    <div id="home-jumbo" class="jumbotron grey-bg">
+        <div class="row">
+            <div class=" col-xs-4 col-xs-offset-1">
+                <img class="img-responsive" src="assets/images/logoSmall.png" />
+            </div>
+            <div class="col-xs-6">
+                <div class="row">
+                    <div id="home-desc" class="col-xs-12">Quickly compare schedules to find a meeting time that works for everyone!</div>
+                </div>
+                <div class="row">
+                    <button id="home-create" class="center-block grey-bg" type="create">Create Event</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="home-info-section">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="info-items">
+                    <div>Create Event</div>
+                    <i class="fa fa-plus-square-o"></i>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="info-items">
+                    <div>Insert Availability</div>
+                    <i class="fa fa-calendar"></i>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="info-items">
+                    <div>Share Event</div>
+                    <i class="fa fa-share-alt"></i>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <div class="info-items">
+                    <div>Schedule Event</div>
+                    <i class="fa fa-envelope-o"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
