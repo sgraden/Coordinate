@@ -1,0 +1,3 @@
+[submodule "phppgadmin-heroku"]
+	path = phppgadmin-heroku
+	url = git://github.com/yandod/phppgadmin-heroku.git

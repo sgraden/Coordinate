@@ -71,7 +71,7 @@ function createTimes(length, startTime) {
             $tr.append($('<td>'));
         }
         $('#dataTable').append($tr);
-        console.log($tr);
+        //console.log($tr);
     }
 }
 

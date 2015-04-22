@@ -3,7 +3,7 @@
 
 $(document).ready(function() {
 	$("#home-create").click(function() {
-		location.href = "event.html";
+		location.href = "event_create.html";
 	});
 });
 

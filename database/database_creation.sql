@@ -26,7 +26,13 @@ CREATE TABLE tblEVENT (
 	EventDesc VARCHAR(500) NULL,
 	EventStartDate DATE NOT NULL,
 	EventEndDate DATE NOT NULL,
-	EventLength INT NOT NULL
+	EventLength INT NOT NULL,
+	EventStartTime TIME NOT NULL,
+	EventEndTime TIME NOT NULL,
+	NotifyNumParticipant INT NOT NULL,
+	NotifyDays INT NOT NULL,
+	NotifyEachParticipant BIT(1) NOT NULL,
+	EventUUID VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE tblPREFERENCES (

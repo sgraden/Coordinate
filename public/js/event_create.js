@@ -3,6 +3,13 @@
 
 $(document).ready(function() {
 	createMonthCal();
+	$("#event-submit").click(function (e) {
+		e.preventDefault();
+
+		
+
+		return false;
+	});
 });
 
 function createMonthCal() {
@@ -16,9 +23,7 @@ function createMonthCal() {
 		    if(check < today)
 		    {
 		        return null;
-		    }
-		    else
-		    {
+		    } else {
 		        // Its a right date
 		                // Do something
 		    }
