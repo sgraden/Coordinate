@@ -11,7 +11,10 @@
     "express": "latest",
     "moment": "^2.10.2",
     "newrelic": "latest",
-    "pg": "4.x"
+    "pg": "4.x",
+    "serve-favicon": "2.*",
+    "passport": "latest",
+    "ejs": "2.*"
   },
   "engines": {
     "node": "0.10.x"

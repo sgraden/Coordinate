@@ -7,10 +7,10 @@ $(document).ready(function() {
 	createMonthCal();
 	$("#event-submit").click(function (e) {
 		e.preventDefault();
+
+		//Data pulled from the input fields (include startDate/endDate from global)
 		var name = $('input[name="event-name"]').val();
 		var descr = $('textarea[name="event-descr"]').val();
-		//startDAte
-		//endDate
 		var startTime = $('input[name="event-time-from"]').val();
 		var endTime = $('input[name="event-time-to"]').val();
 		var eventLength = $('select[name="event-length"]').val();
@@ -24,6 +24,7 @@ $(document).ready(function() {
 		}
 		var notifyEach = $('input[name="notify-each"]').is(':checked') ? 1 : 0;
 		
+		//Payload to send to the server to insert to DB
 		var payload = {
 			name: 		name,
 			descr: 		descr,
@@ -40,9 +41,11 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "POST",
-			url: '/create_event',
+			url: '/event_create',
 			data: payload
 		}).success(function(data){
+			console.log(data);
+			location.href=data;
 		});
 
 
@@ -50,6 +53,7 @@ $(document).ready(function() {
 	});
 });
 
+//Generates a uuid
 function guid() {
 	function s4() {
 		return Math.floor((1 + Math.random()) * 0x10000)
@@ -60,6 +64,7 @@ function guid() {
 		s4() + '-' + s4() + s4() + s4();
 }
 
+//Creates the FullPAge.js calendar
 function createMonthCal() {
 	$('#month-calendar').fullCalendar({
 		height: 600,

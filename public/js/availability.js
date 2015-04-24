@@ -6,7 +6,7 @@ var isHighlighted;
 var preferredMode = true;
 
 $(document).ready(function() {
-    reloadDisplay();
+    reloadDisplay(); //Don't want to do this
 
 	$(document).mouseup(function () {
       	isMouseDown = false;
@@ -60,7 +60,7 @@ $(document).ready(function() {
 });
 
 function reloadDisplay() {
-    $.get('/event?event_id=' + getParameterByName('event')).success(function(data){
+    $.get('/availability?event_id=' + getParameterByName('event')).success(function(data){
         $('#availability-name').html(data[0].eventname);
         $('#availability-descr').html(data[0].eventdesc);
     });
