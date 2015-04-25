@@ -1,0 +1,35 @@
+<div class="modal fade" id="modal-signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Signup</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<form id="user-login" class="col-xs-12" action="/user_login" method="post">
+						<div class="form-group">
+						    <input class="form-control" type="text" name="user-fname" placeholder="first name" required="required" title="">
+						</div>
+						<div class="form-group">
+						    <input class="form-control" type="text" name="user-lname" placeholder="last name" required="required" title="">
+						</div>
+					    <div class="form-group">
+					        <input class="form-control" type="email" name="user-email" placeholder="email" required="required" title="">
+					    </div>
+					    <div class="form-group">   
+					        <input class="form-control" type="password" name="user-pass1" placeholder="password" required="required">
+					    </div>
+					    <div class="form-group">   
+					        <input class="form-control" type="password" name="user-pass2" placeholder="re-type password" required="required">
+					    </div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button id="signup-submit" type="button" class="btn btn-primary">Signup!</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -17,16 +17,12 @@
             <!-- <li><a href="#">About</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">Help</a></li> -->
-            <li><a href="#">
-            <% 
-            if (locals.username) {
-            %>
-                <%= username %>
-
+            <% if (locals.username) { %>
+                <li><a id="username-holder" href="#"><%= locals.username %></a></li>
             <% } else { %>
-                NO DATA
-            <% } %>
-            </a></li>
+                <li><a id="login-button" href="#">Login</a></li>
+                <li><a id="signup-button" href="#">Signup</a></li>
+            <% }  %>
         </ul>
     </div>
 </div>
