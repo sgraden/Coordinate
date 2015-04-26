@@ -1,6 +1,8 @@
 "use strict";
 (function() {
 	$(document).ready(function() {
+		//ejs.render(str);
+
 		$('#login-button').click(function() {
 			$('#modal-login').modal('show');	
 		});
@@ -17,17 +19,20 @@
 		var pass = $('#modal-login input[name=user-pass]').val();
 
 		var payload = {
-			email: email.hashCode(),
-			pass: pass.hashCode()
+			email: email,//.hashCode(),
+			pass: pass//.hashCode()
 		};
 
 		$.post(
 			'/user_login',
 			payload
-		).success(function(data) {
-			$('#username').html(data);
-			//new EJS({url: 'partials/head.ejs'}).update('username_holder');
+		).success(function(data) { //Reload page with stored info
+			//$('#username').html(data);
+			console.log(data[0].userfname);
+			$('#username-holder').html(data[0].userfname);
 			$('#modal-login').modal('hide');
+			//var renderedData = new EJS({url:'../../views/partials/nav.ejs'}).update({username: data[0].userfname});
+			//$('#nav').html(renderedData);
 		});
 	}
 

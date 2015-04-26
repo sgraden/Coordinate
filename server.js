@@ -1,10 +1,13 @@
 var newrelic = require('newrelic');
 var express = require('express');
+var session = require('express-session')
 var pg = require('pg');
+var mysql = require('mysql');
 var ejs = require('ejs');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var favicon = require('serve-favicon');
+var cookieParser = require('cookie-parser');
 
 var model = require('./model');
 var app = express();
@@ -17,7 +20,15 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	extended: true
 })); 
-
+app.use(cookieParser('sean is the shit'));
+app.use(session({
+	// genid: function(req) {
+	//     return genuuid(); // use UUIDs for session IDs
+	// },
+    secret: 'this_needs_to_be_changed', //Look at Environment variables
+    resave: false,
+    saveUninitialized: false
+}));
 
 // /*DB Connection - START*/
 // var config = {
@@ -54,18 +65,27 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 //    user: user
 // };
 
-var conString = "postgres://Steven@localhost/Steven";
+var conn = mysql.createConnection({
+	host     : 'localhost',
+	database : 'coordinate',
+	user     : 'root',
+	password : 'Magnitude_9'
+});
+var sess;
+
+//var conString = "postgres://Steven@localhost/Steven";
 // //var conString = "postgres://rxaflmyqbqlyjx:henP5g6b7Ap1pHYRu6jUTIvOZ9@ec2-107-22-173-230.compute-1.amazonaws.com/dciha6hf3doant";
 
 // /*DB Connection - END*/
 
 app.get('/', function (req, res) {
-	console.log(req.body);
-	res.render('pages/index', 
-		{
-			page_title: 'Home'
-			//username: 'steven'
-		});
+	sess = req.session;
+	console.log(sess);
+	var data = {page_title: 'Home'};
+	if (sess.userid) {
+		data.username = sess.userfname;
+	} 
+	res.render('pages/index', data);
 });
 
 app.post('/event_create', function(req, res) {
@@ -73,19 +93,29 @@ app.post('/event_create', function(req, res) {
 	var v = req.body;
 	var inputs = [v.name, v.descr, v.startDate, v.endDate, v.eventLength, 
 		v.startTime, v.endTime, v.notifyNum, v.notifyDays, v.notifyEach, v.uuid];
-	pg.connect(conString, function(err, client, done) {
+	conn.query({
+		sql:'INSERT INTO tblEVENT (EventName, EventDesc, EventStartDate, EventEndDate, EventLength, EventStartTime, EventEndTime, NotifyNumParticipant, NotifyDays, NotifyEachParticipant, EventUUID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,);',
+		values: inputs
+	}, function(err, results, fields) {
 		if(err) {
-			return console.error('error fetching client from pool', err);
-		}
-	    client.query('INSERT INTO tblEVENT (EventName, EventDesc, EventStartDate, EventEndDate, EventLength, EventStartTime, EventEndTime, NotifyNumParticipant, NotifyDays, NotifyEachParticipant, EventUUID) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', inputs, function(err, result) {
-		    done();
-
-		    if(err) {
-		    	return console.error('error running query', err);
-	    	}
-    		res.send('/availability.html?event_id=' + v.uuid);
-		});
+	    	return console.error('error running query', err);
+    	}
+		res.send('/availability.html?event_id=' + v.uuid);
 	});
+
+	// pg.connect(conString, function(err, client, done) {
+	// 	if(err) {
+	// 		return console.error('error fetching client from pool', err);
+	// 	}
+	//     client.query('INSERT INTO tblEVENT (EventName, EventDesc, EventStartDate, EventEndDate, EventLength, EventStartTime, EventEndTime, NotifyNumParticipant, NotifyDays, NotifyEachParticipant, EventUUID) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);', inputs, function(err, result) {
+	// 	    done();
+
+	// 	    if(err) {
+	// 	    	return console.error('error running query', err);
+	//     	}
+ //    		res.send('/availability.html?event_id=' + v.uuid);
+	// 	});
+	// });
 });
 
 app.get('/availability', function(req, res) {
@@ -104,26 +134,45 @@ app.get('/availability', function(req, res) {
 		});
 	});
 });
-
+app.get('/event_create', function(req, res) {
+	console.log('ec', req.session);
+	res.send('event_create.html');
+});
 app.post('/user_login', function(req, res) {
 	var body = req.body;
-	console.log(body);
-	
-	pg.connect(conString, function(err, client, done) {
+	console.log('body', body);
+	console.log('cook', req.cookies);
+
+	sess = req.session;
+	conn.query({
+		sql:'SELECT userid, userfname, userlname FROM tbluser u JOIN tblP p ON u.pid = p.pid JOIN tblS s ON u.sid = s.sid WHERE useremail = ? AND pvalue = ? LIMIT 1',
+		values: [body.email, body.pass]
+	}, function(err, results, fields) {
 		if(err) {
-			return console.error('error fetching client from pool', err);
+	    	return console.error('error running query', err);
+    	}
+    	if (results) {
+    		sess.userid = results[0].userid;
+    		sess.userfname = results[0].userfname;
+    		console.log('sessions', sess);
+	    	res.json([{userfname: '' + results[0].userfname}]);	
 		}
-	    client.query('SELECT userfname, userlname, pvalue, svalue FROM tbluser u JOIN tblP p ON u.pid = p.pid JOIN tblS s ON u.sid = s.sid WHERE useremail = $1 AND pvalue = $2', [body.email, body.pass], function(err, result) {
-		    console.log(result);
-		    if(err) {
-		      return console.error('error running query', err);
-	    	}
-	    	if (result) {
-		    	var topResult = result.rows[0];
-		    	res.send(topResult.userfname);
-			}
-		});
-	});	
+	});
+	// pg.connect(conString, function(err, client, done) {
+	// 	if(err) {
+	// 		return console.error('error fetching client from pool', err);
+	// 	}
+	//     client.query('SELECT userfname, userlname, pvalue, svalue FROM tbluser u JOIN tblP p ON u.pid = p.pid JOIN tblS s ON u.sid = s.sid WHERE useremail = $1 AND pvalue = $2', [body.email, body.pass], function(err, result) {
+	// 	    console.log(result);
+	// 	    if(err) {
+	// 	      return console.error('error running query', err);
+	//     	}
+	//     	if (result) {
+	// 	    	var topResult = result.rows[0];
+	// 	    	res.send(topResult.userfname);
+	// 		}
+	// 	});
+	// });	
 
 });
 
