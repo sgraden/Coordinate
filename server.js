@@ -52,7 +52,7 @@ var sess;
 
 app.get('/', function (req, res) { //When browser directed to / (main index)
 	sess = req.session;
-	//console.log('Index', sess);
+	console.log('Index Session: ', sess);
 	var data = {page_title: 'Home'};
 	if (sess.userid) {
 		data.username = sess.userfname;
@@ -64,10 +64,9 @@ app.get('/', function (req, res) { //When browser directed to / (main index)
 //User Login
 app.post('/user_login', function(req, res) {
 	var body = req.body;
-	//console.log('Login Body ', body);
-	//console.log('cook', req.cookies);
 
 	sess = req.session;
+	console.log('Login Session: ', sess);
 	conn.query({
 		sql:'SELECT userid, userfname, userlname FROM tbluser u JOIN tblP p ON u.pid = p.pid JOIN tblS s ON u.sid = s.sid WHERE useremail = ? AND pvalue = ? LIMIT 1',
 		values: [body.email, body.pass]
@@ -111,7 +110,7 @@ app.post('/user_signup', function(req, res) { //Need to check if account exists 
     		console.log('signup results', results);
     		sess.userid = results[0][0].userid;
     		sess.userfname = results[0][0].userfname;
-    		console.log('Signup Session', sess);
+    		console.log('Signup Session: ', sess);
 	    	res.json([{userfname: '' + results[0][0].userfname}]);
 		}
 	});
