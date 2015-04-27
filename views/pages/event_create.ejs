@@ -2,6 +2,13 @@
 <html>
     <head>
         <% include ../partials/head %>
+        
+        <!-- packages -->
+        <script src="packages/moment/moment.js"></script>
+        <script src="packages/fullcalendar-2.3.1/fullcalendar.js"></script> 
+
+        <link href='packages/fullcalendar-2.3.1/fullcalendar.min.css' rel='stylesheet' type='text/css'>
+
 		<!-- My Scripts -->
 		<script type="text/javascript" src="js/event_create.js"></script>
 
@@ -90,7 +97,7 @@
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="form-inline">
-                            <input type="checkbox" name="notify-each" value="">
+                            <input type="checkbox" name="notify-each" checked="checked" value="">
                             Notify me after each participant responds.
                         </div>
                     </div>

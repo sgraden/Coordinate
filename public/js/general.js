@@ -28,11 +28,10 @@
 			payload
 		).success(function(data) { //Reload page with stored info
 			//$('#username').html(data);
-			console.log(data[0].userfname);
-			$('#username-holder').html(data[0].userfname);
-			$('#modal-login').modal('hide');
-			//var renderedData = new EJS({url:'../../views/partials/nav.ejs'}).update({username: data[0].userfname});
-			//$('#nav').html(renderedData);
+			//console.log(data[0].userfname);
+			//$('#username-holder').html(data[0].userfname);
+			//$('#modal-login').modal('hide');
+			window.location.href = '/';
 		});
 	}
 
@@ -53,18 +52,20 @@
 
 		if (infoPassed) { //If info is good then send to server
 			var payload = {
-				fname: fname,
-				lname: lname,
-				email: email.hashCode(),
-				pass: pass.hashCode()
+				userfname: fname,
+				userlname: lname,
+				useremail: email,//.hashCode(),
+				pvalue: pass1//.hashCode()
 			};
 
 			$.post(
 				'/user_signup',
 				payload
 			).success(function(data) {
-				$('#username').html(data);
-				$('#modal-signup').modal('hide');
+				//$('#username').html(data);
+				window.location.href = '/';
+				//$('#modal-signup').modal('hide');
+
 			});
 		} else {
 			//Send some sort of alert

@@ -22,7 +22,7 @@
     "ejs": "2.*",
     "bookshelf": "0.7.9",
     "knex": "0.7.*",
-    "felixge/node-mysql": "2.6.*"
+    "mysql": "2.6.*"
   },
   "engines": {
     "node": "0.10.x"
