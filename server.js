@@ -1,12 +1,58 @@
 var newrelic = require('newrelic');
 var express = require('express');
 var session = require('express-session')
+var RedisStore = require('connect-redis')(express);
+var url = require('url')
 var pg = require('pg');
 var mysql = require('mysql');
 var ejs = require('ejs');
 var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var favicon = require('serve-favicon');
+
+// var rtg, redis; //Declaring RedisToGo and redis vars
+// if (process.env.REDISTOGO_URL) {
+// 	rtg   = require("url").parse(process.env.REDISTOGO_URL);
+// 	redis = require("redis").createClient(rtg.port, rtg.hostname);
+
+// 	redis.auth(rtg.auth.split(":")[1]);
+// } else {
+//     redis = require("redis").createClient();
+// }
+ 
+/*module.exports = function Sessions(url, secret) {
+	var store = new RedisStore({ url: url });
+	var session = expressSession({
+		secret: 'this_needs_change',
+		store: store,
+		resave: true,
+		saveUninitialized: true
+	});
+
+	return session;
+};*/
+
+app.configure('production', function () {
+    var redisUrl = url.parse(process.env.REDISTOGO_URL),
+        redisAuth = redisUrl.auth.split(':');  
+    app.set('redisHost', redisUrl.hostname);
+    app.set('redisPort', redisUrl.port);
+    app.set('redisDb', redisAuth[0]);
+    app.set('redisPass', redisAuth[1]);
+});  
+app.configure(function () {
+    app.use(express.session({
+        secret: 'super duper secret',
+        store: new RedisStore({
+            host: app.set('redisHost'),
+            port: app.set('redisPort'),
+            db: app.set('redisDb'),
+            pass: app.set('redisPass'),
+            resave: true,
+            saveUninitialized: true
+        })
+    }));
+});
 
 var model = require('./model');
 var app = express();
@@ -18,33 +64,30 @@ var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	extended: true
-})); 
+}));
 
-app.use(session({
-	// genid: function(req) {
-	//     return genuuid(); // use UUIDs for session IDs
-	// },
+/*app.use(session({
     secret: 'this_needs_to_be_changed', //Look at Environment variables
     resave: false,
     saveUninitialized: false
-}));
+}));*/
 
 // /*DB Connection - START*/
 
-/*var conn = mysql.createConnection({
+var conn = mysql.createConnection({
 	host     : 'localhost',
 	database : 'coordinate',
 	user     : 'root',
 	password : 'Magnitude_9'
-});*/
+});
 
-//Connect to the haroku instance
-var conn = mysql.createConnection({
+//Connect to the heroku instance
+/*var conn = mysql.createConnection({
 	host     : 'us-cdbr-iron-east-02.cleardb.net',
 	database : 'heroku_d015497bbaaf387',
 	user     : 'b18e443b2960cf',
 	password : '1a13ae39'
-});
+});*/
 
 var sess;
 

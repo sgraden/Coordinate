@@ -22,7 +22,9 @@
     "ejs": "2.*",
     "bookshelf": "0.7.9",
     "knex": "0.7.*",
-    "mysql": "2.6.*"
+    "mysql": "2.6.*",
+    "redis": "0.12.*",
+    "connect-redis": "2.*"
   },
   "engines": {
     "node": "0.10.x"
@@ -36,5 +38,8 @@
     "heroku",
     "express"
   ],
+  "scripts": {
+    "start": "node server.js"
+  },
   "license": "MIT"
 }
