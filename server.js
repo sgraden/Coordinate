@@ -40,8 +40,8 @@ app.use(session({
 
 //Connect to the haroku instance
 var conn = mysql.createConnection({
-	host     : 'localhost',
-	database : 'coordinate',
+	host     : 'us-cdbr-iron-east-02.cleardb.net',
+	database : 'heroku_d015497bbaaf387',
 	user     : 'b18e443b2960cf',
 	password : '1a13ae39'
 });
