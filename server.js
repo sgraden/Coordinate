@@ -62,7 +62,7 @@ if (process.env.REDISTOGO_URL) {
 	        db: parseInt(app.set('redisDb')),
 	        pass: app.set('redisPass'),
 	        resave: false,
-	        saveUninitialized: false
+	        saveUninitialized: true
 	    })
 	}));
 } else {
@@ -75,7 +75,7 @@ if (process.env.REDISTOGO_URL) {
 		}),
 	    secret: 'this_needs_to_be_changed', //Look at Environment variables
 	    resave: false,
-	    saveUninitialized: false
+	    saveUninitialized: true
 	}));
 }
 
