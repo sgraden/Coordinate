@@ -46,12 +46,12 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
 	app.set('redisPass', rtgAuth[1]);
-	console.log('app.set redisDb', app.set('redisPass'));
+	//console.log('app.set redisDb', app.set('redisPass'));
 	app.use(session({
 	    store: new RedisStore({
 	        host: app.set('redisHost'),
 	        port: app.set('redisPort'),
-	        db: 0,
+	        db: 1,
 	        pass: '6e2176b82e5a57a64090f85d48990a90',
 	    }),
 	    secret: 'this_needs_environment_variable',
