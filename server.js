@@ -59,7 +59,7 @@ if (process.env.REDISTOGO_URL) {
 	    store: new RedisStore({
 	        host: app.set('redisHost'),
 	        port: app.set('redisPort'),
-	        db: app.set('redisDb'),
+	        db: parseInt(app.set('redisDb')),
 	        pass: app.set('redisPass'),
 	        resave: false,
 	        saveUninitialized: false
