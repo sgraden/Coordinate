@@ -39,7 +39,8 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log("Connecting to redis online");
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
-	var rtgAuth = rtg.auth.split(':'); 
+	var rtgAuth = rtg.auth.split(':');
+	 
 	console.log("rtg ", rtg);
 	app.set('redisHost', rtg.hostname);
 	app.set('redisPort', rtg.port);
@@ -48,10 +49,10 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log('app.set redisDb', app.set('redisPass'));
 	app.use(session({
 	    store: new RedisStore({
-	        host: 'greeneye.redistogo.com',
-	        port: 11959,
-	        db: 1,
-	        pass: '6e2176b82e5a57a64090f85d48990a90',
+	        host: app.set('redisHost'),
+	        port: app.set('redisPort'),
+	        db: app.set('redisDb'),
+	        pass: app.set('redisPass'),
 	    }),
 	    secret: 'this_needs_environment_variable',
 	    resave: false,
