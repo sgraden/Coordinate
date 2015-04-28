@@ -56,8 +56,8 @@ if (process.env.REDISTOGO_URL) {
 	        port: app.set('redisPort'),
 	        db: app.set('redisDb'),
 	        pass: app.set('redisPass'),
-	        resave: true,
-	        saveUninitialized: true
+	        resave: false,
+	        saveUninitialized: false
 	    })
 	}));
 } else {
