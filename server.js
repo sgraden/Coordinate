@@ -52,7 +52,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	        host: app.set('redisHost'),
 	        port: app.set('redisPort'),
 	        db: 0,
-	        pass: app.set('redisPass'),
+	        pass: '6e2176b82e5a57a64090f85d48990a90',
 	    }),
 	    secret: 'this_needs_environment_variable',
 	    resave: false,
