@@ -40,7 +40,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
 	var rtgAuth = rtg.auth.split(':');
-	 
+
 	console.log("rtg ", rtg);
 	app.set('redisHost', rtg.hostname);
 	app.set('redisPort', rtg.port);
@@ -51,7 +51,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	    store: new RedisStore({
 	        host: app.set('redisHost'),
 	        port: app.set('redisPort'),
-	        db: app.set('redisDb'),
+	        db: 0,
 	        pass: app.set('redisPass'),
 	    }),
 	    secret: 'this_needs_environment_variable',
