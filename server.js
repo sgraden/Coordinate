@@ -39,14 +39,6 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log("Connecting to redis online");
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
-
-	//console.log('rtg', rtg);
-	//console.log('redis', redis);
-
-	// var redisUrl = url.parse(process.env.REDISTOGO_URL),
-	//     redisAuth = redisUrl.auth.split(':'); 
-
-	// redis.auth(rtg.auth.split(":")[1]);
 	var rtgAuth = rtg.auth.split(':'); 
 	console.log("rtg ", rtg);
 	app.set('redisHost', rtg.hostname);
@@ -56,17 +48,17 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log('app.set redisDb', app.set('redisPass'));
 	app.use(session({
 	    store: new RedisStore({
-	        host: app.set('redisHost'),
-	        port: app.set('redisPort'),
-	        db: parseInt(app.set('redisDb')),
-	        pass: app.set('redisPass'),
+	        host: 'greeneye.redistogo.com',
+	        port: 11959,
+	        db: 1,
+	        pass: '6e2176b82e5a57a64090f85d48990a90',
 	    }),
 	    secret: 'this_needs_environment_variable',
 	    resave: false,
 	    saveUninitialized: true
 	}));
 } else { //local system
-	console.log("not connecting to Redis online");
+	console.log("Connecting to local Redis");
 	var redis = require("redis").createClient();
 	app.use(session({
 		store: new RedisStore({
