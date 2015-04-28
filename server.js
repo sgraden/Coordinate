@@ -40,8 +40,8 @@ if (process.env.REDISTOGO_URL) {
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
 
-	console.log('rtg', rtg);
-	console.log('redis', redis);
+	//console.log('rtg', rtg);
+	//console.log('redis', redis);
 
 	// var redisUrl = url.parse(process.env.REDISTOGO_URL),
 	//     redisAuth = redisUrl.auth.split(':'); 
@@ -53,6 +53,7 @@ if (process.env.REDISTOGO_URL) {
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
 	app.set('redisPass', rtgAuth[1]);
+	console.log(app.set('redisDb'));
 	app.use(session({
 	    secret: 'this_needs_environment_variable',
 	    store: new RedisStore({
