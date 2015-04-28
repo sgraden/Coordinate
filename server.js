@@ -47,7 +47,7 @@ if (process.env.REDISTOGO_URL) {
 	//     redisAuth = redisUrl.auth.split(':'); 
 
 	// redis.auth(rtg.auth.split(":")[1]);
-	var rtgAuth = rtg.auth.split(':'); 
+	var rtgAuth = rtg.auth.split(':')[1]; 
 	app.set('redisHost', rtg.hostname);
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
