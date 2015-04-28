@@ -40,7 +40,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname, {no_ready_check: true});
 	redis.auth(rtg.auth.split(":")[1]);
-	
+
 	var rtgAuth = rtg.auth.split(':');
 
 	console.log("rtg ", rtg);
@@ -58,7 +58,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	    }),
 	    secret: 'this_needs_environment_variable',
 	    resave: false,
-	    saveUninitialized: true
+	    saveUninitialized: false
 	}));
 } else { //local system
 	console.log("Connecting to local Redis");
@@ -70,7 +70,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 		}),
 	    secret: 'this_needs_to_be_changed', //Look at Environment variables
 	    resave: false,
-	    saveUninitialized: true
+	    saveUninitialized: false
 	}));
 }
 
