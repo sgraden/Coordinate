@@ -87,20 +87,20 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // /*DB Connection - START*/
 
-var conn = mysql.createConnection({
+/*var conn = mysql.createConnection({
 	host     : 'localhost',
 	database : 'coordinate',
 	user     : 'root',
 	password : 'Magnitude_9'
-});
+});*/
 
 //Connect to the heroku instance
-/*var conn = mysql.createConnection({
+var conn = mysql.createConnection({
 	host     : 'us-cdbr-iron-east-02.cleardb.net',
 	database : 'heroku_d015497bbaaf387',
 	user     : 'b18e443b2960cf',
 	password : '1a13ae39'
-});*/
+});
 
 var sess;
 
