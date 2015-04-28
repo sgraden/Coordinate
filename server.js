@@ -10,28 +10,6 @@ var passport = require('passport');
 var bcrypt = require('bcrypt-nodejs');
 var favicon = require('serve-favicon');
 
-// var rtg, redis; //Declaring RedisToGo and redis vars
-// if (process.env.REDISTOGO_URL) {
-// 	rtg   = require("url").parse(process.env.REDISTOGO_URL);
-// 	redis = require("redis").createClient(rtg.port, rtg.hostname);
-
-// 	redis.auth(rtg.auth.split(":")[1]);
-// } else {
-//     redis = require("redis").createClient();
-// }
- 
-/*module.exports = function Sessions(url, secret) {
-	var store = new RedisStore({ url: url });
-	var session = expressSession({
-		secret: 'this_needs_change',
-		store: store,
-		resave: true,
-		saveUninitialized: true
-	});
-
-	return session;
-};*/
-
 var model = require('./model');
 var app = express();
 
@@ -48,7 +26,6 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
 	app.set('redisPass', rtgAuth[1]);
-	//console.log('app.set redisDb', app.set('redisPass'));
 	app.use(session({
 	    store: new RedisStore({
 	        host: app.set('redisHost'),
@@ -95,14 +72,37 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 });*/
 
 //Connect to the heroku instance
-var conn = mysql.createConnection({
+var db_config = {
 	host     : 'us-cdbr-iron-east-02.cleardb.net',
 	database : 'heroku_d015497bbaaf387',
 	user     : 'b18e443b2960cf',
 	password : '1a13ae39'
-});
+}
+var conn;// = mysql.createConnection(db_config);
+
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+  connection.connect(function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+handleDisconnect();
 
 var sess;
+
 
 // /*DB Connection - END*/
 
