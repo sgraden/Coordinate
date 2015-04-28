@@ -717,3 +717,19 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":44958,"time":"2015-04-28T00:58:09.516Z","msg":"Starting New Relic for Node.js connection process."}
 {"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":44958,"time":"2015-04-28T00:58:10.503Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/939260/applications/5986597","component":"new_relic_response"}
 {"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":44958,"time":"2015-04-28T00:58:10.504Z","msg":"Connected to collector-126.newrelic.com:443 with agent run ID 27275732440042474.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":45622,"time":"2015-04-28T01:07:50.861Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":45685,"time":"2015-04-28T01:08:38.763Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":45704,"time":"2015-04-28T01:08:53.060Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46584,"time":"2015-04-28T01:26:18.506Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46878,"time":"2015-04-28T01:30:22.299Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46898,"time":"2015-04-28T01:30:35.503Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46907,"time":"2015-04-28T01:30:40.591Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46916,"time":"2015-04-28T01:30:45.683Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":46934,"time":"2015-04-28T01:30:58.943Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47001,"time":"2015-04-28T01:32:02.171Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47030,"time":"2015-04-28T01:32:27.645Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47037,"time":"2015-04-28T01:32:30.706Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47052,"time":"2015-04-28T01:32:41.908Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47108,"time":"2015-04-28T01:33:18.660Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47108,"time":"2015-04-28T01:33:19.722Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/939260/applications/5986597","component":"new_relic_response"}
+{"v":0,"level":30,"name":"newrelic","hostname":"D-108-179-150-75.dhcp4.washington.edu","pid":47108,"time":"2015-04-28T01:33:19.723Z","msg":"Connected to collector-126.newrelic.com:443 with agent run ID 27275732440113185.","component":"collector_api"}

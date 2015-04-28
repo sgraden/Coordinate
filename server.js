@@ -36,13 +36,19 @@ var model = require('./model');
 var app = express();
 
 if (process.env.REDISTOGO_URL) {
-	console.log("Connecting to redis");
-	var redisUrl = url.parse(process.env.REDISTOGO_URL),
-	    redisAuth = redisUrl.auth.split(':');  
-	app.set('redisHost', redisUrl.hostname);
-	app.set('redisPort', redisUrl.port);
-	app.set('redisDb', redisAuth[0]);
-	app.set('redisPass', redisAuth[1]);
+	console.log("Connecting to redis online");
+	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+	var redis = require("redis").createClient(rtg.port, rtg.hostname);
+
+	// var redisUrl = url.parse(process.env.REDISTOGO_URL),
+	//     redisAuth = redisUrl.auth.split(':'); 
+
+	// redis.auth(rtg.auth.split(":")[1]);
+	var rtgAuth = rtg.auth.split(':'); 
+	app.set('redisHost', rtg.hostname);
+	app.set('redisPort', rtg.port);
+	app.set('redisDb', rtgAuth[0]);
+	app.set('redisPass', rtgAuth[1]);
 	app.use(session({
 	    secret: 'this_needs_environment_variable',
 	    store: new RedisStore({
@@ -55,7 +61,17 @@ if (process.env.REDISTOGO_URL) {
 	    })
 	}));
 } else {
+	console.log("not connecting to Redis online");
 	var redis = require("redis").createClient();
+	app.use(session({
+		store: new RedisStore({
+			host: '127.0.0.1',
+  			port: 6379
+		}),
+	    secret: 'this_needs_to_be_changed', //Look at Environment variables
+	    resave: false,
+	    saveUninitialized: false
+	}));
 }
 
 app.set('port', (process.env.PORT || 5000));
@@ -67,11 +83,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	extended: true
 }));
 
-/*app.use(session({
-    secret: 'this_needs_to_be_changed', //Look at Environment variables
-    resave: false,
-    saveUninitialized: false
-}));*/
+
 
 // /*DB Connection - START*/
 
