@@ -35,7 +35,7 @@ var favicon = require('serve-favicon');
 var model = require('./model');
 var app = express();
 
-if (process.env.REDISTOGO_URL) {
+if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log("Connecting to redis online");
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname);
@@ -55,17 +55,17 @@ if (process.env.REDISTOGO_URL) {
 	app.set('redisPass', rtgAuth[1]);
 	console.log('app.set redisDb', app.set('redisDb'));
 	app.use(session({
-	    secret: 'this_needs_environment_variable',
 	    store: new RedisStore({
 	        host: app.set('redisHost'),
 	        port: app.set('redisPort'),
 	        db: parseInt(app.set('redisDb')),
 	        pass: app.set('redisPass'),
-	        resave: false,
-	        saveUninitialized: true
-	    })
+	    }),
+	    secret: 'this_needs_environment_variable',
+	    resave: false,
+	    saveUninitialized: true
 	}));
-} else {
+} else { //local system
 	console.log("not connecting to Redis online");
 	var redis = require("redis").createClient();
 	app.use(session({
