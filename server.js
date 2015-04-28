@@ -53,7 +53,7 @@ if (process.env.REDISTOGO_URL) {
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
 	app.set('redisPass', rtgAuth[1]);
-	console.log(app.set('redisDb'));
+	console.log('app.set redisDb', app.set('redisDb'));
 	app.use(session({
 	    secret: 'this_needs_environment_variable',
 	    store: new RedisStore({
