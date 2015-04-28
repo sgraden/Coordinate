@@ -47,8 +47,8 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	//     redisAuth = redisUrl.auth.split(':'); 
 
 	// redis.auth(rtg.auth.split(":")[1]);
-	var rtgAuth = rtg.auth.split(':')[1]; 
-	console.log("rtgAuth", rtgAuth);
+	var rtgAuth = rtg.auth.split(':'); 
+	console.log("rtgAuth ", rtgAuth);
 	app.set('redisHost', rtg.hostname);
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
