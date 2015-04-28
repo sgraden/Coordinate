@@ -1,7 +1,7 @@
 var newrelic = require('newrelic');
 var express = require('express');
 var session = require('express-session')
-var RedisStore = require('connect-redis')(express);
+var RedisStore = require('connect-redis')(session);
 var url = require('url')
 var pg = require('pg');
 var mysql = require('mysql');
@@ -32,30 +32,31 @@ var favicon = require('serve-favicon');
 	return session;
 };*/
 
-app.configure('production', function () {
-    var redisUrl = url.parse(process.env.REDISTOGO_URL),
-        redisAuth = redisUrl.auth.split(':');  
-    app.set('redisHost', redisUrl.hostname);
-    app.set('redisPort', redisUrl.port);
-    app.set('redisDb', redisAuth[0]);
-    app.set('redisPass', redisAuth[1]);
-});  
-app.configure(function () {
-    app.use(express.session({
-        secret: 'super duper secret',
-        store: new RedisStore({
-            host: app.set('redisHost'),
-            port: app.set('redisPort'),
-            db: app.set('redisDb'),
-            pass: app.set('redisPass'),
-            resave: true,
-            saveUninitialized: true
-        })
-    }));
-});
-
 var model = require('./model');
 var app = express();
+
+if (process.env.REDISTOGO_URL) {
+	console.log("Connecting to redis");
+	var redisUrl = url.parse(process.env.REDISTOGO_URL),
+	    redisAuth = redisUrl.auth.split(':');  
+	app.set('redisHost', redisUrl.hostname);
+	app.set('redisPort', redisUrl.port);
+	app.set('redisDb', redisAuth[0]);
+	app.set('redisPass', redisAuth[1]);
+	app.use(session({
+	    secret: 'this_needs_environment_variable',
+	    store: new RedisStore({
+	        host: app.set('redisHost'),
+	        port: app.set('redisPort'),
+	        db: app.set('redisDb'),
+	        pass: app.set('redisPass'),
+	        resave: true,
+	        saveUninitialized: true
+	    })
+	}));
+} else {
+	var redis = require("redis").createClient();
+}
 
 app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'ejs');
