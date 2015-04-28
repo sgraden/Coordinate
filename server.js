@@ -39,7 +39,8 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log("Connecting to redis online");
 	var rtg   = require("url").parse(process.env.REDISTOGO_URL);
 	var redis = require("redis").createClient(rtg.port, rtg.hostname, {no_ready_check: true});
-	client.auth(rtg.auth.split(":")[1]);
+	redis.auth(rtg.auth.split(":")[1]);
+	
 	var rtgAuth = rtg.auth.split(':');
 
 	console.log("rtg ", rtg);
