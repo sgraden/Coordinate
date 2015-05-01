@@ -1,3 +1,4 @@
+/// <reference path="typings/node/node.d.ts"/>
 var newrelic = require('newrelic');
 var express = require('express');
 var session = require('express-session')
@@ -77,7 +78,7 @@ var db_config = {
 	database : 'heroku_d015497bbaaf387',
 	user     : 'b18e443b2960cf',
 	password : '1a13ae39'
-}
+};
 var conn = mysql.createConnection(db_config);
 
 function handleDisconnect() {

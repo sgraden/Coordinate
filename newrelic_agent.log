@@ -895,3 +895,11 @@
 {"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":61233,"time":"2015-04-28T07:18:32.850Z","msg":"Starting New Relic for Node.js connection process."}
 {"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":61233,"time":"2015-04-28T07:18:34.024Z","msg":"Reporting to: https://rpm.newrelic.com/accounts/939260/applications/5986597","component":"new_relic_response"}
 {"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":61233,"time":"2015-04-28T07:18:34.025Z","msg":"Connected to collector-126.newrelic.com:443 with agent run ID 25879460047665924.","component":"collector_api"}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":68688,"time":"2015-05-01T05:41:52.231Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":69202,"time":"2015-05-01T05:54:10.303Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":69218,"time":"2015-05-01T05:55:15.820Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":72745,"time":"2015-05-01T06:38:45.107Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":72849,"time":"2015-05-01T06:39:43.137Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":72890,"time":"2015-05-01T06:40:03.518Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":72969,"time":"2015-05-01T06:41:03.685Z","msg":"Starting New Relic for Node.js connection process."}
+{"v":0,"level":30,"name":"newrelic","hostname":"Stevens-MacBook-Pro.local","pid":73021,"time":"2015-05-01T06:41:20.002Z","msg":"Starting New Relic for Node.js connection process."}
