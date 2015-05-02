@@ -1,18 +1,18 @@
 /// <reference path="typings/node/node.d.ts"/>
-var newrelic = require('newrelic');
-var express = require('express');
-var session = require('express-session')
+"use strict";
+var newrelic   = require('newrelic');
+var express    = require('express');
+var session    = require('express-session')
 var RedisStore = require('connect-redis')(session);
-var url = require('url')
-var pg = require('pg');
-var mysql = require('mysql');
-var ejs = require('ejs');
-var passport = require('passport');
-var bcrypt = require('bcrypt-nodejs');
-var favicon = require('serve-favicon');
+var url        = require('url')
+var pg         = require('pg');
+var mysql      = require('mysql');
+var ejs        = require('ejs');
+var passport   = require('passport');
+var bcrypt     = require('bcrypt-nodejs');
+var favicon    = require('serve-favicon');
 
-var model = require('./model');
-var app = express();
+var app        = express();
 
 if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	console.log("Connecting to redis online");
@@ -22,7 +22,7 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 
 	var rtgAuth = rtg.auth.split(':');
 
-	console.log("rtg ", rtg);
+	console.log('rtg ', rtg);
 	app.set('redisHost', rtg.hostname);
 	app.set('redisPort', rtg.port);
 	app.set('redisDb', rtgAuth[0]);
@@ -39,13 +39,13 @@ if (process.env.REDISTOGO_URL) { //On heroku using Redis
 	    saveUninitialized: false
 	}));
 } else { //local system
-	console.log("Connecting to local Redis");
-	var redis = require("redis").createClient();
+	console.log("Connecting to local");
+	//var redis = require("redis").createClient();
 	app.use(session({
-		store: new RedisStore({
-			host: '127.0.0.1',
-  			port: 6379
-		}),
+		// store: new RedisStore({
+		// 	host: '127.0.0.1',
+  // 			port: 6379
+		// }),
 	    secret: 'this_needs_to_be_changed', //Look at Environment variables
 	    resave: false,
 	    saveUninitialized: false
@@ -65,21 +65,21 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // /*DB Connection - START*/
 
-/*var conn = mysql.createConnection({
+var conn = mysql.createConnection({
 	host     : 'localhost',
 	database : 'coordinate',
 	user     : 'root',
 	password : 'Magnitude_9'
-});*/
+});
 
 //Connect to the heroku instance
-var db_config = {
-	host     : 'us-cdbr-iron-east-02.cleardb.net',
-	database : 'heroku_d015497bbaaf387',
-	user     : 'b18e443b2960cf',
-	password : '1a13ae39'
-};
-var conn = mysql.createConnection(db_config);
+// var db_config = {
+// 	host     : 'us-cdbr-iron-east-02.cleardb.net',
+// 	database : 'heroku_d015497bbaaf387',
+// 	user     : 'b18e443b2960cf',
+// 	password : '1a13ae39'
+// };
+// var conn = mysql.createConnection(db_config);
 
 function handleDisconnect() {
   conn = mysql.createConnection(db_config); // Recreate the connection, since
@@ -100,7 +100,7 @@ function handleDisconnect() {
     }
   });
 }
-handleDisconnect();
+//handleDisconnect();
 
 var sess;
 
