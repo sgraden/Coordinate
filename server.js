@@ -132,6 +132,7 @@ app.post('/user_login', function(req, res) {
 	    	return console.error('error running query', err);
     	}
     	if (results) {
+    		console.log('create user results:', results);
     		sess.userid = results[0].userid;
     		sess.userfname = results[0].userfname;
     		//console.log('Login Session', sess);
@@ -246,6 +247,16 @@ app.post('/availability-info', function(req, res) {
     	} else {
     		res.redirect('/');
     	}
+	});
+});
+
+app.post('/user_logout', function(req, res) {
+	req.session.destroy(function(err) {
+		if (err) {
+			return console.error('error destroying session', err);
+		} else {
+			res.send('s');
+		}
 	});
 });
 

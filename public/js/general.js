@@ -12,6 +12,8 @@
 
 		$('#login-submit').click(accountLogin);
 		$('#signup-submit').click(accountSignup);
+
+		$('#logout-button').click(accountLogout);
 	});
 
 	function accountLogin() {
@@ -70,6 +72,17 @@
 		} else {
 			//Send some sort of alert
 		}
+	}
+
+	function accountLogout() {
+		$.post(
+			'/user_logout'
+		).success(function(data) {
+			console.log(data);
+			if (data == 's') {
+				location.replace('/');
+			}
+		});
 	}
 
 	//Generate Hashcode
