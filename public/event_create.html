@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <% include ../partials/head %>
-        
-        <!-- packages -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Coordinate</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="icon" href="assets/images/logoSmall.png" type="image/png">
+        <link rel="shortcut icon" href="assets/images/logoSmall.png" type="image/png" />
+
+				
+		<!-- Linked Scripts -->
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+        <script src="packages/bootstrap/bootstrap.min.js"></script>
         <script src="packages/moment/moment.js"></script>
         <script src="packages/fullcalendar-2.3.1/fullcalendar.js"></script> 
 
+
+        <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+        <link href='packages/bootstrap/bootstrap.min.css' rel='stylesheet' type='text/css'>
         <link href='packages/fullcalendar-2.3.1/fullcalendar.min.css' rel='stylesheet' type='text/css'>
 
+		
 		<!-- My Scripts -->
 		<script type="text/javascript" src="js/event_create.js"></script>
 
@@ -19,7 +32,28 @@
 <body>
 <div id="event" class="container-fluid">
     <nav class="navbar navbar-default light-bg">
-        <% include ../partials/nav %>
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-icon" href="#">
+                    <img src="assets/images/logo.png" />
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Account</a></li>
+                    <li><a href="#">Help</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <div id="event-content" class="col-xs-8 col-xs-offset-2">
@@ -44,16 +78,15 @@
                     <div class="form-group col-xs-12">
                         <label class="input-label">What times can the event occur?</label>
                         <div class="form-inline">
-                            No earlier than 
                             <input type="time" name="event-time-from" class="form-control" value="" required="" title="">
-                            to no later than
+                            to 
                             <input type="time" name="event-time-to" class="form-control" value="" required="" title="">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-xs-12">
-                        <label class="input-label">How long will the event be?</label>
+                        <label class="input-label">What is the events length?</label>
                         <div class="form-inline">
                             <select id="event-length" name="event-length" class="form-control">
                                 <option value="1" selected="selected">1</option>
@@ -98,7 +131,7 @@
                     </div>
                     <div class="form-group col-xs-12">
                         <div class="form-inline">
-                            <input type="checkbox" name="notify-each" checked="checked" value="">
+                            <input type="checkbox" name="notify-each" value="">
                             Notify me after each participant responds.
                         </div>
                     </div>
