@@ -59,6 +59,7 @@ CREATE TABLE tblTIME (
     TimeID INT NOT NULL AUTO_INCREMENT,
     UserID INT NOT NULL,
     EventID INT NOT NULL,
+    StartDate DATE NOT NULL,
     StartTime TIME NOT NULL,
     PreferenceID INT,
     PRIMARY KEY (TimeID),

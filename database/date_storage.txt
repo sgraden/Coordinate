@@ -2,10 +2,16 @@
 	'month' : mm,
 	'weekno/sunday date' : dd
 	'working times' : {
-		10/27: [{start: hhmm,
-		 			end: hhmm},
-		 		{start: hhmm,
-		 				end: hhmm}],
+		10/27: [
+			{
+				start: hhmm,
+		 		end: hhmm
+		 	},
+		 	{
+		 		start: hhmm,
+		 		end: hhmm
+		 	}
+		],
 		 monday: [],
 		 tuesday: {}
 	}

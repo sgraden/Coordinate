@@ -172,7 +172,17 @@ app.post('/user_signup', function(req, res) { //Need to check if account exists 
 	    	res.json([{userfname: '' + results[0][0].userfname}]);
 		}
 	});
+});
 
+//User logout
+app.post('/user_logout', function(req, res) {
+	req.session.destroy(function(err) {
+		if (err) {
+			return console.error('error destroying session', err);
+		} else {
+			res.send('s');
+		}
+	});
 });
 
 //Event Create
@@ -230,7 +240,7 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
     	}
 	});
 });
-app.post('/availability-info', function(req, res) {
+app.post('/availability-info', function(req, res) { //maybe switch to get?
 	sess = req.session;
 	console.log(req.body.e);
 	conn.query({
@@ -249,15 +259,8 @@ app.post('/availability-info', function(req, res) {
     	}
 	});
 });
-
-app.post('/user_logout', function(req, res) {
-	req.session.destroy(function(err) {
-		if (err) {
-			return console.error('error destroying session', err);
-		} else {
-			res.send('s');
-		}
-	});
+app.post('/availability_submit', function(req, res) {
+	
 });
 
 app.use(express.static(__dirname + '/public/'));
