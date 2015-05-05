@@ -76,7 +76,7 @@ function submitEvent(e) {
 		data: payload
 	}).success(function(data){
 		//console.log(data);
-		location.href=data;
+		location.replace(data);
 	});
 
 	return false;

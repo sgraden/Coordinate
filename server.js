@@ -80,6 +80,7 @@ var conn = mysql.createConnection({
 // 	password : '1a13ae39'
 // };
 // var conn = mysql.createConnection(db_config);
+//handleDisconnect();
 
 function handleDisconnect() {
   conn = mysql.createConnection(db_config); // Recreate the connection, since
@@ -100,7 +101,6 @@ function handleDisconnect() {
     }
   });
 }
-//handleDisconnect();
 
 var sess;
 
@@ -200,7 +200,7 @@ app.post('/event_create', function(req, res) {
 		if(err) {
 	    	return console.error('Event Create error running query', err);
     	}
-		res.send('/availability?event_id=' + v.uuid);
+		res.send('/availability?e=' + v.uuid);
 	});
 });
 
@@ -209,21 +209,40 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
 	sess = req.session;
 	conn.query({
 		sql: 'SELECT * FROM tblEvent WHERE EventUUID = ?',
-		values: [req.query.event_id]
+		values: [req.query.e]
 	}, function(err, results, fields) {
-		console.log('availability results: ', results);
+		//console.log('availability results: ', results);
 		if (err) {
 	      return console.error('error running query', err);
     	}
     	var data = {
     		page_title: 'Availability',
-    		event_name: results.EventName,
-    		event_desc: results.EventDesc
+    		event_name: results[0].EventName,
+    		event_desc: results[0].EventDesc
     	};
+    	if (sess.userfname) { //User is logged in
+    		data.username = sess.userfname;
+    		//console.log('availability data: ', data);
+	    	res.render('pages/availability', data);
+    	} else {
+    		res.redirect('/');
+    	}
+	});
+});
+app.post('/availability-info', function(req, res) {
+	sess = req.session;
+	console.log(req.body.e);
+	conn.query({
+		sql: 'SELECT * FROM tblEvent WHERE EventUUID = ?',
+		values: [req.body.e]
+	}, function(err, results, fields) {
+		//console.log('availability results: ', results);
+		if (err) {
+	      return console.error('error running query', err);
+    	}
     	if (sess.userfname) {
-    		data.userfname = sess.userfname;
-	    	res.render('pages/availability', data); //Send back the rows here and genereate on EJS page
-			//res.json(result.rows);
+    		console.log(results);
+			res.json(results);
     	} else {
     		res.redirect('/');
     	}

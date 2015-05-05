@@ -19,8 +19,8 @@
 		var pass = $('#modal-login input[name=user-pass]').val();
 
 		var payload = {
-			email: email,//.hashCode(),
-			pass: pass//.hashCode()
+			email: email.hashCode(),
+			pass: pass.hashCode()
 		};
 
 		$.post(
@@ -54,8 +54,8 @@
 			var payload = {
 				userfname: fname,
 				userlname: lname,
-				useremail: email,//.hashCode(),
-				pvalue: pass1//.hashCode()
+				useremail: email.hashCode(),
+				pvalue: pass1.hashCode()
 			};
 
 			$.post(
