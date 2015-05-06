@@ -74,7 +74,7 @@ function submitAvailability() {
         data: compileAvailability()
     }).success(function() {
         //redirect or do something
-        location.replace('/event_review?e=' + eventData.EventUUID);
+        window.location.replace(window.location.hostname + '/event_review?e=' + eventData.EventUUID);
     });
 }
 

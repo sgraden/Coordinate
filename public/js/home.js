@@ -2,9 +2,10 @@
 (function() {
 
 $(document).ready(function() {
+	console.log(window.location.hostname);
 	
 	$("#home-create").click(function() {
-		window.location.replace("/event_create");
+		window.location.assign(window.location.hostname + "/event_create");
 	});
 });
 
