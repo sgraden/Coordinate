@@ -61,7 +61,8 @@ CREATE TABLE tblTIME (
     EventID INT NOT NULL,
     StartDate DATE NOT NULL,
     StartTime TIME NOT NULL,
-    PreferenceID INT,
+    StartDay VARCHAR(10) NOT NULL,
+    Preference VARCHAR(80) NOT NULL,
     PRIMARY KEY (TimeID),
     FOREIGN KEY (UserID)
         REFERENCES tblUSER (UserID),

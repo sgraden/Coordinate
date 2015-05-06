@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% include ../partials/head %>
+
+        <script src="packages/moment/moment.js"></script>
+
+		<!-- My Scripts -->
+		<script type="text/javascript" src="js/event_review.js"></script>
+
+		<!-- My Styles -->
+		<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+	</head>
+<body>
+<div id="availability" class="container-fluid">
+    <nav class="navbar navbar-default light-bg">
+        <% include ../partials/nav %>
+    </nav>
+
+    <div id="availability-content" class="col-xs-8 col-xs-offset-2">
+        <div class="row">
+            <h1 id="availability-name" class="col-xs-12"><%= locals.event_name %></h1>
+            <p id="availability-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
+        </div>
+        <div class="row">
+            <div id="eventCreator" class="col-xs-12">Event Creator: <%= locals.event_creator_fname + " " + locals.event_creator_lname %></div>
+            <div id="eventLength" class="col-xs-12">Length of Event: <%= locals.event_length  %> hour</div>
+            <div id="availFrom" class="col-xs-12">Available from: <%= locals.event_start_date  %> - <%= locals.event_end_date  %></div>
+        </div>
+        <div class="row">
+            <div id="availability-times" class="col-xs-12">
+                <div>
+                    <table cellpadding="0" cellspacing="0" id="dataTable">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
