@@ -131,8 +131,8 @@ app.post('/user_login', function(req, res) {
 		if(err) {
 	    	return console.error('error running query', err);
     	}
-    	if (results[0].userid) {
-    		console.log('login results:', results);
+    	console.log('login results:', results);
+    	if (results.length > 0) {
     		sess.userid = results[0].userid;
     		sess.userfname = results[0].userfname;
     		//console.log('Login Session', sess);
