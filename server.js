@@ -131,12 +131,14 @@ app.post('/user_login', function(req, res) {
 		if(err) {
 	    	return console.error('error running query', err);
     	}
-    	if (results) {
+    	if (results[0].userid) {
     		console.log('login results:', results);
     		sess.userid = results[0].userid;
     		sess.userfname = results[0].userfname;
     		//console.log('Login Session', sess);
 	    	res.json([{userfname: '' + results[0].userfname}]);	
+		} else {
+			res.send("failed");
 		}
 	});
 });
