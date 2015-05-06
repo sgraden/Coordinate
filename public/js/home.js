@@ -5,7 +5,7 @@ $(document).ready(function() {
 	console.log(window.location.hostname);
 	
 	$("#home-create").click(function() {
-		window.location.assign(window.location.hostname + "/event_create");
+		window.location.assign("/event_create");
 	});
 });
 
