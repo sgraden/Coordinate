@@ -132,7 +132,7 @@ app.post('/user_login', function(req, res) {
 	    	return console.error('error running query', err);
     	}
     	if (results) {
-    		console.log('create user results:', results);
+    		console.log('login results:', results);
     		sess.userid = results[0].userid;
     		sess.userfname = results[0].userfname;
     		//console.log('Login Session', sess);
@@ -281,37 +281,40 @@ app.post('/availability_submit', function(req, res) { //[eventid, time, startDat
 app.get('/event_review', function(req, res) { //Working on availability. Returns 3 times?
 	sess = req.session;
 	conn.query({
-		sql: 'SELECT UserFName, u.UserLName, e.* FROM tblEvent e JOIN tblUSER u ON e.EventCreatorID = u.UserID WHERE EventUUID = ?',
+		sql: 'SELECT u.UserFName, u.UserLName, e.* FROM tblEvent e JOIN tblUSER u ON e.EventCreatorID = u.UserID WHERE EventUUID = ?',
 		values: [req.query.e]
 	}, function(err, results, fields) {
 		//console.log('availability results: ', results);
 		if (err) {
 	      return console.error('error running query', err);
     	}
-		var startDate  = new Date(results[0].EventStartDate);
-			var startMonth = startDate.getMonth();
-			var startDay   = startDate.getDay();
-			var startYear  = startDate.getFullYear();
-		var endDate    = new Date(results[0].EventEndDate);
-			var endMonth   = endDate.getMonth();
-			var endDay     = endDate.getDay();
-			var endYear    = endDate.getFullYear();
-    	var data = {
-    		page_title: 'Review',
-    		event_name: results[0].EventName,
-    		event_desc: results[0].EventDesc,
-    		event_creator_fname: results[0].UserFName,
-    		event_creator_lname: results[0].UserLName,
-    		event_length: results[0].EventLength,
-    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
-    		event_end_date: endMonth + '/' + endDay + '/' + endYear
-    	};
-    	if (sess.userfname) { //User is logged in
-    		data.username = sess.userfname;
+    	if (sess.userid) { //User is logged in
+			var startDate  = new Date(results[0].EventStartDate);
+				var startMonth = startDate.getMonth();
+				var startDay   = startDate.getDay();
+				var startYear  = startDate.getFullYear();
+			var endDate    = new Date(results[0].EventEndDate);
+				var endMonth   = endDate.getMonth();
+				var endDay     = endDate.getDay();
+				var endYear    = endDate.getFullYear();
+	    	var data = {
+	    		page_title: 'Review',
+	    		userID: sess.userid,
+	    		username: sess.userfname,
+	    		event_name: results[0].EventName,
+	    		event_desc: results[0].EventDesc,
+	    		event_creator_id: results[0].EventCreatorID,
+	    		event_creator_fname: results[0].UserFName,
+	    		event_creator_lname: results[0].UserLName,
+	    		event_length: results[0].EventLength,
+	    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
+	    		event_end_date: endMonth + '/' + endDay + '/' + endYear
+	    	};
 	    	res.render('pages/event_review', data);
     	} else {
     		res.redirect('/');
     	}
+		
 	});
 });
 app.post('/review_info', function(req, res) {
