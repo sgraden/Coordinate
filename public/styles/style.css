@@ -158,19 +158,19 @@ body > .container-fluid {
 /*AVAILABILITY PAGE - END*/
 
 /*TABLE STYLE - START*/
- table td.available {
+#availability table td.available, #review table td.available {
     background-color: #118c4e;
 }
- table td.not_preferred {
+#availability table td.not_preferred, #review table td.not_preferred {
     background-color: #8cc86b;
 }
 
-table {
+#availability table, #review table {
     margin: 20px auto;
     border-collapse: collapse;
 }
 
- table td {
+#availability table td, #review table td {
     /*Table cells*/
     width: 70px;
     height: 30px;
@@ -180,11 +180,11 @@ table {
     vertical-align: middle;
 }
 
- th {
+#availability th, #review th {
     text-align: center;
 }
 
- table td:nth-child(1) {
+#availability table td:nth-child(1), #review table td:nth-child(1) {
     font-size: 12pt;
     padding-right: 5px;
     text-align: right;

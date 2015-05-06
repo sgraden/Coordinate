@@ -65,12 +65,12 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // /*DB Connection - START*/
 
-// var conn = mysql.createConnection({
-// 	host     : 'localhost',
-// 	database : 'coordinate',
-// 	user     : 'root',
-// 	password : 'Magnitude_9'
-// });
+/*var conn = mysql.createConnection({
+	host     : 'localhost',
+	database : 'coordinate',
+	user     : 'root',
+	password : 'Magnitude_9'
+});*/
 
 //Connect to the heroku instance
 var db_config = {
