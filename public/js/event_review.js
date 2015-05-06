@@ -17,8 +17,13 @@ $(document).ready(function() {
     });
 
     $('.timeOption').click(function() {
-        $('.timeOption').removeClass('light-bg');
-        $(this).toggleClass('light-bg');
+        if ($(this).hasClass('light-bg')) {
+            $(this).toggleClass('light-bg');
+        } else {
+            $('.timeOption').removeClass('light-bg');
+            $(this).toggleClass('light-bg');
+        }
+        
     })
 
 });
