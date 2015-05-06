@@ -13,20 +13,30 @@ $(document).ready(function() {
         //console.log("response data: ", data[0]);
         eventData = data;
         createTimes();
+        matchTimes();
     });
+
+    $('.timeOption').click(function() {
+        $('.timeOption').removeClass('light-bg');
+        $(this).toggleClass('light-bg');
+    })
 
 });
 
+function matchTimes() {
+
+}
+
 function createTimes() {
     console.log(eventData);
-    var startDate = new Date(eventData.EventStartDate);
-    var endDate   = new Date(eventData.EventEndDate);
+    var startDate = new Date(eventData[0].EventStartDate);
+    var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - startDate.getDate();
     if (length < 0) {
         length = length * -1;
     }
-    var startTime = eventData.EventStartTime.split(":"); //EventStartTime stored [hh, mm, ss]
-    var endTime   = eventData.EventEndTime.split(":"); //EventEndTime stored [hh, mm, ss]
+    var startTime = eventData[0].EventStartTime.split(":"); //EventStartTime stored [hh, mm, ss]
+    var endTime   = eventData[0].EventEndTime.split(":"); //EventEndTime stored [hh, mm, ss]
     var startx    = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
     var endx      = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
     var duration  = endx - startx; //Difference between times in minutes

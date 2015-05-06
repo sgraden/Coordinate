@@ -13,25 +13,53 @@
 
 	</head>
 <body>
-<div id="availability" class="container-fluid">
+<div id="review" class="container-fluid">
     <nav class="navbar navbar-default light-bg">
         <% include ../partials/nav %>
     </nav>
 
-    <div id="availability-content" class="col-xs-8 col-xs-offset-2">
+    <div id="review-content" class="col-xs-8 col-xs-offset-2">
         <div class="row">
-            <h1 id="availability-name" class="col-xs-12"><%= locals.event_name %></h1>
-            <p id="availability-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
+            <h1 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
+            <p id="review-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
         </div>
         <div class="row">
-            <div id="eventCreator" class="col-xs-12">Event Creator: <%= locals.event_creator_fname + " " + locals.event_creator_lname %></div>
-            <div id="eventLength" class="col-xs-12">Length of Event: <%= locals.event_length  %> hour</div>
-            <div id="availFrom" class="col-xs-12">Available from: <%= locals.event_start_date  %> - <%= locals.event_end_date  %></div>
+            <div id="eventCreator" class="col-xs-12">Event Creator: <b><%= locals.event_creator_fname + " " + locals.event_creator_lname %></b></div>
+            <div id="eventLength" class="col-xs-12">Length of Event: <b><%= locals.event_length  %> hour(s)</b></div>
+            <div id="availFrom" class="col-xs-12">Available from: <b><%= locals.event_start_date  %> - <%= locals.event_end_date  %></b></div>
+        </div>
+        <div id="offeredTimesContainer" class="row">
+            <h3 class="col-xs-12">Top 3 Results</h3>
+            <p class="col-xs-12">Select best time for your event form top results and Coordinate will notify participants of the event time.</p>
+            <div class="col-xs-6 col-xs-offset-3 timeOption">
+                <div class="col-xs-2">Tue 17</div>
+                <div class="col-xs-10">
+                    <div class="col-xs-12">9:00AM TO 10:00AM</div>
+                    <div class="col-xs-12">All Participants Available</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-xs-offset-3 timeOption">
+                <div class="col-xs-2">Wed 18</div>
+                <div class="col-xs-10">
+                    <div class="col-xs-12">11:30AM TO 12:00PM</div>
+                    <div class="col-xs-12">All Participants Available</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-xs-offset-3 timeOption">
+                <div class="col-xs-2">Wed 18</div>
+                <div class="col-xs-10">
+                    <div class="col-xs-12">1:00PM TO 2:00PM</div>
+                    <div class="col-xs-12">Most Participants Available</div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <button id="sendInvite" type="button" class="btn btn-default orange-bg pull-right">Send Invite</button>
+            </div>
         </div>
         <div class="row">
-            <div id="availability-times" class="col-xs-12">
+            <div id="review-times" class="col-xs-12">
                 <div>
-                    <table cellpadding="0" cellspacing="0" id="dataTable">
+                    <table id="dataTable" cellpadding="0" cellspacing="0">
                     </table>
                 </div>
             </div>

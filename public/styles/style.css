@@ -154,19 +154,23 @@ body > .container-fluid {
 #availability #availability-preference {
     text-align: center;
 }
-#availability table td.available {
+
+/*AVAILABILITY PAGE - END*/
+
+/*TABLE STYLE - START*/
+ table td.available {
     background-color: #118c4e;
 }
-#availability table td.not_preferred {
+ table td.not_preferred {
     background-color: #8cc86b;
 }
 
-#availability table {
+table {
     margin: 20px auto;
     border-collapse: collapse;
 }
 
-#availability table td {
+ table td {
     /*Table cells*/
     width: 70px;
     height: 30px;
@@ -176,19 +180,54 @@ body > .container-fluid {
     vertical-align: middle;
 }
 
-#availability th {
+ th {
     text-align: center;
 }
 
-#availability table td:nth-child(1) {
+ table td:nth-child(1) {
     font-size: 12pt;
     padding-right: 5px;
     text-align: right;
     border: none;
     background-color: white;
 }
+/*TABLE STYLE - END*/
 
-/*AVAILABILITY PAGE - END*/
+/*REVIEW PAGE - START*/
+
+#review #review-content {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#offeredTimesContainer:after {
+    width: 80%;
+    border-bottom: 1px solid grey;
+    margin: 0 auto;
+    padding-bottom: 20px;
+}
+
+.timeOption { 
+    margin-top: 20px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    font-size: 13pt;
+}
+
+.timeOption:hover {
+    background-color: #c2dfa6;
+}
+
+#sendInvite {
+    font-size: 16pt;
+}
+#sendInvite:hover {
+    background-color: #c2dfa6;
+}
+
+/* REVIEW PAGE - END */
 
 #holdingPage {
     text-align: center;

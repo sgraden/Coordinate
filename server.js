@@ -316,7 +316,7 @@ app.get('/event_review', function(req, res) { //Working on availability. Returns
 });
 app.post('/review_info', function(req, res) {
 	conn.query({
-		sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE EventUUID = ?",
+		sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime, e.EventStartDate, e.EventEndDate FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE EventUUID = ?",
 		values: [req.body.e]
 	}, function (err, results, fields) {
 		if (err) {
