@@ -3,17 +3,23 @@
 $(document).ready(function() {
 	//ejs.render(str);
 
-	$('#login-button').click(function() {
+	//Login/signup buttons to show modal
+	$('.login-button').click(function() {
 		$('#modal-login').modal('show');	
 	});
-	$('#signup-button').click(function() {
+	$('.signup-button').click(function() {
 		$('#modal-signup').modal('show');
 	});
 
+	//login/signup form submission buttons
 	$('#login-submit').click(accountLogin);
 	$('#signup-submit').click(accountSignup);
 
+	//Logout button in nav bar
 	$('#logout-button').click(accountLogout);
+
+
+
 });
 
 function accountLogin() {
@@ -29,10 +35,7 @@ function accountLogin() {
 		'/user_login',
 		payload
 	).success(function(data) { //Reload page with stored info
-		//$('#username').html(data);
-		//console.log(data[0].userfname);
-		//$('#username-holder').html(data[0].userfname);
-		//$('#modal-login').modal('hide');
+		$.cookie('l', 'true', {expires: 7, path: '/'});
 		window.location.href = '/';
 	});
 }
@@ -65,6 +68,7 @@ function accountSignup() {
 			payload
 		).success(function(data) {
 			//$('#username').html(data);
+			$.cookie('l', 'true', {expires: 7, path: '/'});
 			window.location.href = '/';
 			//$('#modal-signup').modal('hide');
 
@@ -80,6 +84,7 @@ function accountLogout() {
 	).success(function(data) {
 		console.log(data);
 		if (data == 's') {
+			$.removeCookie('l');
 			location.replace('/');
 		}
 	});
@@ -109,6 +114,12 @@ function pauseEvent(e){
     e.stopPropagation();
     e.preventDefault();
     return false;
+}
+
+function checkLogin() {
+	var cookie = $.cookie('l');
+	console.log(cookie);
+	return cookie != null;
 }
 
 

@@ -1,0 +1,21 @@
+<div class="modal fade" id="modal-loginalert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Signup</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<div>Your are not logged in. You need to login prior to accessing the content</div>
+					<button type="button" class="login-button btn btn-default">Login</button>
+					<button type="button" class="signup-button btn btn-default">Signup</button>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+				<button id="signup-submit" type="button" class="btn btn-primary">Signup!</button>
+			</div>
+		</div>
+	</div>
+</div>
