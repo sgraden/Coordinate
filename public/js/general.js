@@ -18,6 +18,11 @@ $(document).ready(function() {
 	//Logout button in nav bar
 	$('#logout-button').click(accountLogout);
 
+	$('.modal-cancel').click(function() {
+		$('#user-login')[0].reset();
+		$('#user-signup')[0].reset();
+	});
+
 
 
 });
@@ -121,5 +126,7 @@ function checkLogin() {
 	console.log(cookie);
 	return cookie != null;
 }
+
+
 
 

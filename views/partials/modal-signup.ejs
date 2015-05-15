@@ -7,7 +7,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="container-fluid">
-					<form id="user-login" class="col-xs-12" action="/user_login" method="post">
+					<form id="user-signup" class="col-xs-12" action="/user_login" method="post">
 						<div class="form-group">
 						    <input class="form-control" type="text" name="user-fname" placeholder="first name" required="required" title="">
 						</div>
@@ -23,12 +23,12 @@
 					    <div class="form-group">   
 					        <input class="form-control" type="password" name="user-pass2" placeholder="re-type password" required="required">
 					    </div>
+					    <div class="pull-right">
+						    <button type="button" class="modal-cancel btn btn-default" data-dismiss="modal">Cancel</button>
+						    <button id="signup-submit" type="button" class="btn btn-primary">Signup!</button>
+						</div>
 					</form>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-				<button id="signup-submit" type="button" class="btn btn-primary">Signup!</button>
 			</div>
 		</div>
 	</div>
