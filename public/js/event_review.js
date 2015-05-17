@@ -3,6 +3,7 @@
 
 var eventData; //Array of time objects from Database
 var dateTimeMap; //Key = start date Value = timeNameMap
+var maxMeeting = 0; //Maximum number of people available at one time
 
 $(document).ready(function() {
     
@@ -11,8 +12,8 @@ $(document).ready(function() {
         url: '/review_info',
         data: {e:getParameterByName('e')}
     }).success(function(data){
-        console.log("response data: ", data[0]);
         eventData = data;
+        console.log('event data', eventData);
         matchTimes();
         createTimes();
         matchTimes();
@@ -42,9 +43,8 @@ function matchTimes() {
         var time = rawTime[0] + ":" + rawTime[1]; //Convert to 11:00
         if (dateTimeMap.has(date)) { //If the date is already in
             var timeNameMap = dateTimeMap.get(date); //Map Key = time (hh:mm) Value = Array of names
-            if (timeNameMap.has(time)) { //already contains time, add to list.
-                if (time != undefined) {
-                    console.log("matching has time", time);
+            if (timeNameMap.has(time)) { //already contains time, add new name to list.
+                if (time != undefined) { //Had an undefined variable. Skipping it
                     var arr = timeNameMap.get(time);
                     arr.push(value.UserFName + " " + value.UserLName);
                     timeNameMap.set(time, arr);
@@ -54,15 +54,12 @@ function matchTimes() {
             }
             dateTimeMap.set(date, timeNameMap); //Set the value at 'date' to the new map
         } else { //Add the date
-            console.log(time);
             dateTimeMap.set(date, new Map().set(time, [value.UserFName + " " + value.UserLName]));
         }
     });
-
 }
 
 function createTimes() {
-    console.log('event data', eventData);
     var EventStartDate = new Date(eventData[0].EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - EventStartDate.getDate();
@@ -79,13 +76,16 @@ function createTimes() {
     
     for (var i = 1; i <= (duration / 30) + 1; i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
-        if (hr > 12) {
+        var isAM = true;
+        if (hr > 12) { //If it passes 12 then reset (AM/PM)
             hr = hr - 12;
+            isAM = false;
         }
-        if (hr < 10) {
+        if (hr < 10) { //If it is not a 2 digit then add a 0
             hr = "0" + hr; 
         }
-        var min = (i % 2 == 0) ? ":00" : ":30"; //Alternate 30 minutes        
+        var min = (i % 2 == 0) ? ":00" : ":30"; //Alternate 30 minutes
+        //var AMorPM = (isAM) ? " AM" : " PM";       
         var $tr = $('<tr>');
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
@@ -98,28 +98,55 @@ function createTimes() {
 
             //Create a table data object and check if it should be marked with names
             var $td = $('<td>').addClass('tableData').data("timeData", timeData);
-            if (dateTimeMap.has(timeData.startDate)) {
-                
+            var currMeeting = 0; //Used for finding opacity vs max
+            if (dateTimeMap.has(timeData.startDate)) { //If the date is used
                 var timeNameMap = dateTimeMap.get(timeData.startDate);
-                //var shit = timeNameMap.get(timeData.startTime);
-                if (timeNameMap.has(timeData.startTime)) {
+                if (timeNameMap.has(timeData.startTime)) { //If a time is used
+                    var namesArr = timeNameMap.get(timeData.startTime);
+                    currMeeting = namesArr.length;
+                    if (maxMeeting < namesArr.length) {
+                        maxMeeting = namesArr.length;
+                    }
                     $td.data('names', timeNameMap.get(timeData.startTime));
                     $td.addClass('dark-bg'); //Add the color class to the TD element
-                    //var f = timeShowNames.bind(this, "hi", shit);
-                    //$td.on('click', f);
-                    $td.click(function() {
-                        timeShowNames(timeNameMap.get(timeData.startTime)); //Still getting undefined. Sean has a solution above.
-                    });
+                    $td.on('mouseover', { //On mouse over
+                        namesArr: namesArr
+                    }, timeShowNames);
+                    $td.on('mouseout', timeHideNames); //On mouse out
                 }
             }
+            $td.css('opacity', currMeeting / maxMeeting);
             $tr.append($td);
         }
         $('#dataTable').append($tr);
     }
 }
 
-function timeShowNames(namesArr) {
-    console.log(namesArr);
+function timeShowNames(event) { //Currently not showing multiple names
+    var elem = event.toElement;
+    var namesArr = event.data.namesArr;
+
+    $(elem).addClass('time-hover');
+    var elemPos = $(elem).position();
+    var $div = $('<div>');
+    $div.addClass('time-names-hover light-bg');//.css('display', 'none');
+    $div.css('top', elemPos.top + $(elem).height() - 10+ 'px'); //Bottom of element
+    $div.css('left', elemPos.left + $(elem).width() - 20 + 'px'); //Right of element
+
+    $div.append('<div>Available: ' + namesArr.length + '/' + maxMeeting + '</div>');
+    for (var i = 0; i < namesArr.length; i++) {
+        var $nameDiv = $('<div>').addClass('names-row');
+        $nameDiv.text(namesArr[i]);
+        $div.append($nameDiv);
+    }
+
+    $('#dataTable').append($div);
+    //$($div).show("fast");
+}
+
+function timeHideNames(event) {
+    $('.time-names-hover').remove();
+    $(event.toElement).removeClass('time-hover');
 }
 
 /**

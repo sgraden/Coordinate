@@ -227,6 +227,21 @@ body > .container-fluid {
     background-color: #c2dfa6;
 }
 
+.time-hover {
+}
+
+.time-names-hover { /*element that appears on review page*/
+    position: absolute;
+    border: 1px solid black;
+    z-index: 10;
+    padding: 10px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+.time-names-hover > .names-row {
+
+}
+
 /* REVIEW PAGE - END */
 
 #holdingPage {
