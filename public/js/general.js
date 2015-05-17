@@ -182,7 +182,8 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
 	                    
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
 	                    $td.on('mouseover', { //On mouse over
-	                        namesArr: namesArr
+	                        namesArr: namesArr,
+	                        maxUsers: maxUsers
 	                    }, timeShowNames);
 	                    $td.on('mouseout', timeHideNames); //On mouse out
 	                    
@@ -190,14 +191,14 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
 	                    /*if (maxMeeting < currMeeting) {
 	                        maxMeeting = currMeeting;
 	                    }*/
-	                    if (currMeeting == maxMeeting) {
+	                    if (currMeeting == maxUsers) {
 	                    	$td.addClass('orange-bg');
 	                    } else {
 	                    	$td.addClass('dark-bg'); //Add the color class to the TD element
 	                    }
 	                }
 	            }
-	            $td.css('opacity', currMeeting / maxMeeting);
+	            $td.css('opacity', currMeeting / maxUsers);
 	        }
             $tr.append($td);
         }
@@ -270,6 +271,7 @@ function weekDay(w) {
 function timeShowNames(event) { //Currently not showing multiple names
     var elem = event.toElement;
     var namesArr = event.data.namesArr;
+    var maxUsers = event.data.maxUsers;
 
     $(elem).addClass('time-hover');
     var elemPos = $(elem).position();
@@ -278,7 +280,7 @@ function timeShowNames(event) { //Currently not showing multiple names
     $div.css('top', elemPos.top + $(elem).height() - 10+ 'px'); //Bottom of element
     $div.css('left', elemPos.left + $(elem).width() - 20 + 'px'); //Right of element
 
-    $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxMeeting + '</div>');
+    $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxUsers + '</div>');
     for (var i = 0; i < namesArr.length; i++) {
         var $nameDiv = $('<div>').addClass('names-row');
         $nameDiv.text(namesArr[i]);

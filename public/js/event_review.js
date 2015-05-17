@@ -16,7 +16,6 @@ $(document).ready(function() {
         console.log('event data', eventData);
         createDateTimeMap();
         createTimes(eventData, dateTimeMap, maxUsers);
-        createDateTimeMap();
     });
 
     $('.timeOption').click(function() {
@@ -57,10 +56,10 @@ function createDateTimeMap () {
             dateTimeMap.set(date, new Map().set(time, [value.UserFName + " " + value.UserLName]));
         }
         var currUsers = dateTimeMap.get(date).get(time).length;
+        console.log(currUsers);
         if (maxUsers < currUsers) {
             maxUsers = currUsers;
         }
-        console.log(maxUsers);
     });
     //findMaxUsers();
 }
