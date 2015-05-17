@@ -65,22 +65,25 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 // /*DB Connection - START*/
 
-/*var conn = mysql.createConnection({
-	host     : 'localhost',
-	database : 'coordinate',
-	user     : 'root',
-	password : 'Magnitude_9'
-});*/
+if (process.env.DB_USER) { 	//Connect to the heroku instance
+	var db_config = {
+		host     : 'us-cdbr-iron-east-02.cleardb.net',
+		database : 'heroku_d015497bbaaf387',
+		user     : process.env.DB_USER, //'b18e443b2960cf',
+		password : process.env.DB_P//'1a13ae39'
+	};
+	var conn = mysql.createConnection(db_config);
+	handleDisconnect();
+} else { //Local system
+	var conn = mysql.createConnection({
+		host     : 'localhost',
+		database : 'coordinate',
+		user     : 'root',
+		password : 'Magnitude_9'
+	});
+}
 
-//Connect to the heroku instance
-var db_config = {
-	host     : 'us-cdbr-iron-east-02.cleardb.net',
-	database : 'heroku_d015497bbaaf387',
-	user     : 'b18e443b2960cf',
-	password : '1a13ae39'
-};
-var conn = mysql.createConnection(db_config);
-handleDisconnect();
+
 
 function handleDisconnect() {
   conn = mysql.createConnection(db_config); // Recreate the connection, since
@@ -228,10 +231,11 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
 		if (err) {
 	      return console.error('error running query', err);
     	}
-    	console.log('availability results', results);
-    	if (results.length = 0) {
+
+    	if (results.length == 0) {
 			return console.error('no data found', results);
 		} else {
+			console.log('availability results', results);
 	    	var data = {
 	    		page_title: 'Availability',
 	    		event_name: results[0].EventName,
