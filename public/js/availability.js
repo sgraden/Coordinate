@@ -75,7 +75,7 @@ function submitAvailability() {
         data: compileAvailability()
     }).success(function() {
         //redirect or do something
-        window.location.replace('/event_review?e=' + eventData.EventUUID);
+        window.location.replace('/event_review?e=' + eventData[0].EventUUID);
     });
 }
 
@@ -87,17 +87,19 @@ function compileAvailability() {
      * Grab preferred info
      * look at times and days
      * put into a preferred object
-     * [id, time, startDate, day, preference]
+     * [id, startTime, startDate, day, preference]
      */
     $(".available").each(function(index) {
         var elem = $(this).data("timeData");
-        var elemData = [eventData.EventID, elem.time, elem.startDate, elem.day, "preferred"];
+        var elemData = [eventData[0].EventID, elem.startTime, elem.startDate, elem.day, "preferred"];
+        console.log(elemData);
         compiledData.elementData.push(elemData);
     });
 
     $(".not_preferred").each(function(index) {
         var elem = $(this).data("timeData");
-        var elemData = [eventData.EventID, elem.time, elem.startDate, elem.day, "not_preferred"];
+        console.log(elem);
+        var elemData = [eventData[0].EventID, elem.startTime, elem.startDate, elem.day, "not_preferred"];
         compiledData.elementData.push(elemData);
     });
     

@@ -1,9 +1,8 @@
 "use strict";
-(function() {
 
+(function() {
 var eventData; //Array of time objects from Database
 var dateTimeMap; //Key = start date Value = timeNameMap
-var maxMeeting = 0; //Maximum number of people available at one time
 
 $(document).ready(function() {
     
@@ -14,9 +13,9 @@ $(document).ready(function() {
     }).success(function(data){
         eventData = data;
         console.log('event data', eventData);
-        matchTimes();
+        createDateTimeMap();
         createTimes(eventData, dateTimeMap);
-        matchTimes();
+        createDateTimeMap();
     });
 
     $('.timeOption').click(function() {
@@ -34,7 +33,7 @@ $(document).ready(function() {
  * Loop through returned time data. Create a map of time to array of names.
  * @return {[type]} [description]
  */
-function matchTimes() {
+function createDateTimeMap () {
     dateTimeMap = new Map(); //Key = start date Value = timeNameMap
     $.each(eventData, function(index, value) {
         var dateObj = new Date(value.StartDate);
@@ -122,7 +121,7 @@ function matchTimes() {
     }
 }*/
 
-function timeShowNames(event) { //Currently not showing multiple names
+/*function timeShowNames(event) { //Currently not showing multiple names
     var elem = event.toElement;
     var namesArr = event.data.namesArr;
 
@@ -147,7 +146,7 @@ function timeShowNames(event) { //Currently not showing multiple names
 function timeHideNames(event) {
     $('.time-names-hover').remove();
     $(event.toElement).removeClass('time-hover');
-}
+}*/
 
 /**
  * Generate the top header for the week. This is where
@@ -209,5 +208,4 @@ function timeHideNames(event) {
     }
     return day;
 }*/
-
 })();

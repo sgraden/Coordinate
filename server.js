@@ -300,6 +300,7 @@ app.get('/event_review', function(req, res) { //Working on availability. Returns
 	      return console.error('error running query', err);
     	}
     	if (sess.userid) { //User is logged in
+    		console.log("event_review", results);
 			var startDate  = new Date(results[0].EventStartDate);
 				var startMonth = startDate.getMonth();
 				var startDay   = startDate.getDay();

@@ -32,7 +32,8 @@ function createMonthCal() {
 			startDate = start.format();
 			endDate = end.format();
 		},
-		fixedWeekCount: false
+		fixedWeekCount: false,
+		unselectAuto: false
 	});
 }
 

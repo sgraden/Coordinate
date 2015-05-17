@@ -1,5 +1,7 @@
 "use strict";
 
+var maxMeeting = 0; //Maximum number of people available at one time
+
 $(document).ready(function() {
 	//ejs.render(str);
 
@@ -129,7 +131,7 @@ function checkLogin() {
 
 
 function createTimes(eventData, dateTimeMap) {
-	console.log(eventData);
+	console.log("general eventData", eventData);
     var EventStartDate = new Date(eventData[0].EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - EventStartDate.getDate();
@@ -141,9 +143,9 @@ function createTimes(eventData, dateTimeMap) {
     var startx    = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
     var endx      = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
     var duration  = endx - startx; //Difference between times in minutes
-    
+
     weekHeader(length, EventStartDate); //Sets the days of the week
-    
+
     for (var i = 0; i < (duration / 30); i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
         var isAM = true;
@@ -179,12 +181,16 @@ function createTimes(eventData, dateTimeMap) {
 	                        maxMeeting = namesArr.length;
 	                    }
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
-	                    $td.addClass('dark-bg'); //Add the color class to the TD element
 	                    $td.on('mouseover', { //On mouse over
 	                        namesArr: namesArr
 	                    }, timeShowNames);
 	                    $td.on('mouseout', timeHideNames); //On mouse out
 	                }
+	            }
+	            if (currMeeting == maxMeeting) {
+	            	$td.addClass('orange-bg');
+	            } else {
+	            	$td.addClass('dark-bg'); //Add the color class to the TD element
 	            }
 	            $td.css('opacity', currMeeting / maxMeeting);
 	        }
@@ -192,6 +198,7 @@ function createTimes(eventData, dateTimeMap) {
         }
         $('#dataTable').append($tr);
     }
+    //return maxMeeting;
 }
 
 /**
@@ -255,3 +262,29 @@ function weekDay(w) {
     return day;
 }
 
+function timeShowNames(event) { //Currently not showing multiple names
+    var elem = event.toElement;
+    var namesArr = event.data.namesArr;
+
+    $(elem).addClass('time-hover');
+    var elemPos = $(elem).position();
+    var $div = $('<div>');
+    $div.addClass('time-names-hover light-bg');//.css('display', 'none');
+    $div.css('top', elemPos.top + $(elem).height() - 10+ 'px'); //Bottom of element
+    $div.css('left', elemPos.left + $(elem).width() - 20 + 'px'); //Right of element
+
+    $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxMeeting + '</div>');
+    for (var i = 0; i < namesArr.length; i++) {
+        var $nameDiv = $('<div>').addClass('names-row');
+        $nameDiv.text(namesArr[i]);
+        $div.append($nameDiv);
+    }
+
+    $('#dataTable').append($div);
+    //$($div).show("fast");
+}
+
+function timeHideNames(event) {
+    $('.time-names-hover').remove();
+    $(event.toElement).removeClass('time-hover');
+}

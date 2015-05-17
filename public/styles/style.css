@@ -36,6 +36,10 @@ body > .container-fluid {
     padding: 10px 40px;
 }
 
+h3 {
+    font-size: 20pt;
+}
+
 .fc-highlight {
     background-color: #118c4e;
     opacity: .5;
@@ -200,7 +204,11 @@ body > .container-fluid {
     border-radius: 5px;
 }
 
-#offeredTimesContainer:after {
+/*#review #review-event-details {
+
+}*/
+
+#offeredTimesContainer:after, #review #review-event-details:after {
     width: 80%;
     border-bottom: 1px solid grey;
     margin: 0 auto;
@@ -240,6 +248,10 @@ body > .container-fluid {
 }
 .time-names-hover > .names-row {
 
+}
+
+.time-names-hover > #time-names-total {
+    font-weight: bold;
 }
 
 /* REVIEW PAGE - END */

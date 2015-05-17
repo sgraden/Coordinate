@@ -23,14 +23,14 @@
             <h1 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
             <p id="review-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
         </div>
-        <div class="row">
+        <div id="review-event-details" class="row">
             <div id="eventCreator" class="col-xs-12">Event Creator: <b><%= locals.event_creator_fname + " " + locals.event_creator_lname %></b></div>
             <div id="eventLength" class="col-xs-12">Length of Event: <b><%= locals.event_length  %> hour(s)</b></div>
-            <div id="availFrom" class="col-xs-12">Available from: <b><%= locals.event_start_date  %> - <%= locals.event_end_date  %></b></div>
+            <div id="availFrom" class="col-xs-12">Available: <b><%= locals.event_start_date  %> - <%= locals.event_end_date  %></b></div>
         </div>
         <% if (locals.userID == locals.event_creator_id) { %>
             <div id="offeredTimesContainer" class="row">
-                <h3 class="col-xs-12">Top 3 Results</h3>
+                <h3 class="col-xs-12">Recommended Event Times</h3>
                 <p class="col-xs-12">
                     Select best time for your event form top results and Coordinate will notify participants of the event time.
                 </p>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <button id="sendInvite" type="button" class="btn btn-default orange-bg pull-right">Send Invite</button>
+                    <button id="sendInvite" type="button" class="btn btn-default orange-bg pull-right">Schedule Event</button>
                 </div>
             </div>
         <% } %>
