@@ -3,6 +3,7 @@
 (function() {
 var eventData; //Array of time objects from Database
 var dateTimeMap; //Key = start date Value = timeNameMap
+var maxUsers = 0;
 
 $(document).ready(function() {
     
@@ -14,7 +15,7 @@ $(document).ready(function() {
         eventData = data;
         console.log('event data', eventData);
         createDateTimeMap();
-        createTimes(eventData, dateTimeMap);
+        createTimes(eventData, dateTimeMap, maxUsers);
         createDateTimeMap();
     });
 
@@ -55,7 +56,23 @@ function createDateTimeMap () {
         } else { //Add the date
             dateTimeMap.set(date, new Map().set(time, [value.UserFName + " " + value.UserLName]));
         }
+        var currUsers = dateTimeMap.get(date).get(time).length;
+        if (maxUsers < currUsers) {
+            maxUsers = currUsers;
+        }
+        console.log(maxUsers);
     });
+    //findMaxUsers();
+}
+
+function findMaxUsers () {
+    /*var max = 0;
+    $.each(dateTimeMap, function (index, dateVal) {
+        $.each(dateVal.values(), function (index, timeVal) {
+
+        });
+    });
+    return max;*/
 }
 
 /*function createTimes() {

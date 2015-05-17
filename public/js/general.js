@@ -132,7 +132,7 @@ function checkLogin() {
 }
 
 
-function createTimes(eventData, dateTimeMap) {
+function createTimes(eventData, dateTimeMap, maxUsers) {
 	console.log("general eventData", eventData);
     var EventStartDate = new Date(eventData[0].EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
@@ -169,30 +169,33 @@ function createTimes(eventData, dateTimeMap) {
                 day: weekDay(EventStartDate.getDay() + w),
                 startDate: EventStartDate.getFullYear() + '-' + (EventStartDate.getMonth()  + 1) + '-' + (EventStartDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
             };
+            //console.log(timeData.day);
 
             //Create a table data object and check if it should be marked with names
             var $td = $('<td>').addClass('tableData').data("timeData", timeData);
+            var currMeeting = 0; //Used for finding opacity vs max
             if (dateTimeMap) {
-	            var currMeeting = 0; //Used for finding opacity vs max
 	            if (dateTimeMap.has(timeData.startDate)) { //If the date is used
 	                var timeNameMap = dateTimeMap.get(timeData.startDate);
 	                if (timeNameMap.has(timeData.startTime)) { //If a time is used
 	                    var namesArr = timeNameMap.get(timeData.startTime);
-	                    currMeeting = namesArr.length;
-	                    if (maxMeeting < namesArr.length) {
-	                        maxMeeting = namesArr.length;
-	                    }
+	                    
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
 	                    $td.on('mouseover', { //On mouse over
 	                        namesArr: namesArr
 	                    }, timeShowNames);
 	                    $td.on('mouseout', timeHideNames); //On mouse out
+	                    
+	                    currMeeting = namesArr.length;
+	                    /*if (maxMeeting < currMeeting) {
+	                        maxMeeting = currMeeting;
+	                    }*/
+	                    if (currMeeting == maxMeeting) {
+	                    	$td.addClass('orange-bg');
+	                    } else {
+	                    	$td.addClass('dark-bg'); //Add the color class to the TD element
+	                    }
 	                }
-	            }
-	            if (currMeeting == maxMeeting) {
-	            	$td.addClass('orange-bg');
-	            } else {
-	            	$td.addClass('dark-bg'); //Add the color class to the TD element
 	            }
 	            $td.css('opacity', currMeeting / maxMeeting);
 	        }
