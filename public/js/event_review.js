@@ -15,7 +15,7 @@ $(document).ready(function() {
         eventData = data;
         console.log('event data', eventData);
         matchTimes();
-        createTimes();
+        createTimes(eventData, dateTimeMap);
         matchTimes();
     });
 
@@ -59,7 +59,7 @@ function matchTimes() {
     });
 }
 
-function createTimes() {
+/*function createTimes() {
     var EventStartDate = new Date(eventData[0].EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - EventStartDate.getDate();
@@ -74,7 +74,7 @@ function createTimes() {
     
     weekHeader(length, EventStartDate); //Sets the days of the week
     
-    for (var i = 1; i <= (duration / 30) + 1; i++) { //Break into 30 minute boxes
+    for (var i = 0; i <= (duration / 30); i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
         var isAM = true;
         if (hr > 12) { //If it passes 12 then reset (AM/PM)
@@ -89,7 +89,7 @@ function createTimes() {
         var $tr = $('<tr>');
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
-        for (var w = 0; w <= length; w++) {
+        for (var w = 0; w < length; w++) {
             var timeData = {
                 startTime: hr + min,
                 day: weekDay(EventStartDate.getDay() + w),
@@ -120,7 +120,7 @@ function createTimes() {
         }
         $('#dataTable').append($tr);
     }
-}
+}*/
 
 function timeShowNames(event) { //Currently not showing multiple names
     var elem = event.toElement;
@@ -157,7 +157,7 @@ function timeHideNames(event) {
  * @param  {INT} length    How many days were selected
  * @param  {Date} startDate The starting date chosen by user in event_create
  */
-function weekHeader(length, startDate) {
+/*function weekHeader(length, startDate) {
     //console.log(length);
     var $trHead = $('<tr>');
     $trHead.append('<th>');
@@ -172,14 +172,14 @@ function weekHeader(length, startDate) {
         $trHead.append($th);
     }
     $('#dataTable').append($trHead);
-}
+}*/
 
 /**
  * Get the 3-letter weekday value based on an integer
  * @param  {int} w what day of the week you are looking at based on Date Object .getDay()
  * @return {String}   3-letter String of the weekday
  */
-function weekDay(w) {
+/*function weekDay(w) {
     if (w > 6) {
         w = 0;
     }
@@ -208,6 +208,6 @@ function weekDay(w) {
             break;
     }
     return day;
-}
+}*/
 
 })();

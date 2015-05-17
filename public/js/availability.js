@@ -16,8 +16,9 @@ $(document).ready(function() {
         data: {e:getParameterByName('e')}
     }).success(function(data){
         //console.log("response data: ", data[0]);
-        eventData = data[0];
-        createTimes();
+        eventData = data;
+        console.log(eventData);
+        createTimes(eventData);
 
         //btn for entering available
         $("#btn-available").click(function() {
@@ -104,7 +105,7 @@ function compileAvailability() {
 }
 
 //Still needs to create the days of the week based on provided data
-function createTimes() {
+/*function createTimes() {
     console.log(eventData);
     var startDate = new Date(eventData.EventStartDate);
     var endDate   = new Date(eventData.EventEndDate);
@@ -120,10 +121,15 @@ function createTimes() {
     
     weekHeader(length, startDate);
     
-    for (var i = 1; i <= (duration / 30) + 1; i++) { //Break into 30 minute boxes
+    for (var i = 0; i <= (duration / 30) - 1; i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
-        if (hr > 12) {
+        var isAM = true;
+        if (hr > 12) { //If it passes 12 then reset (AM/PM)
             hr = hr - 12;
+            isAM = false;
+        }
+        if (hr < 10) { //If it is not a 2 digit then add a 0
+            hr = "0" + hr; 
         }
         var min = (i % 2 == 0) ? ":00" : ":30"; //Alternate 30 minutes        
         var $tr = $('<tr>');
@@ -140,7 +146,7 @@ function createTimes() {
         }
         $('#dataTable').append($tr);
     }
-}
+}*/
 
 /**
  * Generate the top header for the week. This is where
@@ -150,7 +156,7 @@ function createTimes() {
  * @param  {INT} length    How many days were selected
  * @param  {Date} startDate The starting date chosen by user in event_create
  */
-function weekHeader(length, startDate) {
+/*function weekHeader(length, startDate) {
     //console.log(length);
     var $trHead = $('<tr>');
     $trHead.append('<th>');
@@ -165,14 +171,14 @@ function weekHeader(length, startDate) {
         $trHead.append($th);
     }
     $('#dataTable').append($trHead);
-}
+}*/
 
 /**
  * Get the 3-letter weekday value based on an integer
  * @param  {int} w what day of the week you are looking at based on Date Object .getDay()
  * @return {String}   3-letter String of the weekday
  */
-function weekDay(w) {
+/*function weekDay(w) {
     if (w > 6) {
         w = w - 6;
     }
@@ -201,7 +207,7 @@ function weekDay(w) {
             break;
     }
     return day;
-}
+}*/
 
 function timeMouseOver() {
     //Mousedown and not Times/Days
