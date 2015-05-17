@@ -1,5 +1,7 @@
 "use strict";
 
+//http://capcoordinate.herokuapp.com/event_review?e=0cd9216b-a183-417b-f149-b561b80f6258
+
 var maxMeeting = 0; //Maximum number of people available at one time
 
 $(document).ready(function() {
