@@ -228,18 +228,23 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
 		if (err) {
 	      return console.error('error running query', err);
     	}
-    	var data = {
-    		page_title: 'Availability',
-    		event_name: results[0].EventName,
-    		event_desc: results[0].EventDesc
-    	};
-    	if (sess.userfname) { //User is logged in
-    		data.username = sess.userfname;
-    		//console.log('availability data: ', data);
-	    	res.render('pages/availability', data);
-    	} else {
-    		res.redirect('/');
-    	}
+    	console.log('availability results', results);
+    	if (results.length = 0) {
+			return console.error('no data found', results);
+		} else {
+	    	var data = {
+	    		page_title: 'Availability',
+	    		event_name: results[0].EventName,
+	    		event_desc: results[0].EventDesc
+	    	};
+	    	if (sess.userfname) { //User is logged in
+	    		data.username = sess.userfname;
+	    		//console.log('availability data: ', data);
+		    	res.render('pages/availability', data);
+	    	} else {
+	    		res.redirect('/');
+	    	}
+	    }
 	});
 });
 app.post('/availability_info', function(req, res) { //maybe switch to get?
