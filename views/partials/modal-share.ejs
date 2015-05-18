@@ -1,0 +1,31 @@
+<div class="modal fade" id="modal-share" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Share</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+					<form id="share-email" class="col-xs-12" action="" method="post">
+					    <div class="form-group">
+					    	<span class="label">Copy link:</span>
+					        <input id="share-url" class="form-control" type="text" name="share-url" placeholder="" required="" title="">
+					    </div>
+
+					    <div class="form-group modal-share-email">
+					        <input class="form-control" type="email" name="share-email" placeholder="email" required="" title="">
+					    </div>
+					    <div id="share-add-holder" class="form-group">
+					    	<button id="share-add-btn" type="button" class="btn btn-default btn-large">+</button>
+					    </div>
+					    <div class="pull-right">
+						    <button id="share-cancel" type="button" class="modal-cancel btn btn-default" data-dismiss="modal">Cancel</button>
+						    <button id="share-send" type="button" class="btn btn-primary">Send</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

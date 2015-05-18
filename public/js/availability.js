@@ -22,10 +22,14 @@ $(document).ready(function() {
 
         //btn for entering available
         $("#btn-available").click(function() {
+            $('.preferenceClicked').removeClass('preferenceClicked');
+            $(this).addClass('preferenceClicked');
             preferredMode = true;
         });
         //btn for not preferred
         $("#btn-not-preferred").click(function() {
+            $('.preferenceClicked').removeClass('preferenceClicked');
+            $(this).addClass('preferenceClicked');
             preferredMode = false;
         });
 

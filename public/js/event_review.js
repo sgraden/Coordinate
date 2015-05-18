@@ -18,6 +18,22 @@ $(document).ready(function() {
         createTimes(eventData, dateTimeMap, maxUsers);
     });
 
+    $('#share-cancel').on('click', function() {
+        $('.modal-share-email').remove();
+        $('share-add-btn').click();
+    });
+
+    $('#share-url').val(window.location.href);
+    $('#share-add-btn').on('click', function() {
+        var $emailForm = $('<div class="form-group modal-share-email"><input class="form-control" type="email" name="share-email" placeholder="email" required="" title=""></div>');
+        $emailForm.insertBefore('#share-add-holder');
+    });
+
+    $('#send-invite').on('click', function() {
+        $('#modal-share').modal('show');
+        $('#share-url').select();
+    });
+
     $('.timeOption').click(function() {
         if ($(this).hasClass('light-bg')) {
             $(this).toggleClass('light-bg');

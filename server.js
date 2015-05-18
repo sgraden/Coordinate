@@ -224,7 +224,7 @@ app.post('/event_create', function(req, res) {
 app.get('/availability', function(req, res) { //Working on availability. Returns 3 times?
 	sess = req.session;
 	conn.query({
-		sql: 'SELECT * FROM tblEvent WHERE EventUUID = ?',
+		sql: 'SELECT u.UserFName, u.UserLName, e.* FROM tblEvent e JOIN tblUSER u ON e.EventCreatorID = u.UserID WHERE EventUUID = ?',
 		values: [req.query.e]
 	}, function(err, results, fields) {
 		//console.log('availability results: ', results);
@@ -236,10 +236,31 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
 			return console.error('no data found', results);
 		} else {
 			console.log('availability results', results);
-	    	var data = {
+	    	/*var data = {
 	    		page_title: 'Availability',
 	    		event_name: results[0].EventName,
 	    		event_desc: results[0].EventDesc
+	    	};*/
+	    	//4/1/2015 - 4/5/2015
+	    	var startDate  = new Date(results[0].EventStartDate);
+	    		var startMonth = startDate.getMonth() + 1; //0-11
+	    		var startDay   = startDate.getDate(); //1-31
+	    		var startYear  = startDate.getFullYear();
+	    	var endDate    = new Date(results[0].EventEndDate);
+	    		var endMonth   = endDate.getMonth() + 1;
+				var endDay     = endDate.getDate();
+	    		var endYear    = endDate.getFullYear();
+	    	var data = {
+	    		page_title: 'Availability',
+	    		userID: sess.userid,
+	    		username: sess.userfname,
+	    		event_name: results[0].EventName,
+	    		event_desc: results[0].EventDesc,
+	    		event_creator_fname: results[0].UserFName,
+	    		event_creator_lname: results[0].UserLName,
+	    		event_length: results[0].EventLength,
+	    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
+	    		event_end_date: endMonth + '/' + endDay + '/' + endYear
 	    	};
 	    	if (sess.userfname) { //User is logged in
 	    		data.username = sess.userfname;
@@ -302,12 +323,12 @@ app.get('/event_review', function(req, res) { //Working on availability. Returns
     	if (sess.userid) { //User is logged in
     		console.log("event_review", results);
 			var startDate  = new Date(results[0].EventStartDate);
-				var startMonth = startDate.getMonth();
-				var startDay   = startDate.getDay();
-				var startYear  = startDate.getFullYear();
+				var startMonth = startDate.getMonth() + 1; //0-11
+	    		var startDay   = startDate.getDate(); //1-31
+	    		var startYear  = startDate.getFullYear();
 			var endDate    = new Date(results[0].EventEndDate);
-				var endMonth   = endDate.getMonth();
-				var endDay     = endDate.getDay();
+				var endMonth   = endDate.getMonth() + 1;
+				var endDay     = endDate.getDate();
 				var endYear    = endDate.getFullYear();
 	    	var data = {
 	    		page_title: 'Review',

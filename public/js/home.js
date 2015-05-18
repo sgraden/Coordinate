@@ -2,10 +2,10 @@
 (function() {
 
 $(document).ready(function() {
-	console.log(window.location.hostname);
+	//console.log(window.location.hostname);
 	checkLogin();
 	$("#home-create").click(function() {
-		checkLogin();
+		//checkLogin();
 		if (checkLogin()) {
 			window.location.assign("/event_create");
 		} else {
