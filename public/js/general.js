@@ -135,6 +135,7 @@ function checkLogin() {
 function createTimes(eventData, dateTimeMap, maxUsers) {
 	console.log("general eventData", eventData);
     var EventStartDate = new Date(eventData[0].EventStartDate);
+    console.log('eventstartdate', EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - EventStartDate.getDate();
     if (length < 0) {
@@ -148,7 +149,7 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
 
     weekHeader(length, EventStartDate); //Sets the days of the week
 
-    for (var i = 0; i < (duration / 30); i++) { //Break into 30 minute boxes
+    for (var i = 1; i < (duration / 30); i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
         var isAM = true;
         if (hr > 12) { //If it passes 12 then reset (AM/PM)
@@ -164,6 +165,8 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
         for (var w = 0; w <= length; w++) {
+        	console.log('eventstartdate date', EventStartDate.getDate() + w);
+
             var timeData = {
                 startTime: hr + min,
                 day: weekDay(EventStartDate.getDay() + w),
