@@ -134,7 +134,11 @@ function checkLogin() {
 
 function createTimes(eventData, dateTimeMap, maxUsers) {
 	console.log("general eventData", eventData);
-    var EventStartDate = new Date(eventData[0].EventStartDate);
+
+	var fullDate = eventData[0].EventStartDate.split('T')[0];
+	var splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
+    var EventStartDate = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]);
+
     console.log('eventstartdate', EventStartDate);
     var endDate   = new Date(eventData[0].EventEndDate);
     var length    = endDate.getDate() - EventStartDate.getDate();
