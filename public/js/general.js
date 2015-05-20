@@ -142,9 +142,9 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
     }
     var startTime = eventData[0].EventStartTime.split(":"); //EventStartTime stored [hh, mm, ss]
     var endTime   = eventData[0].EventEndTime.split(":"); //EventEndTime stored [hh, mm, ss]
-    var startx    = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
-    var endx      = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
-    var duration  = endx - startx; //Difference between times in minutes
+    var startMin  = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
+    var endMin    = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
+    var duration  = endMin - startMin; //Difference between times in minutes
 
     weekHeader(length, EventStartDate); //Sets the days of the week
 
@@ -169,8 +169,7 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
                 day: weekDay(EventStartDate.getDay() + w),
                 startDate: EventStartDate.getFullYear() + '-' + (EventStartDate.getMonth()  + 1) + '-' + (EventStartDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
             };
-            //console.log(timeData.day);
-
+            console.log(timeData);
             //Create a table data object and check if it should be marked with names
             var $td = $('<td>').addClass('tableData').data("timeData", timeData);
             var currMeeting = 0; //Used for finding opacity vs max
@@ -220,12 +219,13 @@ function weekHeader(length, startDate) {
     var $trHead = $('<tr>');
     $trHead.append('<th>');
     for (var i = 0; i <= length; i++) { //Loop for number of days
+    	var startDay = startDate.getDay();
         var day;
-        var currDay = i;
-        if (i + startDate.getDay() > 6) { //If the day is > 6 loop back to week start
+        var currDay = i; //current day in the week.
+        if (i + startDay > 6) { //If the day is > 6 loop back to week start
             currDay = i - 7;
         }
-        day = weekDay(currDay + startDate.getDay());
+        day = weekDay(currDay + startDay); //The three letter day
         var $th = $('<th>').html(day.toUpperCase());
         $trHead.append($th);
     }
