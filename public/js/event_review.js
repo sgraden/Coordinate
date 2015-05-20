@@ -54,7 +54,11 @@ $(document).ready(function() {
 function createDateTimeMap () {
     dateTimeMap = new Map(); //Key = start date Value = timeNameMap
     $.each(eventData, function(index, value) {
-        var dateObj = new Date(value.StartDate);
+        var fullDate = value.StartDate.split('T')[0];
+        var splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
+        var dateObj = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]); //Month is base 0
+        
+        //var dateObj = new Date(value.StartDate);
         var date = dateObj.getFullYear() + '-' + (dateObj.getMonth() + 1) + '-' + dateObj.getDate(); //Needs to match the createTime timeDate.startDate
         var rawTime = value.StartTime.split(':'); //split 02:00:00
         var time = rawTime[0] + ":" + rawTime[1]; //Convert to 11:00
