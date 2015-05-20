@@ -18,7 +18,7 @@
             <li><a href="#">Account</a></li>
             <li><a href="#">Help</a></li> -->
             <% if (locals.username) { %>
-                <li><a id="username-holder" href="#"><%= locals.username %></a></li>
+                <li><a id="username-holder" href="/view_events"><%= locals.username %></a></li>
                 <li><a id="logout-button" href="#">Logout</a></li>
             <% } else { %>
                 <li><a class="login-button" href="#">Login</a></li>

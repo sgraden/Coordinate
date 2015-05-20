@@ -284,6 +284,7 @@ app.post('/availability_info', function(req, res) { //maybe switch to get?
 	      return console.error('error running query', err);
     	}
     	if (sess.userfname) {
+    		console.log(results);
     		//console.log(results);
 			res.json(results);
     	} else {
@@ -359,6 +360,47 @@ app.post('/review_info', function(req, res) {
 	      return console.error('error running query', err);
     	}
 		res.json(results);
+	});
+});
+
+app.get('/view_events', function(req, res) { //Working on availability. Returns 3 times?
+	sess = req.session;
+	conn.query({
+		sql: 'SELECT e.EventName, e.EventDesc, e.EventStartDate, e.EventEndDate, e.EventUUID FROM tblUSER u JOIN tblTime t ON u.UserID = t.UserID JOIN tblEVENT e ON t.EventID = e.EventID WHERE u.UserID = ?',
+		values: [sess.userid]
+	}, function(err, results, fields) {
+		console.log('view_events results: ', results);
+		if (err) {
+	      return console.error('error running query', err);
+    	}
+    	if (sess.userid) { //User is logged in
+    		console.log("event_review", results);
+    		var data = [];
+    		for (var i = 0; i < results.length; i++) {
+				var startDate  = new Date(results[i].EventStartDate);
+					var startMonth = startDate.getMonth() + 1; //0-11
+		    		var startDay   = startDate.getDate(); //1-31
+		    		var startYear  = startDate.getFullYear();
+				var endDate    = new Date(results[i].EventEndDate);
+					var endMonth   = endDate.getMonth() + 1;
+					var endDay     = endDate.getDate();
+					var endYear    = endDate.getFullYear();
+		    	var eventInfo = {
+		    		page_title: 'Review',
+		    		username: sess.userfname,
+		    		event_name: results[i].EventName,
+		    		event_desc: results[i].EventDesc,
+		    		event_uuid: results[i].EventUUID,
+		    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
+		    		event_end_date: endMonth + '/' + endDay + '/' + endYear
+		    	};
+		    	data.push(eventInfo);
+		    }
+	    	res.render('pages/event_review', data);
+    	} else {
+    		res.redirect('/');
+    	}
+		
 	});
 });
 

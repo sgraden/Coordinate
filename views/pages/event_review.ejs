@@ -30,7 +30,7 @@
             <div id="eventLength" class="col-xs-12">Length of Event: <b><%= locals.event_length  %> hour(s)</b></div>
             <div id="availFrom" class="col-xs-12">Dates: <b><%= locals.event_start_date  %> - <%= locals.event_end_date  %></b></div>
             <div class="col-xs-12">
-                <button id="send-invite" type="button" class="btn btn-lg orange-bg pull-right">Share Link</button>
+                <button id="send-invite" type="button" class="btn btn-lg orange-bg pull-right">Share Event</button>
             </div>
         </div>
     <% if (locals.userID == locals.event_creator_id) { %>
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="col-xs-12">
-                <button id="sendInvite" type="button" class="btn btn-default btn-lg orange-bg pull-right">Schedule Event</button>
+                <button id="schedule-event" type="button" class="btn btn-default btn-lg orange-bg pull-right">Schedule Event</button>
             </div>
         </div>
 

@@ -4,7 +4,7 @@
 $(document).ready(function() {
 	//console.log(window.location.hostname);
 	checkLogin();
-	$("#home-create").click(function() {
+	$("#home-create, #home-info-cover").click(function() {
 		//checkLogin();
 		if (checkLogin()) {
 			window.location.assign("/event_create");
