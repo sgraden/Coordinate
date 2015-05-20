@@ -176,21 +176,22 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
         for (var w = 0; w <= length; w++) {
-        	console.log('eventstartdate date', startDate.getDate() + w);
-
+        	//console.log('eventstartdate date', startDate.getDate() + w);
             var timeData = {
                 startTime: hr + min,
                 day: weekDay(startDate.getDay() + w),
                 startDate: startDate.getFullYear() + '-' + (startDate.getMonth()  + 1) + '-' + (startDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
             };
-            console.log(timeData);
+            //console.log(timeData);
             //Create a table data object and check if it should be marked with names
             var $td = $('<td>').addClass('tableData').data("timeData", timeData);
             var currMeeting = 0; //Used for finding opacity vs max
             if (dateTimeMap) {
+            	console.log('timeDate startDate', timeData.startDate + timeData.day);
 	            if (dateTimeMap.has(timeData.startDate)) { //If the date is used
 	                var timeNameMap = dateTimeMap.get(timeData.startDate);
 	                if (timeNameMap.has(timeData.startTime)) { //If a time is used
+	                	console.log('timeDate startTime', timeData.startTime);
 	                    var namesArr = timeNameMap.get(timeData.startTime);
 	                    
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
