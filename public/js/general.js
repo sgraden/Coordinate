@@ -135,13 +135,20 @@ function checkLogin() {
 function createTimes(eventData, dateTimeMap, maxUsers) {
 	console.log("general eventData", eventData);
 
-	var fullDate = eventData[0].EventStartDate.split('T')[0];
-	var splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
-    var EventStartDate = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]);
+	var fullDate; //Used to store string of the full date from the server date
+	var splitDate; //Used to store array of YEAR/MONTH/DAY
+    //Start Date - Strip the server date time of any info and create date object purely based on the days
+	fullDate = eventData[0].EventStartDate.split('T')[0];
+	splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
+    var startDate = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]); //Month is base 0
+    //End Date - Strip the server date time of any info and create date object purely based on the days
+    fullDate = eventData[0].EventEndDate.split('T')[0];
+    splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
+    var endDate   = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]);
 
-    console.log('eventstartdate', EventStartDate);
-    var endDate   = new Date(eventData[0].EventEndDate);
-    var length    = endDate.getDate() - EventStartDate.getDate();
+    console.log('eventstartdate', startDate);
+
+    var length    = endDate.getDate() - startDate.getDate();
     if (length < 0) {
         length = length * -1;
     }
@@ -151,7 +158,7 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
     var endMin    = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
     var duration  = endMin - startMin; //Difference between times in minutes
 
-    weekHeader(length, EventStartDate); //Sets the days of the week
+    weekHeader(length, startDate); //Sets the days of the week
 
     for (var i = 1; i < (duration / 30); i++) { //Break into 30 minute boxes
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
@@ -169,12 +176,12 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
         for (var w = 0; w <= length; w++) {
-        	console.log('eventstartdate date', EventStartDate.getDate() + w);
+        	console.log('eventstartdate date', startDate.getDate() + w);
 
             var timeData = {
                 startTime: hr + min,
-                day: weekDay(EventStartDate.getDay() + w),
-                startDate: EventStartDate.getFullYear() + '-' + (EventStartDate.getMonth()  + 1) + '-' + (EventStartDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
+                day: weekDay(startDate.getDay() + w),
+                startDate: startDate.getFullYear() + '-' + (startDate.getMonth()  + 1) + '-' + (startDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
             };
             console.log(timeData);
             //Create a table data object and check if it should be marked with names
