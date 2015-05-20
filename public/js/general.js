@@ -146,7 +146,7 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
     splitDate = fullDate.split('-'); //0=xxxx, 1=month, 2=day
     var endDate   = new Date(splitDate[0], parseInt(splitDate[1]) - 1, splitDate[2]);
 
-    console.log('eventstartdate', startDate);
+    //console.log('eventstartdate', startDate);
 
     var length    = endDate.getDate() - startDate.getDate();
     if (length < 0) {
@@ -157,10 +157,15 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
     var startMin  = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
     var endMin    = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
     var duration  = endMin - startMin; //Difference between times in minutes
-
+    console.log(endMin - startMin);
     weekHeader(length, startDate); //Sets the days of the week
 
-    for (var i = 1; i < (duration / 30); i++) { //Break into 30 minute boxes
+    var halfAdjustment = 0;
+    if (parseInt(startTime[1]) == 30) { //
+    	halfAdjustment = 1;
+    }
+    for (var i = 0 + halfAdjustment; i < (duration / 30) + halfAdjustment; i++) { //Break into 30 minute boxes
+    	//console.log(i);
         var hr = Math.floor((i / 2) + parseInt(startTime[0]));
         var isAM = true;
         if (hr > 12) { //If it passes 12 then reset (AM/PM)
@@ -176,22 +181,19 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
         $tr.append($('<td>').addClass('tblTime').html(hr + min));
 
         for (var w = 0; w <= length; w++) {
-        	//console.log('eventstartdate date', startDate.getDate() + w);
             var timeData = {
                 startTime: hr + min,
                 day: weekDay(startDate.getDay() + w),
                 startDate: startDate.getFullYear() + '-' + (startDate.getMonth()  + 1) + '-' + (startDate.getDate() + w) //eventData[0].StartDate.split('T')[0]
             };
-            //console.log(timeData);
+
             //Create a table data object and check if it should be marked with names
             var $td = $('<td>').addClass('tableData').data("timeData", timeData);
             var currMeeting = 0; //Used for finding opacity vs max
             if (dateTimeMap) {
-            	console.log('timeDate startDate', timeData.startDate + timeData.day);
 	            if (dateTimeMap.has(timeData.startDate)) { //If the date is used
 	                var timeNameMap = dateTimeMap.get(timeData.startDate);
 	                if (timeNameMap.has(timeData.startTime)) { //If a time is used
-	                	console.log('timeDate startTime', timeData.startTime);
 	                    var namesArr = timeNameMap.get(timeData.startTime);
 	                    
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
@@ -256,31 +258,33 @@ function weekDay(w) {
     if (w > 6) {
         w = 0;
     }
-    var day;
-    switch (w) {
-        case 0:
-            day = 'sun';
-            break;
-        case 1:
-            day = 'mon';
-            break;
-        case 2:
-            day = 'tue';
-            break;
-        case 3:
-            day = 'wed';
-            break;
-        case 4:
-            day = 'thu';
-            break;
-        case 5:
-            day = 'fri';
-            break;
-        case 6:
-            day = 'sat';
-            break;
-    }
-    return day;
+    var days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+    return days[w];
+    // var day;
+    // switch (w) {
+    //     case 0:
+    //         day = 'sun';
+    //         break;
+    //     case 1:
+    //         day = 'mon';
+    //         break;
+    //     case 2:
+    //         day = 'tue';
+    //         break;
+    //     case 3:
+    //         day = 'wed';
+    //         break;
+    //     case 4:
+    //         day = 'thu';
+    //         break;
+    //     case 5:
+    //         day = 'fri';
+    //         break;
+    //     case 6:
+    //         day = 'sat';
+    //         break;
+    // }
+    // return day;
 }
 
 function timeShowNames(event) { //Currently not showing multiple names
