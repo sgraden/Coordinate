@@ -20,12 +20,12 @@
         <% include ../partials/nav %>
     </nav>
 
-    <div id="review-content" class="col-xs-10 col-xs-offset-1">
+    <div id="review-content" class="content col-xs-10 col-xs-offset-1">
         <div class="row">
             <h1 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
             <p id="review-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
         </div>
-        <div id="review-event-details" class="event-details row">
+        <div id="review-event-details" class="page_break row">
             <div id="eventCreator" class="col-xs-12">Event Creator: <b><%= locals.event_creator_fname + " " + locals.event_creator_lname %></b></div>
             <div id="eventLength" class="col-xs-12">Length of Event: <b><%= locals.event_length  %> hour(s)</b></div>
             <div id="availFrom" class="col-xs-12">Dates: <b><%= locals.event_start_date  %> - <%= locals.event_end_date  %></b></div>
@@ -35,10 +35,10 @@
         </div>
     <% if (locals.userID == locals.event_creator_id) { %>
 
-        <div id="offeredTimesContainer" class="row">
+        <div id="offered-times-container" class="page_break row">
             <h3 class="col-xs-12">Recommended Event Times</h3>
             <p class="col-xs-12">
-                Select best time for your event form top results and Coordinate will notify participants of the event time.
+                Select best time for your event from recommended times and Coordinate will notify participants of the event time.
             </p>
             <div class="col-xs-6 col-xs-offset-3 timeOption">
                 <div class="col-xs-2">Tue 17</div>

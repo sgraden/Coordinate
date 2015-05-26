@@ -17,9 +17,16 @@
             <!-- <li><a href="#">About</a></li>
             <li><a href="#">Account</a></li>
             <li><a href="#">Help</a></li> -->
+            <li><a id="nav-home" href="/">Home</a></li>
             <% if (locals.username) { %>
-                <li><a id="username-holder" href="/view_events"><%= locals.username %></a></li>
-                <li><a id="logout-button" href="#">Logout</a></li>
+                <li><a id="username-holder" href="#"><%= locals.username %></a></li>
+                <div id="dropdown-container" class="light-bg">
+                    <ul>
+                        <li><a href="/view_events">View events</a></li>
+                        <li id="logout-button">Logout</li>
+                    </ul>
+                </div>
+                <!-- <li><a id="logout-button" href="#">Logout</a></li> -->
             <% } else { %>
                 <li><a class="login-button" href="#">Login</a></li>
                 <li><a class="signup-button" href="#">Signup</a></li>

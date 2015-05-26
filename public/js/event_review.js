@@ -13,7 +13,7 @@ $(document).ready(function() {
         data: {e:getParameterByName('e')}
     }).success(function(data){
         eventData = data;
-        //console.log('event data', eventData);
+        console.log('event data', eventData);
         createDateTimeMap();
         createTimes(eventData, dateTimeMap, maxUsers);
     });

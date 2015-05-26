@@ -27,6 +27,16 @@ $(document).ready(function() {
 		$('#user-signup')[0].reset();
 	});
 
+    $('#username-holder').on('mouseover', function () {
+        $('#dropdown-container').show();
+    });
+    $('#username-holder').on('mouseout', function () {
+        //$('#dropdown-container').hide();
+    });
+	// $('#username-holder').click(function() {
+	// 	window.location.href = "/view_events";
+	// });
+
 
 
 });
@@ -45,7 +55,7 @@ function accountLogin() {
 		payload
 	).success(function(data) { //Reload page with stored info
 		$.cookie('l', 'true', {expires: 7, path: '/'});
-		window.location.href = '/';
+		window.location.href = '/'; //Will need to be changed if logging into other pages
 	});
 }
 
@@ -127,7 +137,7 @@ function pauseEvent(e){
 
 function checkLogin() {
 	var cookie = $.cookie('l');
-	console.log(cookie);
+	//console.log(cookie);
 	return cookie != null;
 }
 

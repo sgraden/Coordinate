@@ -39,6 +39,7 @@ function createMonthCal() {
 
 function submitEvent(e) {
 	e.preventDefault();
+	clearErr();
 
 	//Data pulled from the input fields (include startDate/endDate from global)
 	var name = $('input[name="event-name"]').val();
@@ -56,31 +57,57 @@ function submitEvent(e) {
 	}
 	var notifyEach = $('input[name="notify-each"]').is(':checked') ? 1 : 0;
 	var generatedUUID = guid();
-	//Payload to send to the server to insert to DB
-	var payload = {
-		name: 		name,
-		descr: 		descr,
-		startDate: 	startDate,
-		endDate: 	endDate,
-		startTime: 	startTime,
-		endTime: 	endTime,
-		eventLength: eventLength,
-		notifyNum: 	notifyNum,
-		notifyDays: notifyDays,
-		notifyEach: notifyEach,
-		uuid: generatedUUID
-	};
 
-	$.ajax({
-		type: "POST",
-		url: '/event_create',
-		data: payload
-	}).success(function(data){
-		//console.log(data);
-		window.location.replace(data);
-	});
+	var pass = true;
+	var errID = ""; //ID of element to highlight
+	if (startTime >= endTime) { //If the start time before end time
+		pass = false;
+		errID = 'input[name="event-time-from"], input[name="event-time-to"]';
+	}
+	if (startDate == undefined || startTime == undefined) {
+		pass = false;
+		errID = '#event-calendar > div';
+	}
+	if (name == "") {
+		pass = false
+		errID = 'input[name="event-name"]';
+	}
+
+	if (pass) {
+		//Payload to send to the server to insert to DB
+		var payload = {
+			name: 		name,
+			descr: 		descr,
+			startDate: 	startDate,
+			endDate: 	endDate,
+			startTime: 	startTime,
+			endTime: 	endTime,
+			eventLength: eventLength, //Half hours not supported
+			notifyNum: 	notifyNum,
+			notifyDays: notifyDays,
+			notifyEach: notifyEach,
+			uuid: generatedUUID
+		};
+
+		$.ajax({
+			type: "POST",
+			url: '/event_create',
+			data: payload
+		}).success(function(data){
+			//console.log(data);
+			window.location.replace(data);
+		});
+	} else {
+		$(errID).css('border', '2px solid red');
+		$(errID)[0].scrollIntoView( true );
+	}
 
 	return false;
+}
+
+function clearErr() {
+	$('input[name="event-time-from"], input[name="event-time-to"], input[name="event-name"]').css('border', '1px solid #ccc');
+	$('#event-calendar > div').css('border', 'none');
 }
 
 })();

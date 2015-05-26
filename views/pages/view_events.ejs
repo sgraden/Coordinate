@@ -4,65 +4,83 @@
         <% include ../partials/head %>
 
 		<!-- My Scripts -->
-		<script type="text/javascript" src="js/home.js"></script>
+		<script type="text/javascript" src="js/view_events.js"></script>
 
 		<!-- My Styles -->
 		<link rel="stylesheet" type="text/css" href="styles/style.css">
 
 	</head>
 <body>
-<%= include ../partials/modal-login %>
-<%= include ../partials/modal-signup %>
-<%= include ../partials/modal-loginalert %>
+<% include ../partials/modal-login %>
+<% include ../partials/modal-signup %>
+<% include ../partials/modal-loginalert %>
 
-<div id="home" class="container-fluid">
+<div id="view-events" class="container-fluid">
     <nav id="nav" class="navbar navbar-default light-bg">
         <% include ../partials/nav %>
     </nav>
-    
-    <div id="home-jumbo" class="jumbotron grey-bg">
+    <div id="view-events-content" class="content col-xs-10 col-xs-offset-1">
         <div class="row">
-            <div class=" col-xs-4 col-xs-offset-1">
-                <img class="img-responsive" src="assets/images/logoSmall.png" />
+            <div id="view-events-created-button" class="col-xs-3 col-xs-offset-3">
+                <div class="view-events-selector clicked no-select">Created events</div>
             </div>
-            <div class="col-xs-6">
-                <div class="row">
-                    <div id="home-desc" class="col-xs-12">Quickly compare schedules to find a meeting time that works for everyone!</div>
-                </div>
-                <div class="row">
-                    <button id="home-create" class="center-block grey-bg" type="create">Create Event</button>
-                </div>
+            <div id="view-events-participated-button" class="col-xs-3">
+                <div class="view-events-selector no-select">Participated events</div>
             </div>
         </div>
-    </div>
+        
 
-    <div id="home-info-section" class="no-select">
-        <div id="home-info-cover">Click to start creating</div>
-        <div class="row">
-            <div class="col-xs-3">
-                <div class="info-items">
-                    <div>Create Event</div>
-                    <i class="fa fa-plus-square-o"></i>
+        <div id="view-events-created" class="row">
+            <h1 class="col-xs-12">Your Events</h1>
+
+    <%
+        var createdEvents = locals.events[0];
+        var participatedEvents = locals.events[1];
+        if (createdEvents.length != 0) {
+            createdEvents.forEach(function(event) {
+                var startDate = event.EventStartDate;
+                var endDate = event.EventEndDate;
+    %>
+            <div class="view-events-element col-xs-10 col-xs-offset-1" data-uuid="<%= event.EventUUID %>">
+                <div class="col-xs-3">
+                    <h3 class="view-events-title "><%= event.EventName%></h3>
+                    <div>Start Date: <%= startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() %></div>
+                    <div>End Date: <%= endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() %></div>
                 </div>
+                <div class="view-events-desc col-xs-9"><%= event.EventDesc %></div>
             </div>
-            <div class="col-xs-3">
-                <div class="info-items">
-                    <div>Insert Availability</div>
-                    <i class="fa fa-calendar"></i>
+    <%
+            });
+        } else {
+    %>
+            <div id="view-events-none" class="col-xs-12">
+                You have not created any events. Would you like to <a href="/event_create">Create an event</a>?
+            </div>
+    <%
+        }
+    %>
+        </div>
+        <div id="view-events-participated" class="row">
+            <h1 class="col-xs-12">Participated Events</h1>
+
+    <%
+        participatedEvents.forEach(function(event) {
+            var startDate = event.EventStartDate;
+            var endDate = event.EventEndDate;
+    %>
+
+            <div class="view-events-element col-xs-10 col-xs-offset-1" data-uuid="<%= event.EventUUID %>">
+                <div class="col-xs-3">
+                    <h3 class="view-events-title "><%= event.EventName%></h3>
+                    <div>Start Date: <%= startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() %></div>
+                    <div>End Date: <%= endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() %></div>
                 </div>
+                <div class="view-events-desc col-xs-9"><%= event.EventDesc %></div>
             </div>
-            <div class="col-xs-3">
-                <div class="info-items">
-                    <div>Share Event</div>
-                    <i class="fa fa-share-alt"></i>
-                </div>
-            </div>
-            <div class="col-xs-3">
-                <div class="info-items">
-                    <div>Schedule Event</div>
-                    <i class="fa fa-envelope-o"></i>
-                </div>
-            </div>
+
+    <%
+        });
+    %>
         </div>
     </div>
 </div>

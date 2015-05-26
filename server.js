@@ -61,8 +61,6 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 	extended: true
 }));
 
-
-
 // /*DB Connection - START*/
 
 if (process.env.DB_USER) { 	//Connect to the heroku instance
@@ -70,7 +68,8 @@ if (process.env.DB_USER) { 	//Connect to the heroku instance
 		host     : 'us-cdbr-iron-east-02.cleardb.net',
 		database : 'heroku_d015497bbaaf387',
 		user     : process.env.DB_USER, //'b18e443b2960cf',
-		password : process.env.DB_P//'1a13ae39'
+		password : process.env.DB_P,//'1a13ae39'
+		multipleStatements: true
 	};
 	var conn = mysql.createConnection(db_config);
 	handleDisconnect();
@@ -79,7 +78,8 @@ if (process.env.DB_USER) { 	//Connect to the heroku instance
 		host     : 'localhost',
 		database : 'coordinate',
 		user     : 'root',
-		password : 'Magnitude_9'
+		password : 'Magnitude_9',
+		multipleStatements: true
 	});
 }
 
@@ -139,7 +139,10 @@ app.post('/user_login', function(req, res) {
     		sess.userid = results[0].userid;
     		sess.userfname = results[0].userfname;
     		//console.log('Login Session', sess);
-	    	res.json([{userfname: '' + results[0].userfname}]);	
+    		var data = {
+    			username: results[0].userfname
+    		};
+	    	res.json([data]);	
 		} else {
 			res.send("failed");
 		}
@@ -292,7 +295,7 @@ app.post('/availability_info', function(req, res) { //maybe switch to get?
     	}
 	});
 });
-app.post('/availability_submit', function(req, res) { //[eventid, time, startDate, day, preference, userID]
+app.post('/availability_submit', function (req, res) { //[eventid, time, startDate, day, preference, userID]
 	sess = req.session;
 	//console.log(sess);
 	//console.log(req.body);
@@ -311,19 +314,19 @@ app.post('/availability_submit', function(req, res) { //[eventid, time, startDat
 	});
 });
 
-app.get('/event_review', function(req, res) { //Working on availability. Returns 3 times?
+app.get('/event_review', function (req, res) { //Working on availability. Returns 3 times?
 	sess = req.session;
-	conn.query({
-		sql: 'SELECT u.UserFName, u.UserLName, e.* FROM tblEvent e JOIN tblUSER u ON e.EventCreatorID = u.UserID WHERE EventUUID = ?',
-		values: [req.query.e]
-	}, function(err, results, fields) {
-		//console.log('availability results: ', results);
-		if (err) {
-	      return console.error('error running query', err);
-    	}
-    	if (sess.userid) { //User is logged in
-    		console.log("event_review", results);
-			var startDate  = new Date(results[0].EventStartDate);
+	if (sess.userid) { //User is logged in
+		conn.query({
+			sql: 'SELECT u.UserFName, u.UserLName, e.* FROM tblEvent e JOIN tblUSER u ON e.EventCreatorID = u.UserID WHERE EventUUID = ?',
+			values: [req.query.e]
+		}, function (err, results, fields) {
+			//console.log('availability results: ', results);
+			if (err) {
+		      return console.error('error running query', err);
+	    	}
+			console.log("event_review", results);
+			var startDate  = new Date(results[0].EventStartDate); //May have caused issue with front because server time zone different from local
 				var startMonth = startDate.getMonth() + 1; //0-11
 	    		var startDay   = startDate.getDate(); //1-31
 	    		var startYear  = startDate.getFullYear();
@@ -345,63 +348,57 @@ app.get('/event_review', function(req, res) { //Working on availability. Returns
 	    		event_end_date: endMonth + '/' + endDay + '/' + endYear
 	    	};
 	    	res.render('pages/event_review', data);
-    	} else {
-    		res.redirect('/');
-    	}
-		
-	});
+		});
+    } else {
+		res.redirect('/');
+	}
 });
-app.post('/review_info', function(req, res) {
-	conn.query({
-		sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime, e.EventStartDate, e.EventEndDate FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE EventUUID = ?",
-		values: [req.body.e]
-	}, function (err, results, fields) {
-		if (err) {
-	      return console.error('error running query', err);
-    	}
-		res.json(results);
-	});
+app.post('/review_info', function (req, res) {
+	if (req.body.e) {
+		conn.query({
+			sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime, e.EventStartDate, e.EventEndDate FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE EventUUID = ?",
+			values: [req.body.e]
+		}, function (err, results, fields) {
+			if (err) {
+		      return console.error('error running query', err);
+	    	}
+			res.json(results);
+		});
+	}
 });
 
-app.get('/view_events', function(req, res) { //Working on availability. Returns 3 times?
+/*app.get('/view_events', function (req, res) {
 	sess = req.session;
-	conn.query({
-		sql: 'SELECT e.EventName, e.EventDesc, e.EventStartDate, e.EventEndDate, e.EventUUID FROM tblUSER u JOIN tblTime t ON u.UserID = t.UserID JOIN tblEVENT e ON t.EventID = e.EventID WHERE u.UserID = ?',
-		values: [sess.userid]
-	}, function(err, results, fields) {
-		console.log('view_events results: ', results);
-		if (err) {
-	      return console.error('error running query', err);
-    	}
-    	if (sess.userid) { //User is logged in
-    		console.log("event_review", results);
-    		var data = [];
-    		for (var i = 0; i < results.length; i++) {
-				var startDate  = new Date(results[i].EventStartDate);
-					var startMonth = startDate.getMonth() + 1; //0-11
-		    		var startDay   = startDate.getDate(); //1-31
-		    		var startYear  = startDate.getFullYear();
-				var endDate    = new Date(results[i].EventEndDate);
-					var endMonth   = endDate.getMonth() + 1;
-					var endDay     = endDate.getDate();
-					var endYear    = endDate.getFullYear();
-		    	var eventInfo = {
-		    		page_title: 'Review',
-		    		username: sess.userfname,
-		    		event_name: results[i].EventName,
-		    		event_desc: results[i].EventDesc,
-		    		event_uuid: results[i].EventUUID,
-		    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
-		    		event_end_date: endMonth + '/' + endDay + '/' + endYear
-		    	};
-		    	data.push(eventInfo);
-		    }
-	    	res.render('pages/event_review', data);
-    	} else {
-    		res.redirect('/');
-    	}
-		
-	});
+	if (sess) { //User is logged in
+	    var data = {
+	    	page_title: "View Events",
+	    	username: sess.userfname,
+	    };
+    	res.render('pages/view_events', data);
+	}
+});*/
+app.get('/view_events', function (req, res) { //Load up the user list of events 
+	sess = req.session;
+	if (sess.userid) { //User is logged in
+		conn.query({
+			sql: 'SELECT e.EventName, e.EventDesc, e.EventStartDate, e.EventEndDate, e.EventUUID FROM tblUSER u JOIN tblEVENT e ON u.UserID = e.EventCreatorID WHERE e.EventCreatorID = ? ORDER BY e.EventStartDate DESC; SELECT DISTINCT e.EventName, e.EventCreatorID, e.EventDesc, e.EventStartDate, e.EventEndDate, e.EventUUID FROM tblUSER u JOIN tblTime t ON u.UserID = t.UserID JOIN tblEVENT e ON t.EventID = e.EventID WHERE t.UserID = ? AND e.EventCreatorID != ?;',
+			values: [sess.userid, sess.userid, sess.userid]
+		}, function (err, results, fields) {
+			//console.log('view_events results: ', results);
+			if (err) {
+		      return console.error('error running query', err);
+	    	}
+    		//console.log("event_review", results);
+		    var data = {
+		    	page_title: "View Events",
+		    	username: sess.userfname,
+		    	events: results
+		    };
+	    	res.render('pages/view_events', data);
+		});
+	} else {
+		res.redirect('/');
+	}
 });
 
 app.use(express.static(__dirname + '/public/'));
