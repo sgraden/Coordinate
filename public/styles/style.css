@@ -68,7 +68,7 @@ h3 {
     border-radius: 5px;
 }
 
-.page_break:after {
+.page-break:after {
     width: 90%;
     margin: 0 auto;
     padding-bottom: 50px;
@@ -385,6 +385,11 @@ h3 {
     min-height: 100px;
 }
 
+#view-events .page-break:after {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+}
+
 #view-events .view-events-element {
     padding: 10px;
     border-radius: 5px;
@@ -401,11 +406,12 @@ h3 {
 }
 
 .view-events-selector {
-    font-size: 14pt;
+    font-size: 16pt;
     text-align: center;
     margin-top: 10px;
-    padding: 10px 5px;
+    padding: 5px;
     border: 3px solid grey;
+    border-radius: 3px;
     cursor: pointer;
 
     transition: border .2s, background-color .2s;
