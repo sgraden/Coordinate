@@ -303,13 +303,13 @@ function timeShowNames(event) { //Currently not showing multiple names
     var maxUsers = event.data.maxUsers;
 
     $(elem).addClass('time-hover');
-    var elemPos = $(elem).position();
-    var $div = $('<div>');
+    var elemPos = $(elem).position(); //Position of the element being hovered over
+    var $div = $('<div>'); //The box that appears on hover
     $div.addClass('time-names-hover light-bg');//.css('display', 'none');
     $div.css('top', elemPos.top + $(elem).height() - 10+ 'px'); //Bottom of element
     $div.css('left', elemPos.left + $(elem).width() - 20 + 'px'); //Right of element
 
-    $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxUsers + '</div>');
+    $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxUsers + '</div>'); //The current out of total number of participants
     for (var i = 0; i < namesArr.length; i++) {
         var $nameDiv = $('<div>').addClass('names-row');
         $nameDiv.text(namesArr[i]);
