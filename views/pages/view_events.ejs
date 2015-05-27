@@ -21,11 +21,11 @@
     </nav>
     <div id="view-events-content" class="content col-xs-10 col-xs-offset-1">
         <div class="row page-break">
-            <div id="view-events-created-button" class="col-xs-3 col-xs-offset-3">
-                <div class="view-events-selector clicked no-select">Created events</div>
+            <div class="col-xs-3 col-xs-offset-3">
+                <div id="view-events-created-button" class="view-events-selector clicked no-select">Created events</div>
             </div>
-            <div id="view-events-participated-button" class="col-xs-3">
-                <div class="view-events-selector no-select">Participated events</div>
+            <div class="col-xs-3">
+                <div id="view-events-participated-button" class="view-events-selector no-select">Participated events</div>
             </div>
         </div>
         
@@ -43,7 +43,7 @@
     %>
             <div class="view-events-element col-xs-10 col-xs-offset-1" data-uuid="<%= event.EventUUID %>">
                 <div class="col-xs-3">
-                    <h3 class="view-events-title "><%= event.EventName%></h3>
+                    <h3 class="view-events-title"><%= event.EventName%></h3>
                     <div>Start Date: <%= startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() %></div>
                     <div>End Date: <%= endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() %></div>
                 </div>
@@ -53,7 +53,7 @@
             });
         } else {
     %>
-            <div id="view-events-none" class="col-xs-12">
+            <div class="view-events-none col-xs-12">
                 You have not created any events. Would you like to <a href="/event_create">Create an event</a>?
             </div>
     <%
@@ -64,9 +64,10 @@
             <!-- <h1 class="col-xs-12">Participated Events</h1> -->
 
     <%
-        participatedEvents.forEach(function(event) {
-            var startDate = event.EventStartDate;
-            var endDate = event.EventEndDate;
+        if (participatedEvents.length > 0) {
+            participatedEvents.forEach(function(event) {
+                var startDate = event.EventStartDate;
+                var endDate = event.EventEndDate;
     %>
 
             <div class="view-events-element col-xs-10 col-xs-offset-1" data-uuid="<%= event.EventUUID %>">
@@ -79,7 +80,14 @@
             </div>
 
     <%
-        });
+            });
+        } else {
+    %>
+            <div class="view-events-none col-xs-10 col-xs-offset-1">
+                You have not participated in any events.
+            </div>
+    <%
+        }
     %>
         </div>
     </div>

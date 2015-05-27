@@ -21,14 +21,17 @@ $(document).ready(function() {
 		});
 
 		$('#view-events-created-button').on('click', function () {
-			//$(this).toggleClass('clicked');
-			$('.view-events-selector').toggleClass('clicked');
+			$('.view-events-selector').removeClass('clicked');
+			$(this).addClass('clicked');
+			//$('.view-events-selector').toggleClass('clicked');
 
 			$('#view-events-created').show();
 			$('#view-events-participated').hide();
 		});
 		$('#view-events-participated-button').on('click', function () {
-			$('.view-events-selector').toggleClass('clicked');
+			$('.view-events-selector').removeClass('clicked');
+			$(this).addClass('clicked');
+			//$('.view-events-selector').toggleClass('clicked');
 
 			$('#view-events-created').hide();
 			$('#view-events-participated').show();
