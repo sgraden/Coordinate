@@ -24,6 +24,14 @@
         <div class="row">
             <h1 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
             <p id="review-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
+            <div id="eventSetDate" class="col-xs-12">Set date of Event: <b>
+                <% if (locals.event_set_date) { %>
+                    <%= locals.event_set_date %>
+                <% } else { %>
+                    To be decided
+                <% } %>
+                </b>
+            </div>
         </div>
         <div id="review-event-details" class="page-break row">
             <div id="eventCreator" class="col-xs-12">Event Creator: <b><%= locals.event_creator_fname + " " + locals.event_creator_lname %></b></div>

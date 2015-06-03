@@ -1,4 +1,4 @@
-USE `heroku_d015497bbaaf387`;
+-- USE `heroku_d015497bbaaf387`;
 
 CREATE TABLE tblS (
     SID INT NOT NULL AUTO_INCREMENT,
@@ -36,13 +36,14 @@ CREATE TABLE tblEVENT (
     EventCreatorID INT NOT NULL,
     EventStartDate DATE NOT NULL,
     EventEndDate DATE NOT NULL,
-    EventLength INT NOT NULL,
+    EventLength DOUBLE PRECISION(5, 1) NOT NULL,
     EventStartTime TIME NOT NULL,
     EventEndTime TIME NOT NULL,
     NotifyNumParticipant INT NOT NULL,
     NotifyDays INT NOT NULL,
     NotifyEachParticipant BIT(1) NOT NULL,
     EventUUID VARCHAR(100) NOT NULL,
+    EventSetDate DATE NULL,
     PRIMARY KEY (EventID),
     FOREIGN KEY (EventCreatorID)
         REFERENCES tblUSER (UserID)

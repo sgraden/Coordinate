@@ -144,7 +144,7 @@ app.post('/user_login', function(req, res) {
     		};
 	    	res.json([data]);	
 		} else {
-			res.send("failed");
+			res.status(404).send("Email or login is incorrect");
 		}
 	});
 });
@@ -154,30 +154,44 @@ app.post('/user_signup', function(req, res) { //Need to check if account exists 
 	var body = req.body;
 	console.log('Signup body', req.body);
 	conn.query({
-		sql:'CALL sp_new_user(?, ?, ?, ?, ?, ?, ?, ?);',
-		values: [body.pvalue, 'salt', body.userfname, body.userlname, body.useremail, '1993-12-11', 'm', 1]
-	}, function(err, results, fields) {
+		sql: 'SELECT UserEmail FROM tblUSER WHERE UserEmail = ?',
+		values: [body.useremail]
+	}, function (err, results, fields) {
 		if(err) {
-	    	return console.error('error running query', err);
+	    	return console.error('error signing up', err);
     	}
-    	if (results) {
-    		/* Returned from Query
-    		[ [ { UserID: 25, userfname: 'asdf' } ],
-    		  { fieldCount: 0,
-    		    affectedRows: 0,
-    		    insertId: 0,
-    		    serverStatus: 2,
-    		    warningCount: 0,
-    		    message: '',
-    		    protocol41: true,
-    		    changedRows: 0 } ]
-    		*/
-    		sess = req.session;
-    		console.log('signup results', results);
-    		sess.userid = results[0][0].userid;
-    		sess.userfname = results[0][0].userfname;
-    		console.log('Signup Session: ', sess);
-	    	res.json([{userfname: '' + results[0][0].userfname}]);
+    	console.log('Signup check', results);
+		if (results.length == 0) { //If there isn't anything returned
+			console.log('yay signup check passed');
+			conn.query({
+				sql:'CALL sp_new_user(?, ?, ?, ?, ?, ?, ?, ?);',
+				values: [body.pvalue, 'salt', body.userfname, body.userlname, body.useremail, '1993-12-11', 'm', 1]
+			}, function (err, results, fields) {
+				if(err) {
+			    	return console.error('error running query', err);
+		    	}
+		    	if (results) {
+		    		/* Returned from Query
+		    		[ [ { UserID: 25, userfname: 'asdf' } ],
+		    		  { fieldCount: 0,
+		    		    affectedRows: 0,
+		    		    insertId: 0,
+		    		    serverStatus: 2,
+		    		    warningCount: 0,
+		    		    message: '',
+		    		    protocol41: true,
+		    		    changedRows: 0 } ]
+		    		*/
+		    		sess = req.session;
+		    		//console.log('signup results', results);
+		    		sess.userid = results[0][0].userid;
+		    		sess.userfname = results[0][0].userfname;
+		    		//console.log('Signup Session: ', sess);
+			    	res.json([{userfname: '' + results[0][0].userfname}]);
+				}
+			});
+		} else {
+			res.status(418).send('Email already exists');
 		}
 	});
 });
@@ -192,6 +206,11 @@ app.post('/user_logout', function(req, res) {
 		}
 	});
 });
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
 
 //Event Create
 app.get('/event_create', function(req, res) {
@@ -209,9 +228,8 @@ app.post('/event_create', function(req, res) {
 	sess = req.session;
 
 	var v = req.body;
-	var inputs = [v.name, v.descr, sess.userid, v.startDate, v.endDate, v.eventLength, 
-		v.startTime, v.endTime, v.notifyNum, v.notifyDays, parseInt(v.notifyEach), v.uuid];
-		//console.log('event sess participant', typeof parseInt(v.notifyEach));
+	var inputs = [v.name, v.descr, sess.userid, v.startDate, v.endDate, parseFloat(v.eventLength), v.startTime, v.endTime, v.notifyNum, v.notifyDays, v.notifyEach, v.uuid];
+		console.log('Event Create', inputs);
 	conn.query({
 		sql:'CALL sp_create_event(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
 		values: inputs
@@ -238,7 +256,7 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
     	if (results.length == 0) {
 			return console.error('no data found', results);
 		} else {
-			console.log('availability results', results);
+			console.log('availability', results);
 	    	/*var data = {
 	    		page_title: 'Availability',
 	    		event_name: results[0].EventName,
@@ -265,6 +283,7 @@ app.get('/availability', function(req, res) { //Working on availability. Returns
 	    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
 	    		event_end_date: endMonth + '/' + endDay + '/' + endYear
 	    	};
+	    	console.log('availabilit', data);
 	    	if (sess.userfname) { //User is logged in
 	    		data.username = sess.userfname;
 	    		//console.log('availability data: ', data);
@@ -345,7 +364,8 @@ app.get('/event_review', function (req, res) { //Working on availability. Return
 	    		event_creator_lname: results[0].UserLName,
 	    		event_length: results[0].EventLength,
 	    		event_start_date: startMonth + '/' + startDay + '/' + startYear,
-	    		event_end_date: endMonth + '/' + endDay + '/' + endYear
+	    		event_end_date: endMonth + '/' + endDay + '/' + endYear,
+	    		event_set_date: results[0].EventSetDate
 	    	};
 	    	res.render('pages/event_review', data);
 		});

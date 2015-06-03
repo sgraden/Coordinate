@@ -46,7 +46,7 @@
                         <div class="form-inline">
                             No earlier than 
                             <input type="time" name="event-time-from" class="form-control" value="" required="" title="">
-                            to no later than
+                            No later than
                             <input type="time" name="event-time-to" class="form-control" value="" required="" title="">
                         </div>
                     </div>
@@ -72,14 +72,14 @@
                         <label class="input-label">When do you want to be notified?</label>
                         <div class="form-inline">
                             <input type="checkbox" value="" name="notify-participant">
-                            Notify me after 
-                            <select name="notify-num-participants" class="form-control" required="required">
+                            Notify me after <input type="number" name="notify-num-participants" class="form-control" min="0" size="4">
+                            <!-- <select name="notify-num-participants" class="form-control" required="required">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                            </select>
+                            </select> -->
                             participants have responded.
                         </div>
                     </div>

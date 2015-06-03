@@ -47,9 +47,12 @@ function submitEvent(e) {
 	var startTime = $('input[name="event-time-from"]').val();
 	var endTime = $('input[name="event-time-to"]').val();
 	var eventLength = $('select[name="event-length"]').val();
+	eventLength = parseFloat(eventLength);
+	console.log('event length', eventLength);
+
 	var notifyNum = 0;
 	if ($('input[name="notify-participant"]').is(':checked')) {
-		notifyNum = $('select[name="notify-num-participants"]').val();
+		notifyNum = $('input[name="notify-num-participants"]').val(); /*Needs validation*/
 	}
 	var notifyDays = 0;
 	if ($('input[name="notify-after"]').is(':checked')) {
@@ -98,16 +101,13 @@ function submitEvent(e) {
 			window.location.replace(data);
 		});
 	} else {
-		$(errID).css('border', '2px solid red');
+		$(errID).addClass('error-highlight');
 		$(errID)[0].scrollIntoView( true );
 	}
 
 	return false;
 }
 
-function clearErr() {
-	$('input[name="event-time-from"], input[name="event-time-to"], input[name="event-name"]').css('border', '1px solid #ccc');
-	$('#event-calendar > div').css('border', 'none');
-}
+
 
 })();

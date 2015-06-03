@@ -42,6 +42,7 @@ $(document).ready(function() {
 });
 
 function accountLogin() {
+    clearErr();
 	var email = $('#modal-login input[name=user-email]').val();
 	var pass = $('#modal-login input[name=user-pass]').val();
 
@@ -50,31 +51,37 @@ function accountLogin() {
 		pass: pass.hashCode()
 	};
 
-	$.post(
-		'/user_login',
-		payload
-	).success(function(data) { //Reload page with stored info
+	$.ajax({
+        type: "POST",
+		url: '/user_login',
+		data: payload
+	}).success(function(data) { //Reload page with stored info
 		$.cookie('l', 'true', {expires: 7, path: '/'});
-		window.location.href = '/'; //Will need to be changed if logging into other pages
-	});
+        replaceNavLogin(data[0].username);
+		//window.location.href = '/'; //Will need to be changed if logging into other pages
+	}).error(function (data) {
+        if (data.status == 404) {
+            addError('#modal-login input[name=user-email]', data.responseText);
+        }
+    });
 }
 
 function accountSignup() {
+    clearErr();
 	var fname= $('#modal-signup input[name=user-fname]').val();
 	var lname= $('#modal-signup input[name=user-lname]').val();
 	var email = $('#modal-signup input[name=user-email]').val();
 	var pass1 = $('#modal-signup input[name=user-pass1]').val();
 	var pass2 = $('#modal-signup input[name=user-pass2]').val();
 
-	var infoPassed = true;
-
+	var infoPassed = "";
 	if (pass1 != pass2) { //Do passwords match?
-		infoPassed = false;
-	} 
-	//Is email valid?
-	//character lengths/values?
-
-	if (infoPassed) { //If info is good then send to server
+		infoPassed = "pass";
+	}
+    if (!validateEmail(email)) { //If email is not valid
+        infoPassed = "email";
+    }
+	if (infoPassed == "") { //If info is good then send to server
 		var payload = {
 			userfname: fname,
 			userlname: lname,
@@ -82,18 +89,30 @@ function accountSignup() {
 			pvalue: pass1.hashCode()
 		};
 
-		$.post(
-			'/user_signup',
-			payload
-		).success(function(data) {
+		$.ajax({
+            type: "POST",
+			url: '/user_signup',
+			data: payload
+		}).success(function (data) {
 			//$('#username').html(data);
 			$.cookie('l', 'true', {expires: 7, path: '/'});
-			window.location.href = '/';
+            replaceNavLogin(data[0].username);
+			//window.location.href = '/';
 			//$('#modal-signup').modal('hide');
 
-		});
+		}).error (function (data) {
+            console.log(data);
+            if (data.status == 418) {
+                addError("#modal-signup input[name=user-email]", data.responseText);
+            }
+        });
 	} else {
 		//Send some sort of alert
+        if (infoPassed == "pass") {
+            addError("#modal-signup input[name=user-pass1], #modal-signup input[name=user-pass2]", "Passwords do not match");
+        } else if (infoPassed == "email") {
+            addError("#modal-signup input[name=user-email]", "Email is not valid");
+        }
 	}
 }
 
@@ -107,6 +126,11 @@ function accountLogout() {
 			location.replace('/');
 		}
 	});
+}
+
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
 }
 
 //Generate Hashcode
@@ -135,13 +159,6 @@ function pauseEvent(e){
     return false;
 }
 
-function checkLogin() {
-	var cookie = $.cookie('l');
-	//console.log(cookie);
-	return cookie != null;
-}
-
-
 function createTimes(eventData, dateTimeMap, maxUsers) {
 	console.log("general eventData", eventData);
 
@@ -167,7 +184,7 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
     var startMin  = parseInt(startTime[0]) * 60 + parseInt(startTime[1]); //Start time in minutes
     var endMin    = parseInt(endTime[0]) * 60 + parseInt(endTime[1]); //End time in minutes
     var duration  = endMin - startMin; //Difference between times in minutes
-    console.log(endMin - startMin);
+    //console.log(endMin - startMin);
     weekHeader(length, startDate); //Sets the days of the week
 
     var halfAdjustment = 0;
@@ -270,34 +287,9 @@ function weekDay(w) {
     }
     var days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
     return days[w];
-    // var day;
-    // switch (w) {
-    //     case 0:
-    //         day = 'sun';
-    //         break;
-    //     case 1:
-    //         day = 'mon';
-    //         break;
-    //     case 2:
-    //         day = 'tue';
-    //         break;
-    //     case 3:
-    //         day = 'wed';
-    //         break;
-    //     case 4:
-    //         day = 'thu';
-    //         break;
-    //     case 5:
-    //         day = 'fri';
-    //         break;
-    //     case 6:
-    //         day = 'sat';
-    //         break;
-    // }
-    // return day;
 }
 
-function timeShowNames(event) { //Currently not showing multiple names
+function timeShowNames(event) {
     var elem = event.toElement;
     var namesArr = event.data.namesArr;
     var maxUsers = event.data.maxUsers;
@@ -320,7 +312,40 @@ function timeShowNames(event) { //Currently not showing multiple names
     //$($div).show("fast");
 }
 
-function timeHideNames(event) {
+function timeHideNames (event) {
     $('.time-names-hover').remove();
     $(event.toElement).removeClass('time-hover');
+}
+
+function addError (element, message) {
+    $(element).addClass('error-highlight');
+    if (message) {
+        $(element).before("<span class='error-text'>" + message + "</span>");
+    }
+}
+
+function clearErr () {
+    $('.error-text').remove();
+    $('.error-highlight').removeClass('error-highlight');
+}
+
+function replaceNavLogin (username) {
+    $('.login-button, .signup-button').remove();
+    $('#navbar-collapse > .nav').append('<li><a id="username-holder" href="#">'+ username +'</a></li><div id="dropdown-container" class="light-bg"><ul><li><a href="/view_events">View events</a></li><li id="logout-button">Logout</li></ul></div>');
+
+    $('#username-holder').on('mouseover', function () {
+        $('#dropdown-container').show();
+    });
+    $('#username-holder').on('mouseout', function () {
+        //$('#dropdown-container').hide();
+    });
+    $('#logout-button').click(accountLogout);
+
+    $('#modal-signup, #modal-login').modal('hide');
+
+}
+
+function checkLogin() {
+    var cookie = $.cookie('l');
+    return cookie != null;
 }
