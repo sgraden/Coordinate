@@ -41,7 +41,7 @@ CREATE TABLE tblEVENT (
     EventEndTime TIME NOT NULL,
     NotifyNumParticipant INT NOT NULL,
     NotifyDays INT NOT NULL,
-    NotifyEachParticipant BIT(1) NOT NULL,
+    NotifyEachParticipant INT NOT NULL,
     EventUUID VARCHAR(100) NOT NULL,
     EventSetDate DATE NULL,
     PRIMARY KEY (EventID),

@@ -91,7 +91,6 @@ function submitEvent(e) {
 			notifyEach: notifyEach,
 			uuid: generatedUUID
 		};
-
 		$.ajax({
 			type: "POST",
 			url: '/event_create',

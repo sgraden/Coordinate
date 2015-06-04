@@ -98,6 +98,28 @@ h3 {
     background-color: white;
 }
 
+.breadcrumb {
+    background: none;
+}
+
+.breadcrumb .info-items {
+    font-size: 12pt;
+
+    padding: 10px 0;
+
+    color: white;
+    border-radius: 5px;
+
+    text-align: center;
+}
+.breadcrumb .info-items i {
+    font-size: 30pt;
+}
+.breadcrumb .info-items {
+    color: #585858;
+    background-color: #cbdfa8;
+}
+
 /*General Items*/
 
 /*NAV BAR*/
@@ -237,15 +259,12 @@ h3 {
 }
 #home-info-section .row > div:nth-child(2) .info-items {
     background-color: #9fd1b8;
-    opacity: .5;
 }
 #home-info-section .row > div:nth-child(3) .info-items {
     background-color: #46a468;
-    opacity: .5;
 }
 #home-info-section .row > div:nth-child(4) .info-items {
     background-color: #118c4e;
-    opacity: .5;
 }
 
 
@@ -272,6 +291,18 @@ h3 {
 }
 #event #event-preferences > .row {
     margin-top: 15px;
+}
+
+#event .time-input {
+    margin-bottom: 5px;
+}
+#event .time-input span {
+    width: 130px;
+    display: inline-block;
+}
+
+#event .page-break:after {
+    padding-bottom: 25px;
 }
 /*EVENT PAGE*/
 

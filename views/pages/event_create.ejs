@@ -21,9 +21,9 @@
     <nav class="navbar navbar-default light-bg">
         <% include ../partials/nav %>
     </nav>
-
+    
     <div id="event-content" class="content col-xs-10 col-xs-offset-1">
-        <div class="event-inputs row">
+        <div class="event-inputs row page-break">
             <form id="event-details" class="col-xs-12">
                 <div class="form-group">
                     <input class="form-control input-lg" type="text" name="event-name" placeholder="Event Name" required="required" title="">
@@ -44,10 +44,14 @@
                     <div class="form-group col-xs-12">
                         <label class="input-label">What times can the event occur?</label>
                         <div class="form-inline">
-                            No earlier than 
-                            <input type="time" name="event-time-from" class="form-control" value="" required="" title="">
-                            No later than
-                            <input type="time" name="event-time-to" class="form-control" value="" required="" title="">
+                            <div class="time-input col-xs-12">
+                                <span>No earlier than</span>
+                                <input type="time" name="event-time-from" class="form-control" value="" required="" title="">
+                            </div>
+                            <div class="time-input col-xs-12">
+                                <span>No later than</span>
+                                <input type="time" name="event-time-to" class="form-control" value="" required="" title="">
+                            </div>
                         </div>
                     </div>
                 </div>
