@@ -448,7 +448,7 @@ app.post('/share_event', function (req, res) {
 	    	var emailList = req.body.emails;
 	    	//for (var i = 0; i < emailList.length; i++) {
 	    	var info = results[0];
-	    	if (emailer('coordinate@coordinate.today', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID)) {
+	    	if (emailer('stevengraden@gmail.com', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID)) {
 	    		res.status(200).send('Email(s) sent');
 	    	} else {
 	    		res.status(500).send('Something went wrong. Try again later.');
