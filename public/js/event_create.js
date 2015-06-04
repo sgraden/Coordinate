@@ -63,15 +63,15 @@ function submitEvent(e) {
 
 	var pass = true;
 	var errID = ""; //ID of element to highlight
-	if (startTime >= endTime) { //If the start time before end time
+	if (startTime >= endTime) { //If the sstart tiem is after end time then fail
 		pass = false;
 		errID = 'input[name="event-time-from"], input[name="event-time-to"]';
 	}
-	if (startDate == undefined || startTime == undefined) {
+	if (startDate == undefined || startTime == undefined) { //If start and end undefined
 		pass = false;
 		errID = '#event-calendar > div';
 	}
-	if (name == "") {
+	if (name == "") { //If no name
 		pass = false
 		errID = 'input[name="event-name"]';
 	}
