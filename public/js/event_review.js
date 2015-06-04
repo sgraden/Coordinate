@@ -99,7 +99,10 @@ function shareEvent () {
 
     $.ajax({ //Initial getting of event data in database
         type: "POST",
-        url: '/share_event'
+        url: '/share_event',
+        data: {
+            emails: emailsList
+        }
     }).success(function(data){
         if (data.status == 200) {
             console.log('heyooo');

@@ -434,25 +434,89 @@ app.get('/view_events', function (req, res) { //Load up the user list of events
 });
 
 app.post('/share_event', function (req, res) {
-	console.log('share event');
+	console.log('share event', req);
+	sess = req.session;
+	if (sess.userid) { //User is logged in
+		conn.query({
+			sql: '',
+			values: []
+		}, function (err, results, fields) {
+			//console.log('view_events results: ', results);
+			if (err) {
+		      return console.error('error running query', err);
+	    	}
+    		//For each passed email, send emails!!!!
+		});
+	}
+	res.status(200).send('Email Sent');
+});
+
+var emailer = function (fromEmail, toEmail, name, eventName) {
 	var email = {
-		from: 'stevengraden@gmail.com',
-		to: 'stevengraden@gmail.com',
-		subject: 'Hello',
-		text: 'Hello world',
-		html: '<b>Hello world</b>'
+	from: 'stevengraden@gmail.com',
+	to: email[i],
+	subject: 'An Event from Coordinate',
+	html: "<!DOCTYPE html>
+		<head>
+			<title>Email to Invite</title>
+			<link rel='stylesheet' type='text/css' href='styles.css'>
+			<link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
+		</head>
+		<body font-family: lato; style='margin:0; padding: 0;'>
+			<table align='center' border='0' cellpadding='0' cellspacing='0' width='100%'>
+				<tr style='background-color: #c2dfa6'>
+					<td align='center' style='padding-top: 20px;'>
+						<img src='logo.png' alt='Coordinate logo' width = '50%' style='padding-bottom:20px'>
+					</td>
+				</tr>
+				<tr>
+					<td style='padding: 20px 30px 40px 30px;'>
+						<table align='center' border='0' cellpadding='0' cellspacing='0' width='80%'>
+							<tr>
+								<td align='center'><img src='createIcon_Orange.gif' alt='Create' width='45%'></td>
+								<td align='center'><img src='availableIcon_Orange.gif' alt='Availability' width='45%'></td>
+								<td align='center'><img src='shareIcon_Orange.gif' alt='Share' width='45%''></td>
+								<td align='center'><img src='inviteIcon_Orange.gif' alt='Invite' width='45%''></td>
+							</tr>
+						</table>
+							<table border='0' cellpadding='0' cellspacing='0' width='100%'>
+							<tr>
+								<td style='padding-top:30px;'>
+									You have been invited to 'Event Name'. Please click the link below to insert your availability to attend this event. 
+								</td>
+							</tr>
+							<tr>
+								<td align='center' style='padding-top: 25px; padding-bottom: 25px;'>
+									Coordinate.today/eventID
+								</td>
+							</tr>
+							<tr>
+								<td>
+									We will inform you when an event has been scheduled. 
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr style='background-color: #118c4e'>
+					<td>
+						Please visit <a href='http://www.coordinate.today'><font color='#ffffff'>Coordinate.today</a></font> to create your own event.
+					</td>
+				</tr>
+			</table>
+		</body
+		</html>"
 	};
 	 
 	client.sendMail(email, function(err, info){
-	    if (err ){
+	    if (err ){	
 	      console.log(error);
 	    }
 	    else {
 	      console.log('Message sent: ' + info.response);
 	    }
 	});
-	res.status(200).send('Email Sent');
-});
+}
 
 app.use(express.static(__dirname + '/public/'));
 app.use(favicon(__dirname + '/public/assets/images/logoSmall.png')); //Favicon?
