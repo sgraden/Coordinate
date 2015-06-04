@@ -12,7 +12,7 @@ $(document).ready(function() {
         url: '/review_info',
         data: {e:getParameterByName('e')}
     }).success(function(data){
-        console.log(getParameterByName('e'));
+        //console.log(getParameterByName('e'));
         eventData = data;
         console.log('event data', eventData);
         createDateTimeMap();
