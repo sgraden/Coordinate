@@ -48,9 +48,9 @@ $(document).ready(function() {
 
     $('#schedule-event').on('click', function() {
         alert('Event Scheduled. Participants will be notified');
-        var info = $('#offered-times-container .time-option.light-bg').data('schedule-info');
+        var info = $('div.time-option.light-bg').data('schedule-info');
         console.log(info);
-        $('#event-set-date > b').html(info.day + " " + info.startDate + " startgin at " + info.startTime);
+        $('#event-set-date > b').html(info.day + " " + info.startDate + " starting at " + info.startTime);
     });
 
     $('#share-send').on('click', shareEvent);
@@ -156,6 +156,7 @@ function bestTimes() {
         $timeOption.append($date);
         $timeOption.append($timeWrapper);
         $($timeOption).data('schedule-info', elementInfo);
+        //console.log($timeOption);
 
         $bigContainer.append($timeOption);
     }
