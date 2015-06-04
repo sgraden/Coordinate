@@ -449,7 +449,7 @@ app.post('/share_event', function (req, res) {
 	    	var emailList = req.body.emails;
 	    	//for (var i = 0; i < emailList.length; i++) {
 	    	var info = results[0];
-	    	if (emailer('coordinate@coordinate.today', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID)) {
+	    	if (emailer('team@coordinate.tody', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID)) {
 	    		res.status(200).send('Email(s) sent');
 	    	} else {
 	    		res.status(500).send('Something went wrong. Try again later.');
@@ -463,7 +463,7 @@ var emailer = function (fromEmail, toEmailList, inviterName, eventName, eventUUI
 		from: fromEmail,
 		to: toEmailList.join(', '),
 		subject: 'An Event from ' + inviterName + '@Coordinate',
-		html: "<!DOCTYPE html><head><title>Email to Invite</title><link rel='stylesheet' type='text/css' href='styles.css'><link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'></head><body font-family: lato; style='margin:0; padding: 0;'><table align='center' border='0' cellpadding='0' cellspacing='0' width='100%'><tr style='background-color: #c2dfa6'><td align='center' style='padding-top: 20px;'><img src='http://www.coordinate.today/assets/images/logo.png' alt='Coordinate logo' width = '50%' style='padding-bottom:20px'></td></tr></table><table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td style='padding-top:30px;'>You have been invited to " + eventName + " by " + inviterName + ". Please click the link below to insert your availability to attend this event. </td></tr><tr><td align='center' style='padding-top: 25px; padding-bottom: 25px;'><a href='www.coordinate.today/availability?e='" + eventUUID + "'>www.coordinate.today/availability</td></tr><tr><td>We will inform you when the event has been scheduled. </td></tr></table></td></tr><tr style='background-color: #118c4e'><td>Please visit <a href='http://www.coordinate.today'><font color='#ffffff'>Coordinate.today</a></font> to create your own event.</td></tr></table></body</html>"
+		html: "<!DOCTYPE html><head><title>Email to Invite</title><link rel='stylesheet' type='text/css' href='styles.css'><link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'></head><body font-family: lato; style='margin:0; padding: 0;'><table align='center' border='0' cellpadding='0' cellspacing='0' width='100%'><tr style='background-color: #c2dfa6'><td align='center' style='width: 20%; padding-top: 20px;'><img src='http://www.coordinate.today/assets/images/logo.png' alt='Coordinate logo' width = '50%' style='padding-bottom:20px'></td></tr></table><table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td style='padding-top:30px;'>You have been invited to " + eventName + " by " + inviterName + ". Please click the link below to insert your availability to attend this event. </td></tr><tr><td align='center' style='padding-top: 25px; padding-bottom: 25px;'><a href='www.coordinate.today/availability?e='" + eventUUID + "'>www.coordinate.today/availability</td></tr><tr><td>We will inform you when the event has been scheduled. </td></tr></table></td></tr><tr style='background-color: #118c4e'><td>Please visit <a href='http://www.coordinate.today'><font color='#ffffff'>Coordinate.today</a></font> to create your own event.</td></tr></table></body</html>"
 	};
 	 
 	return client.sendMail(email, function(err, info){
