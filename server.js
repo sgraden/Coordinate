@@ -434,6 +434,7 @@ app.get('/view_events', function (req, res) { //Load up the user list of events
 });
 
 app.post('/share_event', function (req, res) {
+	console.log('share event');
 	var email = {
 		from: 'stevengraden@gmail.com',
 		to: 'stevengraden@gmail.com',
