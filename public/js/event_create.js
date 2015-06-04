@@ -60,6 +60,7 @@ function submitEvent(e) {
 		notifyDays = $('select[name="notify-num-after"]').val();
 	}
 	var notifyEach = $('input[name="notify-each"]').is(':checked') ? 1 : 0;
+	console.log(parseInt(notifyEach));
 	var generatedUUID = guid();
 
 	var pass = true;

@@ -101,7 +101,7 @@ function shareEvent () {
         type: "POST",
         url: '/share_event',
         data: {
-            emails: emailsList
+            emails: emailsList,
             eventID: eventData[0].eventID
         }
     }).success(function (data){
