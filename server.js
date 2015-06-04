@@ -388,7 +388,7 @@ app.get('/event_review', function (req, res) { //Working on availability. Return
 app.post('/review_info', function (req, res) {
 	if (req.body.e) {
 		conn.query({
-			sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime, e.EventStartDate, e.EventEndDate FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE EventUUID = ?",
+			sql: "SELECT u.UserFName, u.UserLName, t.*, e.EventID, e.EventStartTime, e.EventEndTime, e.EventStartDate, e.EventEndDate FROM tblTIME t JOIN tblUSER u ON t.UserID = u.UserID JOIN tblEVENT e on t.EventID = e.EventID WHERE e.EventUUID = ?",
 			values: [req.body.e]
 		}, function (err, results, fields) {
 			if (err) {
@@ -434,14 +434,15 @@ app.get('/view_events', function (req, res) { //Load up the user list of events
 });
 
 app.post('/share_event', function (req, res) {
-	console.log('share event', req);
+	//console.log('share event', req);
 	sess = req.session;
 	if (sess.userid) { //User is logged in
+		console.log('hasdfasdf', req.body);
 		conn.query({
 			sql: 'SELECT u.UserFName, u.UserLName, e.EventName, e.EventLength, e.EventUUID FROM tblUSER u JOIN tblEVENT e ON u.UserID = e.EventCreatorID WHERE e.EventID = ? AND u.UserID = ?',
 			values: [req.body.eventID, sess.userid]
 		}, function (err, results, fields) {
-			//console.log('view_events results: ', results);
+			//console.log('share_event results: ', results);
 			if (err) {
 		      return console.error('error running query', err);
 	    	}
@@ -453,7 +454,6 @@ app.post('/share_event', function (req, res) {
 	    	} else {
 	    		res.status(500).send('Something went wrong. Try again later.');
 	    	}
-	    	//}
 		});
 	}
 });

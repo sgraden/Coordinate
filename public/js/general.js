@@ -94,12 +94,8 @@ function accountSignup() {
 			url: '/user_signup',
 			data: payload
 		}).success(function (data) {
-			//$('#username').html(data);
 			$.cookie('l', 'true', {expires: 7, path: '/'});
             replaceNavLogin(data[0].username);
-			//window.location.href = '/';
-			//$('#modal-signup').modal('hide');
-
 		}).error (function (data) {
             console.log(data);
             if (data.status == 418) {

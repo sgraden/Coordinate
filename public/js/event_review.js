@@ -12,6 +12,7 @@ $(document).ready(function() {
         url: '/review_info',
         data: {e:getParameterByName('e')}
     }).success(function(data){
+        console.log(getParameterByName('e'));
         eventData = data;
         console.log('event data', eventData);
         createDateTimeMap();
@@ -102,7 +103,7 @@ function shareEvent () {
         url: '/share_event',
         data: {
             emails: emailsList,
-            eventID: eventData[0].eventID
+            eventID: eventData[0].EventID
         }
     }).success(function (data){
         if (data.status == 200) {
