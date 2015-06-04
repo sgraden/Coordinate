@@ -102,10 +102,15 @@ function shareEvent () {
         url: '/share_event',
         data: {
             emails: emailsList
+            eventID: eventData[0].eventID
         }
-    }).success(function(data){
+    }).success(function (data){
         if (data.status == 200) {
-            console.log('heyooo');
+            alert(data.responseText);
+        }
+    }).fail(function (data) {
+        if (data.status == 500) {
+            alert(data.responseText);
         }
     });
     console.log(emailsList);
