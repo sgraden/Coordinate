@@ -45,6 +45,8 @@ $(document).ready(function() {
         }
     });
 
+    $('#share-send').on('click', shareEvent);
+
 });
 
 /**
@@ -83,6 +85,27 @@ function createDateTimeMap () {
             maxUsers = currUsers;
         }
     });
+}
+
+function shareEvent () {
+    var emailsList = [];
+    var inputs = $('input[name=share-email]');
+    for(var i = 0; i < inputs.length; i++) {
+        var email = $(inputs[i]).val();
+        if (validateEmail(email)) {
+            emailsList.push(email);
+        }
+    }
+
+    $.ajax({ //Initial getting of event data in database
+        type: "POST",
+        url: '/share_event'
+    }).success(function(data){
+        if (data.status == 200) {
+            console.log('heyooo');
+        }
+    });
+    console.log(emailsList);
 }
 
 })();

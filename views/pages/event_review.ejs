@@ -13,7 +13,10 @@
 
 	</head>
 <body>
-<%= include ../partials/modal-share %>
+<% include ../partials/modal-login %>
+<% include ../partials/modal-signup %>
+<% include ../partials/modal-loginalert %>
+<% include ../partials/modal-share %>
 
 <div id="review" class="container-fluid">
     <nav class="navbar navbar-default light-bg">
@@ -22,7 +25,10 @@
 
     <div id="review-content" class="content col-xs-10 col-xs-offset-1">
         <div class="row">
-            <h1 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
+            <h1 class="col-xs-12">Event Review</h1>
+        </div>
+        <div class="row">
+            <h2 id="review-name" class="col-xs-12"><%= locals.event_name %></h1>
             <p id="review-descr" class="col-xs-12 lead"><%= locals.event_desc  %></p>
             <div id="eventSetDate" class="col-xs-12">Set date of Event: <b>
                 <% if (locals.event_set_date) { %>
@@ -48,6 +54,7 @@
             <p class="col-xs-12">
                 Select best time for your event from recommended times and Coordinate will notify participants of the event time.
             </p>
+
             <div class="col-xs-6 col-xs-offset-3 timeOption">
                 <div class="col-xs-2">Tue 17</div>
                 <div class="col-xs-10">
@@ -69,6 +76,7 @@
                     <div class="col-xs-12">Most Participants Available</div>
                 </div>
             </div>
+
             <div class="col-xs-12">
                 <button id="schedule-event" type="button" class="btn btn-default btn-lg orange-bg pull-right">Schedule Event</button>
             </div>

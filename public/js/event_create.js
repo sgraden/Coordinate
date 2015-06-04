@@ -28,6 +28,7 @@ function createMonthCal() {
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {
+			console.log(start);
 			end.add(-1, 'day');
 			startDate = start.format();
 			endDate = end.format();
@@ -52,7 +53,7 @@ function submitEvent(e) {
 
 	var notifyNum = 0;
 	if ($('input[name="notify-participant"]').is(':checked')) {
-		notifyNum = $('input[name="notify-num-participants"]').val(); /*Needs validation*/
+		notifyNum = parseInt($('input[name="notify-num-participants"]').val()); /*Needs validation*/
 	}
 	var notifyDays = 0;
 	if ($('input[name="notify-after"]').is(':checked')) {

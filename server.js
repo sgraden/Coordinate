@@ -11,6 +11,8 @@ var ejs        = require('ejs');
 var passport   = require('passport');
 var bcrypt     = require('bcrypt-nodejs');
 var favicon    = require('serve-favicon');
+var nodemailer = require("nodemailer");
+var sgTransport = require('nodemailer-sendgrid-transport');
 
 var app        = express();
 
@@ -83,8 +85,6 @@ if (process.env.DB_USER) { 	//Connect to the heroku instance
 	});
 }
 
-
-
 function handleDisconnect() {
   conn = mysql.createConnection(db_config); // Recreate the connection, since
                                                   // the old one cannot be reused.
@@ -109,6 +109,18 @@ var sess;
 
 
 // /*DB Connection - END*/
+
+/* IF on server and able to email */
+var client;
+if (process.env.SENDGRID_USERNAME) {
+	var options = {
+	    auth: {
+	        api_user: process.env.SENDGRID_USERNAME,
+	        api_key: process.env.SENDGRID_PASSWORD
+	    }
+	}
+	client = nodemailer.createTransport(sgTransport(options));
+}
 
 app.get('/', function (req, res) { //When browser directed to / (main index)
 	sess = req.session;
@@ -419,6 +431,26 @@ app.get('/view_events', function (req, res) { //Load up the user list of events
 	} else {
 		res.redirect('/');
 	}
+});
+
+app.post('/share_event', function (req, res) {
+	var email = {
+		from: 'stevengraden@gmail.com',
+		to: 'stevengraden@gmail.com',
+		subject: 'Hello',
+		text: 'Hello world',
+		html: '<b>Hello world</b>'
+	};
+	 
+	client.sendMail(email, function(err, info){
+	    if (err ){
+	      console.log(error);
+	    }
+	    else {
+	      console.log('Message sent: ' + info.response);
+	    }
+	});
+	res.status(200).send('Email Sent');
 });
 
 app.use(express.static(__dirname + '/public/'));
