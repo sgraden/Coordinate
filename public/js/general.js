@@ -220,6 +220,13 @@ function createTimes(eventData, dateTimeMap, maxUsers) {
 	                    var namesArr = timeNameMap.get(timeData.startTime);
 	                    
 	                    $td.data('names', timeNameMap.get(timeData.startTime));
+                        $td.data("info", {
+                            startTime: timeData.startTime,
+                            day: timeData.day,
+                            startDate: startDate.getDate() + w,
+                            namesArr: namesArr,
+                            maxUsers: maxUsers
+                        });
 	                    $td.on('mouseover', { //On mouse over
 	                        namesArr: namesArr,
 	                        maxUsers: maxUsers
@@ -289,12 +296,13 @@ function timeShowNames(event) {
     var elem = event.toElement;
     var namesArr = event.data.namesArr;
     var maxUsers = event.data.maxUsers;
+    console.log(event.data);
 
     $(elem).addClass('time-hover');
     var elemPos = $(elem).position(); //Position of the element being hovered over
     var $div = $('<div>'); //The box that appears on hover
     $div.addClass('time-names-hover light-bg');//.css('display', 'none');
-    $div.css('top', elemPos.top + $(elem).height() - 10+ 'px'); //Bottom of element
+    $div.css('top', elemPos.top + $(elem).height() - 10 + 'px'); //Bottom of element
     $div.css('left', elemPos.left + $(elem).width() - 20 + 'px'); //Right of element
 
     $div.append('<div id="time-names-total">Available: ' + namesArr.length + '/' + maxUsers + '</div>'); //The current out of total number of participants

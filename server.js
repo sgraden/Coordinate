@@ -468,10 +468,11 @@ var emailer = function (fromEmail, toEmailList, inviterName, eventName, eventUUI
 		html: "<!DOCTYPE html><head><title>Email to Invite</title><link rel='stylesheet' type='text/css' href='styles.css'><link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'></head><body font-family: lato; style='margin:0; padding: 0;'><table align='center' border='0' cellpadding='0' cellspacing='0' width='100%'><tr style='background-color: #c2dfa6'><td align='center' style='width: 20%; padding-top: 20px;'><img src='http://www.coordinate.today/assets/images/logo.png' alt='Coordinate logo' width = '50%' style='padding-bottom:20px'></td></tr></table><table border='0' cellpadding='0' cellspacing='0' width='100%'><tr><td style='padding-top:30px;'>You have been invited to " + eventName + " by " + inviterName + ". Please click the link below to insert your availability to attend this event. </td></tr><tr><td align='center' style='padding-top: 25px; padding-bottom: 25px;'><a href='www.coordinate.today/availability?e=" + eventUUID + "'>www.coordinate.today/availability</td></tr><tr><td>We will inform you when the event has been scheduled. </td></tr></table></td></tr><tr style='background-color: #118c4e'><td>Please visit <a href='http://www.coordinate.today'><font color='#ffffff'>Coordinate.today</a></font> to create your own event.</td></tr></table></body</html>"
 	};
 	
-	var bool = false;
+	var bool = true; //This does not actually get set differently;
 	client.sendMail(email, function(err, info){
 	    if (err){	
 	      console.log('sending error', error);
+	      bool = false;
 	    } else {
 	      console.log('Message sent: ', info.response);
 	      bool = true;

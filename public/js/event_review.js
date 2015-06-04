@@ -17,6 +17,15 @@ $(document).ready(function() {
         console.log('event data', eventData);
         createDateTimeMap();
         createTimes(eventData, dateTimeMap, maxUsers);
+        bestTimes();
+        $('.timeOption').click(function() {
+            if ($(this).hasClass('light-bg')) {
+                $(this).toggleClass('light-bg');
+            } else {
+                $('.timeOption').removeClass('light-bg');
+                $(this).toggleClass('light-bg');
+            }
+        });
     });
 
     $('#share-cancel').on('click', function() {
@@ -37,13 +46,11 @@ $(document).ready(function() {
 
     });
 
-    $('.timeOption').click(function() {
-        if ($(this).hasClass('light-bg')) {
-            $(this).toggleClass('light-bg');
-        } else {
-            $('.timeOption').removeClass('light-bg');
-            $(this).toggleClass('light-bg');
-        }
+    $('#schedule-event').on('click', function() {
+        alert('Event Scheduled. Participants will be notified');
+        var info = $('#offered-times-container .time-option.light-bg').data('schedule-info');
+        console.log(info);
+        $('#event-set-date > b').html(info.day + " " + info.startDate + " startgin at " + info.startTime);
     });
 
     $('#share-send').on('click', shareEvent);
@@ -107,6 +114,7 @@ function shareEvent () {
         }
     }).success(function (data){
         if (data.status == 200) {
+            $('#modal-share').modal('hide');
             alert(data.responseText);
         }
     }).fail(function (data) {
@@ -115,6 +123,46 @@ function shareEvent () {
         }
     });
     //console.log(emailsList);
+}
+
+
+/*
+<div class="col-xs-6 col-xs-offset-3 timeOption">
+    <div class="col-xs-2">Tue 17</div>
+    <div class="col-xs-10">
+        <div class="col-xs-12">9:00AM TO 10:00AM</div>
+        <div class="col-xs-12">All Participants Available</div>
+    </div>
+</div>
+ */
+function bestTimes() {
+    var tableElements = $('td.tableData.orange-bg');
+    //console.log(tableElements);
+    var $bigContainer = $('#offered-times-container');
+    for (var i = 0; i < 3; i++) {
+        var elementInfo = $(tableElements[i]).data('info');
+        var $timeOption  = $('<div>').addClass("col-xs-6 col-xs-offset-3 timeOption"); //The outer wrapper
+        var $date        = $('<div>').addClass('col-xs-2'); //The top date element
+        var $timeWrapper = $('<div>').addClass('col-xs-10'); //The inner wrapper for the times
+        var $time        = $('<div>').addClass('col-xs-12'); //The time
+        var $available   = $('<div>').addClass('col-xs-12'); //The number of people available
+
+        $available.html("Available people: " + elementInfo.namesArr.length +"/"+ elementInfo.maxUsers);
+        $time.html("Starting at " + elementInfo.startTime);
+        $date.html(elementInfo.day + " " + elementInfo.startDate);
+
+        $timeWrapper.append($time);
+        $timeWrapper.append($available);
+        $timeOption.append($date);
+        $timeOption.append($timeWrapper);
+        $($timeOption).data('schedule-info', elementInfo);
+
+        $bigContainer.append($timeOption);
+    }
+}
+
+function findMostAvailable(elementList) {
+
 }
 
 })();
