@@ -449,7 +449,9 @@ app.post('/share_event', function (req, res) {
 	    	var emailList = req.body.emails;
 	    	//for (var i = 0; i < emailList.length; i++) {
 	    	var info = results[0];
-	    	if (emailer('team@coordinate.tody', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID)) {
+	    	var didSend = emailer('team@coordinate.tody', emailList, info.UserFName + " " + info.UserLName, info.EventName, info.EventUUID);
+	    	console.log('did the email send?', didSend);
+	    	if (didSend) {
 	    		res.status(200).send('Email(s) sent');
 	    	} else {
 	    		res.status(500).send('Something went wrong. Try again later.');
@@ -468,7 +470,7 @@ var emailer = function (fromEmail, toEmailList, inviterName, eventName, eventUUI
 	 
 	return client.sendMail(email, function(err, info){
 	    if (err ){	
-	      console.log(error);
+	      console.log('sending error', error);
 	      return false;
 	    }
 	    else {

@@ -114,7 +114,7 @@ function shareEvent () {
             alert(data.responseText);
         }
     });
-    console.log(emailsList);
+    //console.log(emailsList);
 }
 
 })();
