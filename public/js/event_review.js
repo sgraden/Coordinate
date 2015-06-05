@@ -45,7 +45,6 @@ $(document).ready(function() {
             $('#share-url').focus();
             $('#share-url').select();
         });
-
     });
 
     $('#schedule-event').on('click', function() {
