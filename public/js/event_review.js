@@ -32,7 +32,9 @@ $(document).ready(function() {
         $('.share-email').remove();
         $('#share-add-btn').click();
     });
-    $('#share-url').val(window.location.href);
+    var winString = window.location.href;
+    var winSplit = window.location.href.split('event_review');
+    $('#share-url').val(winSplit[0] + "availability" + winSplit[1]);
     $('#share-add-btn').on('click', function() {
         var $emailForm = $('<div class="share-email"><input class="form-control" type="email" name="share-email" placeholder="email" required="" title=""></div>');
         $emailForm.insertBefore('#share-add-holder');
