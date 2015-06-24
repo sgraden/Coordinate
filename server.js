@@ -136,36 +136,56 @@ app.get('/', function (req, res) { //When browser directed to / (main index)
 //User Login
 app.post('/user_login', function(req, res) {
 	var body = req.body;
+	console.log(body);
 
 	sess = req.session;
-	console.log('Login Session: ', sess);
-	conn.query({
-		sql:'SELECT userid, userfname, userlname FROM tbluser u JOIN tblP p ON u.pid = p.pid JOIN tblS s ON u.sid = s.sid WHERE useremail = ? AND pvalue = ? LIMIT 1',
-		values: [body.email, body.pass]
+	dbLoginUser(body, res)
+});
+
+function dbLoginUser (body, res) {
+	conn.query({ //Get the user info at the email. 
+		sql:'SELECT p.pvalue, u.userid, u.userfname FROM tblUSER u JOIN tblP p ON u.PID = p.PID WHERE u.useremail = ? AND p.pid = (SELECT pid from tblUSER WHERE useremail = ? LIMIT 1) LIMIT 1',
+		values: [body.email, body.email]
 	}, function(err, results, fields) {
-		if(err) {
+		if (err) {
 	    	return console.error('error running query', err);
     	}
     	console.log('login results:', results);
     	if (results.length > 0) {
-    		sess.userid = results[0].userid;
-    		sess.userfname = results[0].userfname;
-    		//console.log('Login Session', sess);
-    		var data = {
-    			username: results[0].userfname
-    		};
-	    	res.json([data]);	
+    		var result = results[0];
+    		console.log(results);
+
+    		var hashPassed = bcrypt.compareSync(body.pass, result.pvalue); //Compare the given pass to the hash
+    		if (hashPassed) {
+	    		sess.userid = result.userid; //Set the session ID
+	    		sess.userfname = result.userfname; //Set the session userfname
+	    		
+	    		var data = { //Send back the userfname
+	    			username: sess.userfname
+	    		};
+		    	res.json([data]);	
+    		} else {
+				res.status(404).send("Email or password is incorrect");
+			}
 		} else {
-			res.status(404).send("Email or login is incorrect");
+			res.status(404).send("No user found with that email");
 		}
 	});
-});
+}
 
 //User signup
 app.post('/user_signup', function(req, res) { //Need to check if account exists already
 	var body = req.body;
 	console.log('Signup body', req.body);
-	conn.query({
+	//var salt = bcrypt.genSaltSync(); //Generate a salt value
+	bcrypt.hash(body.pvalue, null, null, function(err, hash) {
+		console.log('hash + salt', hash);
+		dbSignupUser(req, res, body, hash); //Send the salt and hash to the server for storage
+	});
+});
+
+function dbSignupUser(req, res, body, hash) {
+	conn.query({ //Check if the email already exists
 		sql: 'SELECT UserEmail FROM tblUSER WHERE UserEmail = ?',
 		values: [body.useremail]
 	}, function (err, results, fields) {
@@ -173,40 +193,35 @@ app.post('/user_signup', function(req, res) { //Need to check if account exists 
 	    	return console.error('error signing up', err);
     	}
     	console.log('Signup check', results);
-		if (results.length == 0) { //If there isn't anything returned
+		if (results.length == 0) { //If there isn't anything returned (no current account with that email)
 			console.log('yay signup check passed');
-			conn.query({
+			console.log(body);
+			conn.query({ //Send info to the DB to be stored
 				sql:'CALL sp_new_user(?, ?, ?, ?, ?, ?, ?, ?);',
-				values: [body.pvalue, 'salt', body.userfname, body.userlname, body.useremail, '1993-12-11', 'm', 1]
+				values: [hash, 'blah', body.userfname, body.userlname, body.useremail, '1993-12-11', 'm', 1]
 			}, function (err, results, fields) {
-				if(err) {
+				if (err) {
 			    	return console.error('error running query', err);
 		    	}
 		    	if (results) {
 		    		/* Returned from Query
-		    		[ [ { UserID: 25, userfname: 'asdf' } ],
-		    		  { fieldCount: 0,
-		    		    affectedRows: 0,
-		    		    insertId: 0,
-		    		    serverStatus: 2,
-		    		    warningCount: 0,
-		    		    message: '',
-		    		    protocol41: true,
-		    		    changedRows: 0 } ]
+		    		[ [ { UserID: 25, userfname: 'asdf' } ], ... ]
 		    		*/
 		    		sess = req.session;
-		    		//console.log('signup results', results);
 		    		sess.userid = results[0][0].userid;
 		    		sess.userfname = results[0][0].userfname;
 		    		//console.log('Signup Session: ', sess);
-			    	res.json([{userfname: '' + results[0][0].userfname}]);
+		    		var data = { //Send back the userfname
+		    			username: sess.userfname
+		    		};
+			    	res.json([data]);
 				}
 			});
 		} else {
 			res.status(418).send('Email already exists');
 		}
 	});
-});
+}
 
 //User logout
 app.post('/user_logout', function(req, res) {

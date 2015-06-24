@@ -47,7 +47,7 @@ function accountLogin() {
 	var pass = $('#modal-login input[name=user-pass]').val();
 
 	var payload = {
-		email: email.hashCode(),
+		email: email,
 		pass: pass.hashCode()
 	};
 
@@ -85,7 +85,7 @@ function accountSignup() {
 		var payload = {
 			userfname: fname,
 			userlname: lname,
-			useremail: email.hashCode(),
+			useremail: email,
 			pvalue: pass1.hashCode()
 		};
 
